@@ -31,3 +31,41 @@
     margin-top: 3%;
     padding: 1%;
 }
+
+/* book-trade-div2 css*/
+.parent-div .book-trade-div2{
+    border:1px solid black;
+    min-width: 30%;
+}
+
+.book-trade-div2 h3{
+    background-color: #BCD6EE;
+    font-weight: 500;
+    margin: 0;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.book-trade-div2 .sub-div2{
+    width: 90%;
+    margin: 5%;
+}
+.book-trade-div2 .sub-div2 div{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1%
+}
+.sub-div2 label{
+    margin-right: 20%;
+}
+.sub-div2 input, .sub-div2 select{
+    width: 25%;
+}
+.sub-div2 button{
+    width: 30%;
+    background-color: white;
+    border: 1px solid black;
+    font-weight: 600;
+    margin-top: 3%;
+    padding: 1%;
+}
