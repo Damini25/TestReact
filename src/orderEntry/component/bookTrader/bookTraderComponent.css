@@ -1,0 +1,39 @@
+.parent-div .trader-div{
+    /* border:1px solid black; */
+    min-width: 30%;
+    position: relative;
+}
+
+.trader-div h3{
+    background-color: #BCD6EE;
+    font-weight: 500;
+    margin: 0;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.trader-div .sub-div{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.trader-div .sub-div div{
+    width: 50%;
+    border: 1px solid black;
+}
+
+.trader-div .sub-div h3{
+  background-color: white;
+}
+
+.trader-div .sub-div table{
+    width: 100%;
+    border-spacing: 0;
+}
+
+.trader-div .sub-div table thead {
+    background-color: #bab7b6;
+    margin: 0;
+}

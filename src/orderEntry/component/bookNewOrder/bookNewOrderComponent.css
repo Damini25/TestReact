@@ -1,0 +1,33 @@
+.parent-div .book-trade-div{
+    border:1px solid black;
+    min-width: 30%;
+}
+
+.book-trade-div h3{
+    background-color: #BCD6EE;
+    font-weight: 500;
+    margin: 0;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.book-trade-div .sub-div{
+    width: 90%;
+    margin: 5%;
+}
+.book-trade-div .sub-div div{
+    display: flex;
+    justify-content: center;
+}
+.sub-div label{
+    margin-right: 20%;
+}
+
+.sub-div button{
+    width: 30%;
+    background-color: white;
+    border: 1px solid black;
+    font-weight: 600;
+    margin-top: 3%;
+    padding: 1%;
+}
