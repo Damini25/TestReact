@@ -1,5 +1,7 @@
 import React from 'react';
 import './bookNewOrderComponent.css';
+import { connect } from 'react-redux';
+import * as actiontypes from '../../../common/store/actions/actionIndex';
 
 class BookNewOrder extends React.Component {
 
@@ -23,39 +25,57 @@ class BookNewOrder extends React.Component {
 
             </div>
         </div>
-        const div2 = <div className="book-trade-div2">
-            <h3>Book Trade ---- <span>Book new order</span> </h3>
-            <div className="sub-div2">
-                <div>
-                    <label>Stock Symbol</label>
-                    <select>
-                        <option>fb</option>
-                        <option>wp</option>
-                    </select>
+        const div2 =
+            <form className="book-trade-div2" onSubmit={(e) => { this.props.bookOrderClicked(e) }}>
+                <div >
+                    <h3>Book Trade ---- <span>Book new order</span> </h3>
+                    <div className="sub-div2">
+                        <div>
+                            <label>Stock Symbol</label>
+                            <select>
+                                <option value="fb">fb</option>
+                                <option value="wp">wp</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Transaction</label>
+                            <select>
+                                <option value="bid">Bid</option>
+                                <option value="ask">Ask</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Price</label>
+                            <input />
+                        </div>
+                        <div>
+                            <label>Quantity</label>
+                            <input />
+                        </div>
+                        <div>
+                            <button type="submit">EXECUTE</button>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label>Transaction</label>
-                    <select>
-                        <option>Bid</option>
-                        <option>Ask</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Price</label>
-                    <input />
-                </div>
-                <div>
-                    <label>Quantity</label>
-                    <input />
-                </div>
-                <div>
-                    <button>EXECUTE</button>
-                </div>
-            </div>
-        </div>
+            </form>
 
-        return div1;
+        return div2;
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        formValues: state.OrderBookReducer.bookOrderFormValue
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // {stockSymbol : newValue}
+        onUpdateOrderFormValue: (obj) => {
+            this.props.formValues.
+            dispatch(actiontypes.UpdateOrderFormValues(obj))
+        }
+    }
+}
 export default BookNewOrder;
+// export default connect(mapStateToProps, mapDispatchToProps)(BookNewOrder);

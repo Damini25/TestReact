@@ -1,5 +1,7 @@
 import React from 'react';
 import './bookTraderComponent.css';
+import { connect } from 'react-redux';
+import * as actiontypes from '../../../common/store/actions/actionIndex';
 
 class BookTrader extends React.Component {
 
@@ -63,4 +65,10 @@ class BookTrader extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        orderList: state.orderListReducer['ordersToShow']
+    }
+}
 export default BookTrader;
+//export default connect(mapStateToProps, null)(BookTrader);
