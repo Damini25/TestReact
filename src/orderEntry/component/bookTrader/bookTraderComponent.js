@@ -70,5 +70,5 @@ const mapStateToProps = (state) => {
         orderList: state.orderListReducer['ordersToShow']
     }
 }
-export default BookTrader;
-//export default connect(mapStateToProps, null)(BookTrader);
+// export default BookTrader;
+export default connect(mapStateToProps, null)(BookTrader);

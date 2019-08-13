@@ -16,9 +16,9 @@ const OrderListReducer = (state = initialState, action) => {
             }
 
         case ActionTypes.Replace_Orders:
-            const newOrderList = [...action.element];
+            const newOrderList2 = [...action.element];
             return {
-                ordersToShow: newOrderList
+                ordersToShow: newOrderList2
             }
 
         default:

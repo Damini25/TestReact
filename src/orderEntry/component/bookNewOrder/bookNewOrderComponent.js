@@ -5,6 +5,11 @@ import * as actiontypes from '../../../common/store/actions/actionIndex';
 
 class BookNewOrder extends React.Component {
 
+    handleChange = (event) => {
+      //  console.log('value', event.target.name, event.target.value);
+        this.props.onUpdateOrderFormValue({ [event.target.name]: event.target.value })
+    }
+
     render() {
         const div1 = <div className="book-trade-div">
             <h3>Book Trade ---- <span>Book new order</span> </h3>
@@ -32,25 +37,29 @@ class BookNewOrder extends React.Component {
                     <div className="sub-div2">
                         <div>
                             <label>Stock Symbol</label>
-                            <select>
+                            <select onChange={(e) => { this.handleChange(e) }}
+                                value={this.props.formValues['stockSymbol']} name="stockSymbol">
                                 <option value="fb">fb</option>
                                 <option value="wp">wp</option>
                             </select>
                         </div>
                         <div>
                             <label>Transaction</label>
-                            <select>
+                            <select onChange={(e) => { this.handleChange(e) }}
+                                value={this.props.formValues['transaction']} name="transaction">
                                 <option value="bid">Bid</option>
                                 <option value="ask">Ask</option>
                             </select>
                         </div>
                         <div>
                             <label>Price</label>
-                            <input />
+                            <input type="number" onChange={(e) => { this.handleChange(e) }}
+                                value={this.props.formValues['price']} name="price" />
                         </div>
                         <div>
                             <label>Quantity</label>
-                            <input />
+                            <input type="number" onChange={(e) => { this.handleChange(e) }}
+                                value={this.props.formValues['quantity']} name="quantity" />
                         </div>
                         <div>
                             <button type="submit">EXECUTE</button>
@@ -65,17 +74,16 @@ class BookNewOrder extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        formValues: state.OrderBookReducer.bookOrderFormValue
+        formValues: state.orderBookReducer.bookOrderFormValue
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
         // {stockSymbol : newValue}
         onUpdateOrderFormValue: (obj) => {
-            this.props.formValues.
             dispatch(actiontypes.UpdateOrderFormValues(obj))
         }
     }
 }
-export default BookNewOrder;
-// export default connect(mapStateToProps, mapDispatchToProps)(BookNewOrder);
+// export default BookNewOrder;
+export default connect(mapStateToProps, mapDispatchToProps)(BookNewOrder);
