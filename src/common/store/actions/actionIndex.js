@@ -1,2 +1,2 @@
-export {AddToOrderList,ReplaceOrderList} from './orderListActions';
+export {AddToOrderList,AddNewOrReplaceOrderList} from './orderListActions';
 export {UpdateOrderFormValues} from './updateNewOrderFormActions';

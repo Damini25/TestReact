@@ -10,7 +10,7 @@ const initialState = {
 }
 
 const BookNewOrderReducer = (state = initialState, action) => {
-    console.log('state',state);
+   // console.log('BookNewOrderReducer',state);
     switch (action.type) {
         case ActionTypes.Update_BookOrderForm_Values:
             const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };

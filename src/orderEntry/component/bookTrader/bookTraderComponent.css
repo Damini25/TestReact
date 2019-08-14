@@ -37,3 +37,6 @@
     background-color: #bab7b6;
     margin: 0;
 }
+.trader-div .sub-div table tbody td{
+    text-align: center;
+}

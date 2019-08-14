@@ -9,11 +9,12 @@ import BookTrader from '../component/bookTrader/bookTraderComponent';
 import NewsFeed from '../component/newsFeed/newsFeedComponent';
 import TraderInfo from '../component/traderInfo/traderInfoComponent';
 
-class EnterOrder extends React.Component {
 
+class EnterOrder extends React.Component {
+   
     onBookNewOrder = (event) => {
         event.preventDefault();
-        console.log('orderData',event);
+        console.log('orderData', event);
         /*bookNewOrder(payload).then(() => {
         });*/
     }
@@ -29,10 +30,11 @@ class EnterOrder extends React.Component {
                 <div className="parent-div">
                     <BookTrader></BookTrader>
                     <SecurityChart></SecurityChart>
-                    <BookNewOrder bookOrderClicked={(event)=>{this.onBookNewOrder(event)}}></BookNewOrder>
+                    <BookNewOrder bookOrderClicked={(event) => { this.onBookNewOrder(event) }}></BookNewOrder>
                 </div>
             </div>
         );
     }
 }
+
 export default EnterOrder;
