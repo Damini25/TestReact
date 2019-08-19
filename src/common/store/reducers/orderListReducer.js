@@ -5,7 +5,7 @@ const initialState = {
         askOrders: [],
         bidOrders: []
     },
-    totalOrdersToBeShown: 6
+    totalOrdersToBeShown: 10
 }
 
 const OrderListReducer = (state = initialState, action) => {
@@ -19,6 +19,7 @@ const OrderListReducer = (state = initialState, action) => {
                 newAskOrder.pop();
                 newAskOrder.unshift(action.element);
                 newOrderToShow.askOrders = [...newAskOrder];
+                console.log('OrderListReducer', state.ordersToShow.askOrders===newOrderToShow.askOrders);
             } else {
                 const newBidOrder = [...state.ordersToShow['bidOrders']]
                 newBidOrder.pop();
@@ -30,13 +31,14 @@ const OrderListReducer = (state = initialState, action) => {
                 ...state, ordersToShow: newOrderToShow
             }
 
-        case ActionTypes.New_Replace_Orders:
+        case ActionTypes.Add_New_Orders:
             const newOrderToShow2 = { ...state.ordersToShow }
 
             if (action.orderType === ActionTypes.Order_Type_ask) {
                 const newAskOrder = [...state.ordersToShow['askOrders']]
                 newAskOrder.push(action.element);
                 newOrderToShow2.askOrders = [...newAskOrder];
+                console.log('OrderListReducer', state.ordersToShow.askOrders===newOrderToShow2.askOrders);
             } else {
                 const newBidOrder = [...state.ordersToShow['bidOrders']]
                 newBidOrder.push(action.element);

@@ -1,41 +1,47 @@
 import React from 'react';
 import './bookTraderComponent.css';
-import { getOrderList } from '../../services/orderEntry.service';
+import { getInitialOrderList } from '../../services/orderEntry.service';
 import { connect } from 'react-redux';
-import { AddToOrderList, AddNewOrReplaceOrderList } from '../../../common/store/actions/actionIndex';
+import { UpdateRecentOrders, AddNewOrders } from '../../../common/store/actions/actionIndex';
 import AskComponent from './askComponent/askComponent';
 import BidComponent from './bidComponent/bidComponent';
-
+import { showToast } from '../../../common/component/toastMessages/toastcomponent';
 
 class BookTrader extends React.Component {
-
+    tradeOpen = true;
     fetchOrderList = () => {
-        getOrderList().then((res) => {
+        const payload = {
+            productId: "001",
+            gameId: "001"
+        }
+        getInitialOrderList(payload).then((res) => {
             if (res.data.success) {
                 if (res.data['data']) {
                     this.setStateBasedOnOrderData(res.data['data']);
                     if (this.orderListInterval) {
                         clearInterval(this.orderListInterval);
                     } else {
-                       this.orderListInterval = setInterval(this.fetchOrderListOnInterval, 2000);
+                        this.fetchOrderListOnInterval();
+                        //  this.orderListInterval = setInterval(this.fetchOrderListOnInterval, 2000);
                     }
                 }
             }
         }, (err) => {
-
+            this.tradeOpen = false;
+            // showToast('error', err);
         })
     }
 
     fetchOrderListOnInterval = () => {
-        getOrderList().then((res) => {
+        const payload = {
+            productId: "001",
+            gameId: "001"
+        }
+        getInitialOrderList(payload).then((res) => {
+            //showToast('success', 'Data recieved');
             if (res.data.success) {
                 if (res.data['data']) {
                     this.setStateBasedOnOrderData(res.data['data']);
-                    // if (res.data['data'] < this.props.orderList.totalOrders) {
-                    //     this.props.onAddRecentOrders(this.setStateBasedOnOrderData(res.data['data']));
-                    // } else {
-                    //     this.props.onInitalOrdersFetch(this.setStateBasedOnOrderData(res.data['data']));
-                    // }
                 }
             }
         }, (err) => {
@@ -45,7 +51,7 @@ class BookTrader extends React.Component {
 
     setStateBasedOnOrderData(data) {
         data.forEach((elem) => {
-            if (elem['bidOffer'] === 'ask') {
+            if (elem['bidOffer'] === 'Ask') {
                 if (this.props.askOrderList.length < this.props.totalOrdersToBeShown) {
                     this.props.onInitalOrdersFetch('ask', elem);
                 } else {
@@ -55,7 +61,7 @@ class BookTrader extends React.Component {
                 if (this.props.bidOrderList.length < this.props.totalOrdersToBeShown) {
                     this.props.onInitalOrdersFetch('bid', elem);
                 } else {
-                    console.log('bid recent')
+
                     this.props.onAddingRecentOrders('bid', elem);
                 }
             }
@@ -71,14 +77,17 @@ class BookTrader extends React.Component {
     }
 
     render() {
-        console.log('sta',this.props.bidOrderList.length)
+
+        const askBid = this.tradeOpen ? <div className="sub-div">
+            <AskComponent orders={this.props.askOrderList}></AskComponent>
+            <BidComponent orders={this.props.bidOrderList}></BidComponent>
+        </div> : <div className="sub-div"> No Trades to display</div>
+
         return (
+
             <div className="trader-div">
                 <h3>Book Trader</h3>
-                <div className="sub-div">
-                    <AskComponent orders={this.props.askOrderList}></AskComponent>
-                    <BidComponent orders={this.props.bidOrderList}></BidComponent>
-                </div>
+                {askBid}
             </div>
         );
     }
@@ -88,10 +97,10 @@ class BookTrader extends React.Component {
 const mapdispatchToProps = (dispatch) => {
     return {
         onInitalOrdersFetch: (type, data) => {
-            dispatch(AddNewOrReplaceOrderList(type, data))
+            dispatch(AddNewOrders(type, data))
         },
         onAddingRecentOrders: (type, data) => {
-            dispatch(AddToOrderList(type, data))
+            dispatch(UpdateRecentOrders(type, data))
         }
     }
 }

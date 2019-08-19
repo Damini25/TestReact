@@ -1,6 +1,6 @@
 import * as Actiontypes from './actionTypes';
 
-export const AddToOrderList = (type,item) => {
+export const UpdateRecentOrders = (type,item) => {
     return {
         type: Actiontypes.Update_Order_Front,
         element: item,
@@ -8,9 +8,9 @@ export const AddToOrderList = (type,item) => {
     }
 }
 
-export const AddNewOrReplaceOrderList = (type,item) => {
+export const AddNewOrders = (type,item) => {
     return {
-        type: Actiontypes.New_Replace_Orders,
+        type: Actiontypes.Add_New_Orders,
         element: item,
         orderType:type
     }

@@ -1,4 +1,4 @@
 export const env = {
-    apiUrl: '',
+    apiUrl: 'http://localhost:8303',
     gateWayId: ''
 }

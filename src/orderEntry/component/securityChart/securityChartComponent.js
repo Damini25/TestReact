@@ -16,7 +16,7 @@ class SecurityChart extends React.Component {
                 labels: [0, 10, 20, 30, 40, 50, 60],
                 datasets: [
                     {
-                        label: '# Profit',
+                        label: '# Bid',
                         data: [27.1, 27.1, 27.2, 27.1, 27.2, 27.1, 27],
                         borderWidth: 1,
                         fill: false,
@@ -25,12 +25,13 @@ class SecurityChart extends React.Component {
                         lineTension: 0
                     },
                     {
-                        label: '# Loss',
+                        label: '# Ask',
                         data: [27.1, 26.8, 27.1, 26.8, 27.2, 27.2, 27.1],
                         borderWidth: 1,
                         fill: false,
                         backgroundColor: "#5b9bd5",
-                        borderColor: "#5b9bd5",
+                      //  borderColor: "#5b9bd5",
+                        borderColor:"blue",
                         lineTension: 0
                     }
                 ]
@@ -72,7 +73,7 @@ class SecurityChart extends React.Component {
 
     render() {
         return (<div className="security-chart-div">
-            <h3>Security Charting</h3>
+            <h3>Bid/Ask Spread</h3>
             <canvas ref={this.canvasRef} />
         </div>);
     }
