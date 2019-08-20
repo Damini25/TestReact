@@ -7,7 +7,9 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import OrderListReducer from './common/store/reducers/orderListReducer';
 import OrderBookReducer from './common/store/reducers/bookOrderValuesReducer';
+import ChartReducer from './common/store/reducers/chartReducer';
 import axios from 'axios';
+
 
 //axios.defaults.baseURL = 'http://localhost:8303';
 //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -19,6 +21,7 @@ import axios from 'axios';
 
 const rootReducers = combineReducers({
     orderListReducer: OrderListReducer,
+    chartReducer:ChartReducer,
     orderBookReducer: OrderBookReducer
 })
 const store = createStore(rootReducers);

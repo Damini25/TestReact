@@ -11,24 +11,23 @@ class SecurityChart extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const bidData = [];
-        const askData=[];
-        this.props.bidOrderList.map((elem) => {
-            bidData.push({
-                x: this.convertTimeToDecimal(elem.timestamp),
-                y: elem.price
-            })
-        });
-        this.props.askOrderList.map((elem) => {
-            askData.push({
-                x: this.convertTimeToDecimal(elem.timestamp),
-                y: elem.price
-            })
-        });
-
-        console.log('componentDidUpdate',askData, bidData, this.convertTimeToDecimal('4:30'));
-
         if (prevProps.bidOrderList !== this.props.bidOrderList) {
+            const bidData = [];
+            const askData=[];
+            this.props.bidOrderList.map((elem) => {
+                bidData.push({
+                    x: this.convertTimeToDecimal(elem.timestamp),
+                    y: elem.price
+                })
+            });
+            this.props.askOrderList.map((elem) => {
+                askData.push({
+                    x: this.convertTimeToDecimal(elem.timestamp),
+                    y: elem.price
+                })
+            });
+    
+            console.log('componentDidUpdate',askData, bidData, this.convertTimeToDecimal('4:30'));
             this.myChart = new Chart(this.canvasRef.current, {
                 type: 'line',
                 data: {
@@ -185,22 +184,12 @@ class SecurityChart extends React.Component {
     }
 }
 
-const mapdispatchToProps = (dispatch) => {
-    return {
-        getleftpaneProductCatalogue: () => (dispatch, getState) => {
-            const state = getState()
-            const details = state.orderListReducer['ordersToShow']['bidOrders']
-
-            return details
-        }
-    }
-}
-
 const mapStateToProps = (state) => {
+    console.log('chart',state.chartReducer)
     return {
-        bidOrderList: state.orderListReducer['ordersToShow']['bidOrders'],
-        askOrderList: state.orderListReducer['ordersToShow']['askOrders']
+        bidOrderList: state.chartReducer['totalOrderTillNow']['bidOrders'],
+        askOrderList: state.chartReducer['totalOrderTillNow']['askOrders']
     }
 }
 
-export default connect(mapStateToProps, mapdispatchToProps)(SecurityChart);
+export default connect(mapStateToProps)(SecurityChart);
