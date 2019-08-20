@@ -9,9 +9,9 @@
             "totalQty": "22",
             "bidOffer": "bid",
             "currencyId": "",
-            "price": "27.5",
+            "price": "29.5",
             "orderTypeId": "",
-            "timestamp": "",
+            "timestamp": "10:30",
             "orderStatusId": ""
         },
         {
@@ -25,7 +25,7 @@
             "currencyId": "",
             "price": "27.4",
             "orderTypeId": "",
-            "timestamp": "",
+            "timestamp": "12",
             "orderStatusId": ""
         }, {
             "orderId": "3",
@@ -38,7 +38,7 @@
             "currencyId": "",
             "price": "27.4",
             "orderTypeId": "",
-            "timestamp": "",
+            "timestamp": "6",
             "orderStatusId": ""
         },
         {
@@ -52,7 +52,7 @@
             "currencyId": "",
             "price": "27.0",
             "orderTypeId": "",
-            "timestamp": "",
+            "timestamp": "9",
             "orderStatusId": ""
         },
         {
@@ -66,7 +66,7 @@
             "currencyId": "",
             "price": "27.3",
             "orderTypeId": "",
-            "timestamp": "",
+            "timestamp": "7",
             "orderStatusId": ""
         },
         {
@@ -78,9 +78,9 @@
             "totalQty": "22",
             "bidOffer": "bid",
             "currencyId": "",
-            "price": "27.0",
+            "price": "28.0",
             "orderTypeId": "",
-            "timestamp": "",
+            "timestamp": "14",
             "orderStatusId": ""
         },
         {
@@ -92,9 +92,9 @@
             "totalQty": "22",
             "bidOffer": "bid",
             "currencyId": "",
-            "price": "26.5",
+            "price": "29.5",
             "orderTypeId": "",
-            "timestamp": "",
+            "timestamp": "14:5",
             "orderStatusId": ""
         },
         {
@@ -108,7 +108,7 @@
             "currencyId": "",
             "price": "27.0",
             "orderTypeId": "",
-            "timestamp": "",
+            "timestamp": "15",
             "orderStatusId": ""
         },
         {
@@ -122,7 +122,7 @@
             "currencyId": "",
             "price": "26.1",
             "orderTypeId": "",
-            "timestamp": "",
+            "timestamp": "15:8",
             "orderStatusId": ""
         },
         {
@@ -136,7 +136,7 @@
             "currencyId": "",
             "price": "26.2",
             "orderTypeId": "",
-            "timestamp": "",
+            "timestamp": "15:30",
             "orderStatusId": ""
         }
     ],
