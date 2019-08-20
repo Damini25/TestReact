@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 class AskComponent extends React.Component {
     render() {
-        console.log('ask ordr',this.props.orders)
+       // console.log('ask ordr',this.props.orders)
         const row = _.sortBy(this.props.orders, ['price','timestamp']).map((elem,i) => {
             return (
                 <tr key={i}>

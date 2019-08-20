@@ -12,7 +12,7 @@ class BidComponent extends React.Component {
         //         </tr>
         //     );
         // })
-        console.log('bid ordr',this.props.orders)
+      //  console.log('bid ordr',this.props.orders)
         const row = _.sortBy(this.props.orders, ['price']).map((elem,i) => {
             return (
                 <tr key={i}>
