@@ -1,8 +1,9 @@
 import React from 'react';
 import './bookTraderComponent.css';
-import { getInitialOrderList } from '../../services/orderEntry.service';
+import { getInitialOrderList, getChartDataInitialOrderList } from '../../services/orderEntry.service';
 import { connect } from 'react-redux';
-import { UpdateRecentOrders, AddNewOrders, AddTototalOrders,ClearTotalOrders } from '../../../common/store/actions/actionIndex';
+// import { UpdateRecentOrders, AddNewOrders, AddTototalOrders, ClearTotalOrders } from '../../../common/store/actions/actionIndex';
+import * as actiontypes from '../../../common/store/actions/actionIndex';
 import AskComponent from './askComponent/askComponent';
 import BidComponent from './bidComponent/bidComponent';
 import { showToast } from '../../../common/component/toastMessages/toastcomponent';
@@ -11,17 +12,16 @@ class BookTrader extends React.Component {
     tradeOpen = true;
 
     componentDidMount() {
-      //  this.fetchOrderList();
-        this.fetchTotalOrderList();
-        this.fetchTotalOrderList();
+        this.fetchOrderList();
         this.fetchTotalOrderList();
     }
 
     fetchOrderList = () => {
         const payload = {
-            productId: "001",
-            gameId: "001"
-        }
+            "productId" : "001",
+            "gameId" : "001",
+            "noOfRows" : 20
+        } 
         getInitialOrderList(payload).then((res) => {
             if (res.data.success) {
                 if (res.data['data']) {
@@ -31,46 +31,47 @@ class BookTrader extends React.Component {
                     }
                     //else {
                     //    this.fetchOrderListOnInterval();
-                    this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+                   //    this.orderListInterval = setInterval(this.fetchOrderList, 3000);
                     //  }
                 }
             }
         }, (err) => {
             this.tradeOpen = false;
+            clearInterval(this.orderListInterval);
             // showToast('error', err);
         })
     }
 
- /*   fetchOrderListOnInterval = () => {
-        const payload = {
-            productId: "001",
-            gameId: "001"
-        }
-        getInitialOrderList(payload).then((res) => {
-            if (res.data.success) {
-                if (res.data['data']) {
-                    this.setStateBasedOnOrderData(res.data['data']);
-                }
-            }
-        }, (err) => {
-
-        })
-    }
-*/
+    /*   fetchOrderListOnInterval = () => {
+           const payload = {
+               productId: "001",
+               gameId: "001"
+           }
+           getInitialOrderList(payload).then((res) => {
+               if (res.data.success) {
+                   if (res.data['data']) {
+                       this.setStateBasedOnOrderData(res.data['data']);
+                   }
+               }
+           }, (err) => {
+   
+           })
+       }
+   */
 
     fetchTotalOrderList = () => {
         const payload = {
             productId: "001",
             gameId: "001"
         }
-        getInitialOrderList(payload).then((res) => {
+        getChartDataInitialOrderList(payload).then((res) => {
             if (res.data.success) {
                 if (res.data['data']) {
-                    this.setStateBasedOnTotalOrders(res.data['data']);
+                     this.setStateBasedOnTotalOrders(res.data['data']);
                     if (this.orderTotalListInterval) {
                         clearInterval(this.orderTotalListInterval);
                     }
-                  //  this.orderTotalListInterval = setInterval(this.fetchTotalOrderList, 3000);
+                    // this.orderTotalListInterval = setInterval(this.fetchTotalOrderList, 3000);
                 }
             }
         }, (err) => {
@@ -100,18 +101,30 @@ class BookTrader extends React.Component {
 
     setStateBasedOnTotalOrders(data) {
         this.props.onClearTotalOrders();
-        data.forEach((elem) => {
-            if (elem['bidOffer'] === 'Ask') {
-                this.props.addToTotalOrder('ask', elem);
+        for (let i = 0; i < 100; i++) {
+            if (data[i]['bidOffer'] === 'Ask') {
+                this.props.addToTotalOrder('ask', data[i]);
             } else {
-                this.props.addToTotalOrder('bid', elem);
+                this.props.addToTotalOrder('bid', data[i]);
 
             }
-        })
+        }
+        // data.forEach((elem) => {
+        //     if (elem['bidOffer'] === 'Ask') {
+        //         this.props.addToTotalOrder('ask', elem);
+        //     } else {
+        //         this.props.addToTotalOrder('bid', elem);
+
+        //     }
+        // })
     }
 
     componentWillUnmount() {
         clearInterval(this.orderListInterval);
+    }
+
+    productChange(event) {
+        this.props.onUpdateProductValue({ [event.target.name]: event.target.value })
     }
 
     render() {
@@ -122,6 +135,15 @@ class BookTrader extends React.Component {
         return (
             <div className="trader-div">
                 <h3>Book Trader</h3>
+                {/* <div className="product-drop">
+                    <select value={this.props.stockSymbol} 
+                        onChange={(e) => { this.productChange(e) }}
+                        name="stockSymbol">
+                        <option disabled  defaultValue="Select Stock Symbol">Select Stock Symbol:</option>
+                        <option value="fb">fb</option>
+                        <option value="wp">wp</option>
+                    </select>
+                </div> */}
                 {askBid}
             </div>
         );
@@ -132,16 +154,19 @@ class BookTrader extends React.Component {
 const mapdispatchToProps = (dispatch) => {
     return {
         onInitalOrdersFetch: (type, data) => {
-            dispatch(AddNewOrders(type, data))
+            dispatch(actiontypes.AddNewOrders(type, data))
         },
         onAddingRecentOrders: (type, data) => {
-            dispatch(UpdateRecentOrders(type, data))
+            dispatch(actiontypes.UpdateRecentOrders(type, data))
         },
         addToTotalOrder: (type, data) => {
-            dispatch(AddTototalOrders(type, data))
+            dispatch(actiontypes.AddTototalOrders(type, data))
         },
-        onClearTotalOrders:()=>{
-            dispatch(ClearTotalOrders());
+        onClearTotalOrders: () => {
+            dispatch(actiontypes.ClearTotalOrders());
+        },
+        onUpdateProductValue: (obj) => {
+            dispatch(actiontypes.UpdateOrderFormValues(obj))
         }
     }
 }
@@ -150,7 +175,8 @@ const mapStateToProps = (state) => {
     return {
         bidOrderList: state.orderListReducer['ordersToShow']['bidOrders'],
         askOrderList: state.orderListReducer['ordersToShow']['askOrders'],
-        totalOrdersToBeShown: state.orderListReducer['totalOrdersToBeShown']
+        totalOrdersToBeShown: state.orderListReducer['totalOrdersToBeShown'],
+        stockSymbol: state.orderBookReducer.bookOrderFormValue['stockSymbol']
     }
 }
 

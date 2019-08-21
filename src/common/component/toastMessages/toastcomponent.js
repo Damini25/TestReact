@@ -6,8 +6,7 @@ import  './toastComponent.css';
 export const MessageContainer = (position) => {
     return (
         <ToastContainer position={toast.POSITION.TOP_CENTER} 
-        autoClose={5000} hideProgressBar={true}
-        style={{'justify-content':'center'}}></ToastContainer>
+        autoClose={2000} hideProgressBar={true}></ToastContainer>
     )
 }
 

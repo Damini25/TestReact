@@ -16,18 +16,18 @@ class SecurityChart extends React.Component {
             const askData=[];
             this.props.bidOrderList.map((elem) => {
                 bidData.push({
-                    x: this.convertTimeToDecimal(elem.timestamp),
+                    x: this.convertTimeToDecimal(elem.onlyTime),
                     y: elem.price
                 })
             });
             this.props.askOrderList.map((elem) => {
                 askData.push({
-                    x: this.convertTimeToDecimal(elem.timestamp),
+                    x: this.convertTimeToDecimal(elem.onlyTime),
                     y: elem.price
                 })
             });
     
-            console.log('componentDidUpdate',askData, bidData, this.convertTimeToDecimal('4:30'));
+          //  console.log('componentDidUpdate',askData, bidData, this.convertTimeToDecimal('4:30'));
             this.myChart = new Chart(this.canvasRef.current, {
                 type: 'line',
                 data: {
@@ -35,6 +35,7 @@ class SecurityChart extends React.Component {
                         {
                             label: '# Bid',
                             data: bidData,
+                           /// type: "candlestick",
                             borderWidth: 1,
                             fill: false,
                             backgroundColor: "#ed7d31",
@@ -185,7 +186,7 @@ class SecurityChart extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('chart',state.chartReducer)
+  //  console.log('chart',state.chartReducer)
     return {
         bidOrderList: state.chartReducer['totalOrderTillNow']['bidOrders'],
         askOrderList: state.chartReducer['totalOrderTillNow']['askOrders']

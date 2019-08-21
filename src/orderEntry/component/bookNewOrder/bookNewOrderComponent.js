@@ -2,12 +2,16 @@ import React from 'react';
 import './bookNewOrderComponent.css';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../../common/store/actions/actionIndex';
+import { showToast } from '../../../common/component/toastMessages/toastcomponent';
 
 class BookNewOrder extends React.Component {
 
     handleChange = (event) => {
-      //  console.log('value', event.target.name, event.target.value);
+        //  console.log('value', event.target.name, event.target.value);
         this.props.onUpdateOrderFormValue({ [event.target.name]: event.target.value })
+    }
+    executeOrder = () => {
+        showToast('success', 'Order is booked successfully');
     }
 
     render() {
@@ -39,6 +43,7 @@ class BookNewOrder extends React.Component {
                             <label>Stock Symbol</label>
                             <select onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['stockSymbol']} name="stockSymbol">
+                                <option disabled defaultValue="Select Stock Symbol">Select Stock Symbol:</option>
                                 <option value="fb">fb</option>
                                 <option value="wp">wp</option>
                             </select>
@@ -62,7 +67,7 @@ class BookNewOrder extends React.Component {
                                 value={this.props.formValues['quantity']} name="quantity" />
                         </div>
                         <div>
-                            <button type="submit">EXECUTE</button>
+                            <button type="submit" onClick={this.executeOrder}>EXECUTE</button>
                         </div>
                     </div>
                 </div>

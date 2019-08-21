@@ -14,7 +14,7 @@ class EnterOrder extends React.Component {
    
     onBookNewOrder = (event) => {
         event.preventDefault();
-        console.log('orderData', event);
+      //  console.log('orderData', event);
         /*bookNewOrder(payload).then(() => {
         });*/
     }
