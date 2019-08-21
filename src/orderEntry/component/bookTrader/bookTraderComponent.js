@@ -31,7 +31,7 @@ class BookTrader extends React.Component {
                     }
                     //else {
                     //    this.fetchOrderListOnInterval();
-                   //    this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+                      this.orderListInterval = setInterval(this.fetchOrderList, 3000);
                     //  }
                 }
             }
@@ -101,6 +101,7 @@ class BookTrader extends React.Component {
 
     setStateBasedOnTotalOrders(data) {
         this.props.onClearTotalOrders();
+     
         for (let i = 0; i < 100; i++) {
             if (data[i]['bidOffer'] === 'Ask') {
                 this.props.addToTotalOrder('ask', data[i]);
@@ -109,6 +110,7 @@ class BookTrader extends React.Component {
 
             }
         }
+     
         // data.forEach((elem) => {
         //     if (elem['bidOffer'] === 'Ask') {
         //         this.props.addToTotalOrder('ask', elem);

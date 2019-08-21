@@ -10,7 +10,9 @@ class BookNewOrder extends React.Component {
         //  console.log('value', event.target.name, event.target.value);
         this.props.onUpdateOrderFormValue({ [event.target.name]: event.target.value })
     }
-    executeOrder = () => {
+    executeOrder = (event) => {
+        event.preventDefault();
+       // console.log('formValurs',this.props.formValues);
         showToast('success', 'Order is booked successfully');
     }
 
@@ -35,7 +37,7 @@ class BookNewOrder extends React.Component {
             </div>
         </div>
         const div2 =
-            <form className="book-trade-div2" onSubmit={(e) => { this.props.bookOrderClicked(e) }}>
+            <form className="book-trade-div2" onSubmit= {(e)=>{this.executeOrder(e)} }>
                 <div >
                     <h3>Book Trade ---- <span>Book new order</span> </h3>
                     <div className="sub-div2">
@@ -67,7 +69,7 @@ class BookNewOrder extends React.Component {
                                 value={this.props.formValues['quantity']} name="quantity" />
                         </div>
                         <div>
-                            <button type="submit" onClick={this.executeOrder}>EXECUTE</button>
+                            <button type="submit">EXECUTE</button>
                         </div>
                     </div>
                 </div>

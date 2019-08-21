@@ -13,7 +13,7 @@ class SecurityChart extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevProps.bidOrderList !== this.props.bidOrderList) {
             const bidData = [];
-            const askData=[];
+            const askData = [];
             this.props.bidOrderList.map((elem) => {
                 bidData.push({
                     x: this.convertTimeToDecimal(elem.onlyTime),
@@ -26,8 +26,8 @@ class SecurityChart extends React.Component {
                     y: elem.price
                 })
             });
-    
-          //  console.log('componentDidUpdate',askData, bidData, this.convertTimeToDecimal('4:30'));
+
+            //  console.log('componentDidUpdate',askData, bidData, this.convertTimeToDecimal('4:30'));
             this.myChart = new Chart(this.canvasRef.current, {
                 type: 'line',
                 data: {
@@ -35,7 +35,7 @@ class SecurityChart extends React.Component {
                         {
                             label: '# Bid',
                             data: bidData,
-                           /// type: "candlestick",
+                            /// type: "candlestick",
                             borderWidth: 1,
                             fill: false,
                             backgroundColor: "#ed7d31",
@@ -83,12 +83,12 @@ class SecurityChart extends React.Component {
                             gridLines: {
                                 display: false
                             },
-                            ticks: {
-                                padding: 5,
-                                min: 6,
-                                max: 18,
-                                stepSize: 1
-                            },
+                            // ticks: {
+                            //     padding: 5,
+                            //     min: 6,
+                            //     max: 18,
+                            //     stepSize: 1
+                            // },
                             type: 'linear'
                         }],
                         yAxes: [{
@@ -108,74 +108,12 @@ class SecurityChart extends React.Component {
     convertTimeToDecimal(val) {
         if (val.indexOf(':') > -1) {
             val = val.split(':');
-            return parseFloat(parseInt(val[0], 10) + parseInt(val[1], 10) / 60);
+            val = parseFloat(parseInt(val[0], 10) + parseInt(val[1], 10) / 60);
+            return Math.round(val * 100) / 100;
         } else {
             return parseInt(val, 10);
         }
-
     }
-    /* componentDidMount() {
-         console.log('componentDidmount', this.props)
-         this.myChart = new Chart(this.canvasRef.current, {
-             type: 'line',
-             data: {
-                 labels: [0, 10, 20, 30, 40, 50, 60],
-                 datasets: [
-                     {
-                         label: '# Bid',
-                         data: [27.1, 27.1, 27.2, 27.1, 27.2, 27.1, 27],
-                         borderWidth: 1,
-                         fill: false,
-                         backgroundColor: "#ed7d31",
-                         borderColor: "#ed7d31",
-                         lineTension: 0
-                     },
-                     {
-                         label: '# Ask',
-                         data: [27.1, 26.8, 27.1, 26.8, 27.2, 27.2, 27.1],
-                         borderWidth: 1,
-                         fill: false,
-                         backgroundColor: "#5b9bd5",
-                         //  borderColor: "#5b9bd5",
-                         borderColor: "blue",
-                         lineTension: 0
-                     }
-                 ]
-             },
-             options: {
-                 legend: {
-                     display: false,
-                 },
-                 scales: {
-                     xAxes: [{
-                         gridLines: {
-                             display: false
-                         },
-                         ticks: {
-                             padding: 5,
-                             min: 0,
-                             max: 40,
-                             stepSize: 10
-                         }
-                     }],
-                     yAxes: [{
-                         gridLines: {
-                             drawBorder: false,
-                         },
-                         ticks: {
-                             padding: 15,
-                             min: 26.6,
-                             max: 27.2,
-                             stepSize: 0.1
-                         }
-                     }]
-                 },
-                 elements: {
-                     point: { radius: 0 }
-                 }
-             }
-         });
-     }*/
 
     render() {
         return (<div className="security-chart-div">
@@ -186,7 +124,7 @@ class SecurityChart extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  //  console.log('chart',state.chartReducer)
+    //  console.log('chart',state.chartReducer)
     return {
         bidOrderList: state.chartReducer['totalOrderTillNow']['bidOrders'],
         askOrderList: state.chartReducer['totalOrderTillNow']['askOrders']

@@ -24,7 +24,7 @@ const rootReducers = combineReducers({
     chartReducer:ChartReducer,
     orderBookReducer: OrderBookReducer
 })
-const store = createStore(rootReducers);
+const store = createStore(rootReducers,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
     <Provider store={store}>
