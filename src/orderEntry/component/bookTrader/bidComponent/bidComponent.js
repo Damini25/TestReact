@@ -18,7 +18,7 @@ class BidComponent extends React.Component {
         // })
         //  console.log('bid ordr',this.props.orders)
 
-        const row = _.sortBy(this.props.orders, ['price']).map((elem, i) => {
+        const row = _.sortBy(this.props.orders, ['price','timestamp'],['desc','asc']).map((elem, i) => {
             const random = this.randomNumber(0, 1);
             return (
                 <tr key={i} className={random === 1 ? 'backgroundBlue' : ''}>

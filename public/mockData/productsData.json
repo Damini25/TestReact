@@ -1,0 +1,21 @@
+{
+    "success": "true",
+    "error": null,
+    "data": [
+        {
+            "productId": 1,
+            "productCode": "FB",
+            "productName": "Facebook"
+        },
+        {
+            "productId": 2,
+            "productCode": "GOOG",
+            "productName": "Google"
+        },
+        {
+            "productId": 3,
+            "productCode": "INFY",
+            "productName": "Infosys"
+        }
+    ]
+} 

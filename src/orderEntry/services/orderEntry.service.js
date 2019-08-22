@@ -18,5 +18,10 @@ export const getLatestOrderList = (payload) => {
 }
 
 export const bookNewOrder = (payload) => {
-    return axios.post(`${env.apiUrl}`+'/assets/mockJson/loginSuccess.json',payload,null);
+    return axios.post(`${env.apiUrl}`+'/userdashb/orderscreen/book',payload,null);
+}  
+
+export const getProducts = () => {
+  return axios.get(process.env.PUBLIC_URL+'/mockData/productsData.json');
+ // return axios.get(`${env.apiUrl}`+'/userdashb/orderscreen/book',payload,null);
 }  

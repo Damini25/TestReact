@@ -14,14 +14,15 @@ class BookTrader extends React.Component {
     componentDidMount() {
         this.fetchOrderList();
         this.fetchTotalOrderList();
+        this.props.onLoadStockSymbols();
     }
 
     fetchOrderList = () => {
         const payload = {
-            "productId" : "001",
-            "gameId" : "001",
-            "noOfRows" : 20
-        } 
+            "productId": "001",
+            "gameId": "001",
+            "noOfRows": 20
+        }
         getInitialOrderList(payload).then((res) => {
             if (res.data.success) {
                 if (res.data['data']) {
@@ -31,7 +32,7 @@ class BookTrader extends React.Component {
                     }
                     //else {
                     //    this.fetchOrderListOnInterval();
-                      this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+                    this.orderListInterval = setInterval(this.fetchOrderList, 3000);
                     //  }
                 }
             }
@@ -67,7 +68,7 @@ class BookTrader extends React.Component {
         getChartDataInitialOrderList(payload).then((res) => {
             if (res.data.success) {
                 if (res.data['data']) {
-                     this.setStateBasedOnTotalOrders(res.data['data']);
+                    this.setStateBasedOnTotalOrders(res.data['data']);
                     if (this.orderTotalListInterval) {
                         clearInterval(this.orderTotalListInterval);
                     }
@@ -101,7 +102,7 @@ class BookTrader extends React.Component {
 
     setStateBasedOnTotalOrders(data) {
         this.props.onClearTotalOrders();
-     
+
         for (let i = 0; i < 100; i++) {
             if (data[i]['bidOffer'] === 'Ask') {
                 this.props.addToTotalOrder('ask', data[i]);
@@ -110,7 +111,7 @@ class BookTrader extends React.Component {
 
             }
         }
-     
+
         // data.forEach((elem) => {
         //     if (elem['bidOffer'] === 'Ask') {
         //         this.props.addToTotalOrder('ask', elem);
@@ -137,15 +138,23 @@ class BookTrader extends React.Component {
         return (
             <div className="trader-div">
                 <h3>Book Trader</h3>
-                {/* <div className="product-drop">
-                    <select value={this.props.stockSymbol} 
-                        onChange={(e) => { this.productChange(e) }}
+
+                <div className="product-drop">
+                    <select onChange={(e) => { this.productChange(e) }}
+                        value={this.props.bookOrderFormValue['stockSymbol']}
                         name="stockSymbol">
-                        <option disabled  defaultValue="Select Stock Symbol">Select Stock Symbol:</option>
-                        <option value="fb">fb</option>
-                        <option value="wp">wp</option>
+                        <option disabled value="">Select stock symbol</option>
+                        {this.props.stockSymbol && this.props.stockSymbol.length ?
+                            this.props.stockSymbol.map((elem) => {
+                                return (
+                                    <option key={elem['productId']} value={elem['productCode']}>
+                                        {elem['productCode'] + '-' + elem['productName']}
+                                    </option>
+                                )
+                            }) : ''}
                     </select>
-                </div> */}
+                </div>
+                
                 {askBid}
             </div>
         );
@@ -169,6 +178,9 @@ const mapdispatchToProps = (dispatch) => {
         },
         onUpdateProductValue: (obj) => {
             dispatch(actiontypes.UpdateOrderFormValues(obj))
+        },
+        onLoadStockSymbols: () => {
+            dispatch(actiontypes.LoadStockSymbol());
         }
     }
 }
@@ -178,7 +190,8 @@ const mapStateToProps = (state) => {
         bidOrderList: state.orderListReducer['ordersToShow']['bidOrders'],
         askOrderList: state.orderListReducer['ordersToShow']['askOrders'],
         totalOrdersToBeShown: state.orderListReducer['totalOrdersToBeShown'],
-        stockSymbol: state.orderBookReducer.bookOrderFormValue['stockSymbol']
+        bookOrderFormValue: state.orderBookReducer.bookOrderFormValue,
+        stockSymbol: state.fetchDataReducer.stockSymbols['data']
     }
 }
 
