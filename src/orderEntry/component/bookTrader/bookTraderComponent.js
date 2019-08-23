@@ -30,10 +30,8 @@ class BookTrader extends React.Component {
                     if (this.orderListInterval) {
                         clearInterval(this.orderListInterval);
                     }
-                    //else {
-                    //    this.fetchOrderListOnInterval();
-              //      this.orderListInterval = setInterval(this.fetchOrderList, 3000);
-                    //  }
+              //    this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+                   
                 }
             }
         }, (err) => {
@@ -43,22 +41,6 @@ class BookTrader extends React.Component {
         })
     }
 
-    /*   fetchOrderListOnInterval = () => {
-           const payload = {
-               productId: "001",
-               gameId: "001"
-           }
-           getInitialOrderList(payload).then((res) => {
-               if (res.data.success) {
-                   if (res.data['data']) {
-                       this.setStateBasedOnOrderData(res.data['data']);
-                   }
-               }
-           }, (err) => {
-   
-           })
-       }
-   */
 
     fetchTotalOrderList = () => {
         const payload = {
@@ -67,8 +49,11 @@ class BookTrader extends React.Component {
         }
         getChartDataInitialOrderList(payload).then((res) => {
             if (res.data.success) {
+                console.log('ddd',res.data['data'][0]['askOrders'])
                 if (res.data['data']) {
-                    this.setStateBasedOnTotalOrders(res.data['data']);
+                    this.props.onAddToTotalAskOrders(res.data['data'][0]['askOrders']);
+                   // this.setStateBasedOnTotalOrders(res.data['data']);
+
                     if (this.orderTotalListInterval) {
                         clearInterval(this.orderTotalListInterval);
                     }
@@ -195,7 +180,13 @@ const mapdispatchToProps = (dispatch) => {
         },
         onUpdateOrderFormValue: (obj) => {
             dispatch(actiontypes.UpdateOrderFormValues(obj))
-        }
+        },
+        onAddToTotalAskOrders: (obj) => {
+            dispatch(actiontypes.AddToTotalAskOrders(obj))
+        },
+        onAddToTotalBidOrders: (obj) => {
+            dispatch(actiontypes.AddToTotalBidOrders(obj))
+        },
     }
 }
 

@@ -9,3 +9,5 @@ export const Clear_BookOrderForm_Values = "clear_BookOrderForm_Values"
 export const Fetch_Stock_Symbols = "Fetch_Stock_Symbols";
 export const Load_Stock_Symbols = "Load_Stock_Symbols";
 export const Set_User_Details = "Set_User_Details";
+export const Add_To_Ask_TOrders="Add_To_Ask_TOrders";
+export const Add_To_Bid_TOrders="Add_To_Bid_TOrders";

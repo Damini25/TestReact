@@ -13,3 +13,17 @@ export const ClearTotalOrders = () => {
         type: Actiontypes.Clear_Prev_TotalOrders,
     }
 }
+
+export const AddToTotalAskOrders = (item) => {
+    return {
+        type: Actiontypes.Add_To_Ask_TOrders,
+        element: item
+    }
+}
+
+export const AddToTotalBidOrders = (item) => {
+    return {
+        type: Actiontypes.Add_To_Bid_TOrders,
+        element: item
+    }
+}

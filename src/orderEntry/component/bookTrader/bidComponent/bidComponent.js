@@ -16,14 +16,15 @@ class BidComponent extends React.Component {
 
     priceClicked(elem) {
         console.log('ee', elem)
+        //onClick={() => { this.props.bidPriceClicked(elem) }}
     }
 
     render() {
-        const row = _.sortBy(this.props.orders, ['price', 'timestamp'], ['desc', 'asc']).map((elem, i) => {
+        const row = _.sortBy(this.props.orders, [this.props['price'], this.props['timestamp']], ['desc', 'asc']).map((elem, i) => {
             const random = this.randomNumber(0, 1);
             return (
                 <tr key={i} className={random === 1 ? 'backgroundBlue' : ''}>
-                    <td><a onClick={() => { this.props.bidPriceClicked(elem) }} href="#">{elem['price']}</a></td>
+                    <td><a  href="#">{elem['price']}</a></td>
                     <td>{elem['totalQty']}</td>
                 </tr>
             );

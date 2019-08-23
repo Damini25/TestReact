@@ -18,32 +18,32 @@ class BookNewOrder extends React.Component {
     executeOrder = (event) => {
         event.preventDefault();
         console.log('formValurs', this.props.formValues);
-        this.setState({
-            showSuccessMessage: true
-        })
-        setTimeout(() => {
-            this.setState({
-                showSuccessMessage: false
-            })
-        }, 5000);
-        this.props.onResetOrderFormValues();
-        //   this.postBookOrderData(this.props.formValues);
+        // this.setState({
+        //     showSuccessMessage: true
+        // })
+        // setTimeout(() => {
+        //     this.setState({
+        //         showSuccessMessage: false
+        //     })
+        // }, 5000);
+        // this.props.onResetOrderFormValues();
+       this.postBookOrderData(this.props.formValues);
     }
 
 
     postBookOrderData(formvalues) {
         const payload = {
-            gameId: '001',
-            "traderId": '001',
+            "gameId": parseInt("001"),
+            "traderId": parseInt("001"),
             "productId": formvalues['stockSymbol'],
-            "unfulfilledQuantity": '',
-            "totalQty": formvalues['quantity'],
+            "unfulfilledQuantity": null,
+            "totalQty": parseInt(formvalues['quantity']),
             "bidOffer": formvalues['transaction'],
-            "currencyId": '',
-            "price": formvalues['price'],
-            "orderTypeId": '',
-            "orderTime": '',
-            "orderStatusId": ''
+            "currencyId": null,
+            "price": parseInt(formvalues['price']),
+            "orderTypeId": null,
+            "orderTime": Date.now(),
+            "orderStatusId": null
         }
         bookNewOrder(payload).then((res) => {
             if (res.data.success) {
@@ -79,7 +79,7 @@ class BookNewOrder extends React.Component {
                                 {this.props.stockSymbol && this.props.stockSymbol.length ?
                                     this.props.stockSymbol.map((elem) => {
                                         return (
-                                            <option key={elem['productId']} value={elem['productCode']}>
+                                            <option key={elem['productId']} value={elem['productId']}>
                                                 {elem['productCode'] + '-' + elem['productName']}
                                             </option>
                                         )

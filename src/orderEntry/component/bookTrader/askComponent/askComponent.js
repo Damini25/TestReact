@@ -18,7 +18,7 @@ class AskComponent extends React.Component {
             const random = this.randomNumber(0, 1);
             return (
                 <tr key={i} className={random === 1 ? 'backgroundBlue' : ''}>
-                    <td><a onClick={()=>{this.props.priceClicked(elem)}} href="#">{elem['price']}</a></td>
+                    <td><a href="#">{elem['price']}</a></td>
                     <td>{elem['totalQty']}</td>
                 </tr>
             );

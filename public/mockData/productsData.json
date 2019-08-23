@@ -4,18 +4,18 @@
     "data": [
         {
             "productId": 1,
-            "productCode": "FB",
-            "productName": "Facebook"
+            "productCode": "FZBM",
+            "productName": "Serbian Power Base Month"
         },
         {
             "productId": 2,
-            "productCode": "GOOG",
-            "productName": "Google"
+            "productCode": " FZBQ[1/2/3/4]",
+            "productName": "Quarter"
         },
         {
             "productId": 3,
-            "productCode": "INFY",
-            "productName": "Infosys"
+            "productCode": "FZBY19",
+            "productName": "Year Futures on PXE (EEX)"
         }
     ]
 } 

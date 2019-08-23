@@ -5,7 +5,7 @@ const initialState = {
         askOrders: [],
         bidOrders: []
     },
-    totalOrdersToBeShown: 10
+    totalOrdersToBeShown: 20
 }
 
 const OrderListReducer = (state = initialState, action) => {
