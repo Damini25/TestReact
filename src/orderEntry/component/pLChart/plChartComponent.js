@@ -17,7 +17,7 @@ class LineChart extends React.Component {
                 datasets: [
                     {
                         label: '# Profit',
-                        data: [0, 20, 1000, 1050, 3000, 4000, 4050, 5000, 6000,],
+                        data: [0, 20, 1000, 1050, 3000, 4000, 1000, 2000, 2050,],
                         borderWidth: 1,
                         fill: false,
                         backgroundColor: "#5b9bd5",

@@ -19,11 +19,11 @@
     display: flex;
     justify-content: center;
 }
-.sub-div label{
+.book-trade-div .sub-div label{
     margin-right: 20%;
 }
 
-.sub-div button{
+.book-trade-div .sub-div button{
     width: 30%;
     background-color: white;
     border: 1px solid black;
@@ -48,26 +48,30 @@
 
 .book-trade-div2 .sub-div2{
     width: 90%;
-    margin: 5%;
+    margin: 6%;
 }
 .book-trade-div2 .sub-div2 div{
-    display: flex;
-    justify-content: center;
+ display: flex;
+       /* justify-content: center; */
     margin-bottom: 1%
 }
-.sub-div2 label{
-    margin-right: 20%;
+.book-trade-div2 .sub-div2 label{
+    margin-right: 10%;
+   width: 30%;
+    /* max-width: 30%;
+    min-width: 30%; */
 }
-.sub-div2 input, .sub-div2 select{
+.book-trade-div2 .sub-div2 input, .sub-div2 select{
     width: 50%;
 }
-.sub-div2 button{
+.book-trade-div2 .sub-div2 button{
     width: 30%;
     background-color: white;
     border: 1px solid black;
     font-weight: 600;
-    margin-top: 3%;
+    margin-top: 8%;
     padding: 1%;
+    margin-left: 38%;
 }
 .success-msg-div{
     border: 1px solid #bab7b6;
@@ -81,4 +85,9 @@
     border-top-right-radius: 10px;
     color: #31312b;
     padding: 5px;
+}
+.book-trade-div2 .sub-div2 .transaction-radio-div{
+    margin-right: 5%;
+    justify-content: center;
+    align-items: center;
 }

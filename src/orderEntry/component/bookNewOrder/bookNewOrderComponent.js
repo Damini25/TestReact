@@ -3,7 +3,7 @@ import './bookNewOrderComponent.css';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../../common/store/actions/actionIndex';
 import { showToast } from '../../../common/component/toastMessages/toastcomponent';
-import {bookNewOrder} from '../../services/orderEntry.service';
+import { bookNewOrder } from '../../services/orderEntry.service';
 
 class BookNewOrder extends React.Component {
     state = {
@@ -18,7 +18,16 @@ class BookNewOrder extends React.Component {
     executeOrder = (event) => {
         event.preventDefault();
         console.log('formValurs', this.props.formValues);
-        this.postBookOrderData(this.props.formValues);
+        this.setState({
+            showSuccessMessage: true
+        })
+        setTimeout(() => {
+            this.setState({
+                showSuccessMessage: false
+            })
+        }, 5000);
+        this.props.onResetOrderFormValues();
+        //   this.postBookOrderData(this.props.formValues);
     }
 
 
@@ -60,13 +69,13 @@ class BookNewOrder extends React.Component {
                     <h3>Book Trade ---- <span>Book new order</span> </h3>
                     <div className="sub-div2">
                         <div>
-                            <label>Stock Symbol</label>
+                            <label>Product Name</label>
                             <select onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['stockSymbol']}
 
                                 name="stockSymbol">
 
-                                <option disabled value="">Select stock symbol</option>
+                                <option disabled value="">Select product name</option>
                                 {this.props.stockSymbol && this.props.stockSymbol.length ?
                                     this.props.stockSymbol.map((elem) => {
                                         return (
@@ -79,13 +88,36 @@ class BookNewOrder extends React.Component {
                         </div>
                         <div>
                             <label>Transaction</label>
-                            <select onChange={(e) => { this.handleChange(e) }}
+                            <div className="transaction-radio-div">
+                                <input
+                                    type="radio"
+                                    name="transaction"
+                                    value="Bid"
+                                    id="bid"
+                                    checked={this.props.formValues['transaction'] === 'Bid'}
+                                    onChange={(e) => { this.handleChange(e) }}
+                                />
+                                <label htmlFor="bid">Bid</label>
+                            </div>
+                            <div className="transaction-radio-div">
+                                <input
+                                    type="radio"
+                                    name="transaction"
+                                    value="Ask"
+                                    id="ask"
+                                    checked={this.props.formValues['transaction'] === 'Ask'}
+                                    onChange={(e) => { this.handleChange(e) }}
+                                />
+                                <label htmlFor="ask">Ask</label>
+                            </div>
+
+                            {/* <select onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['transaction']}
                                 name="transaction">
                                 <option disabled value="">Select transaction type</option>
                                 <option value="bid">Bid</option>
                                 <option value="ask">Ask</option>
-                            </select>
+                            </select> */}
                         </div>
                         <div>
                             <label>Price</label>

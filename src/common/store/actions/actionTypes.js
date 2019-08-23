@@ -7,4 +7,5 @@ export const Total_Orders_TillNow = "Total_Order"
 export const Clear_Prev_TotalOrders = "Clear_Prev_TotalOrders"
 export const Clear_BookOrderForm_Values = "clear_BookOrderForm_Values"
 export const Fetch_Stock_Symbols = "Fetch_Stock_Symbols";
-export const Load_Stock_Symbols="Load_Stock_Symbols";
+export const Load_Stock_Symbols = "Load_Stock_Symbols";
+export const Set_User_Details = "Set_User_Details";

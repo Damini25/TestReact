@@ -3,16 +3,22 @@ import './askComponent.css';
 import _ from 'lodash';
 
 class AskComponent extends React.Component {
+    constructor(props){
+        super();
+        this.props=props;
+    }
+
     randomNumber(minimum, maximum) {
         return Math.round(Math.random() * (maximum - minimum) + minimum);
     }
+
     render() {
        // console.log('ask ordr',this.props.orders)
         const row = _.sortBy(this.props.orders, ['price','timestamp'],['asc','desc']).map((elem,i) => {
             const random = this.randomNumber(0, 1);
             return (
                 <tr key={i} className={random === 1 ? 'backgroundBlue' : ''}>
-                    <td>{elem['price']}</td>
+                    <td><a onClick={()=>{this.props.priceClicked(elem)}} href="#">{elem['price']}</a></td>
                     <td>{elem['totalQty']}</td>
                 </tr>
             );

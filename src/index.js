@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import OrderListReducer from './common/store/reducers/orderListReducer';
 import OrderBookReducer from './common/store/reducers/bookOrderValuesReducer';
 import ChartReducer from './common/store/reducers/chartReducer';
-import FetchDataReducer from './common/store/reducers/fetchDataReducer';
+import FetchDataReducer from './common/store/reducers/commonFetchDataReducer';
 import axios from 'axios';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './common/store/sagas/sagaIndex';

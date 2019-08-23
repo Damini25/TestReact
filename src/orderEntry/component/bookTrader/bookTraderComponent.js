@@ -32,7 +32,7 @@ class BookTrader extends React.Component {
                     }
                     //else {
                     //    this.fetchOrderListOnInterval();
-                    this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+              //      this.orderListInterval = setInterval(this.fetchOrderList, 3000);
                     //  }
                 }
             }
@@ -130,20 +130,31 @@ class BookTrader extends React.Component {
         this.props.onUpdateProductValue({ [event.target.name]: event.target.value })
     }
 
+    onClickPrice = (elem) => {
+        console.log('elem', elem);
+        this.props.onUpdateOrderFormValue({ 'transaction': elem['bidOffer'] })
+        this.props.onUpdateOrderFormValue({ 'price': elem['price'] })
+        this.props.onUpdateOrderFormValue({ 'quantity': elem['totalQty'] })
+    }
+
     render() {
         const askBid = this.tradeOpen ? <div className="sub-div">
-            <AskComponent orders={this.props.askOrderList}></AskComponent>
-            <BidComponent orders={this.props.bidOrderList}></BidComponent>
+            <AskComponent orders={this.props.askOrderList}
+                priceClicked={this.onClickPrice}>
+            </AskComponent>
+            <BidComponent orders={this.props.bidOrderList}
+               bidPriceClicked={this.onClickPrice} >
+            </BidComponent>
         </div> : <div className="sub-div"> No Trades to display</div>
         return (
             <div className="trader-div">
-                <h3>Book Trader</h3>
+                <h3>Bid/Ask</h3>
 
                 <div className="product-drop">
                     <select onChange={(e) => { this.productChange(e) }}
                         value={this.props.bookOrderFormValue['stockSymbol']}
                         name="stockSymbol">
-                        <option disabled value="">Select stock symbol</option>
+                        <option disabled value="">Select product name</option>
                         {this.props.stockSymbol && this.props.stockSymbol.length ?
                             this.props.stockSymbol.map((elem) => {
                                 return (
@@ -154,7 +165,7 @@ class BookTrader extends React.Component {
                             }) : ''}
                     </select>
                 </div>
-                
+
                 {askBid}
             </div>
         );
@@ -181,6 +192,9 @@ const mapdispatchToProps = (dispatch) => {
         },
         onLoadStockSymbols: () => {
             dispatch(actiontypes.LoadStockSymbol());
+        },
+        onUpdateOrderFormValue: (obj) => {
+            dispatch(actiontypes.UpdateOrderFormValues(obj))
         }
     }
 }
