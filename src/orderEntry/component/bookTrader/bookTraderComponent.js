@@ -30,7 +30,7 @@ class BookTrader extends React.Component {
                     if (this.orderListInterval) {
                         clearInterval(this.orderListInterval);
                     }
-              //    this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+                 this.orderListInterval = setInterval(this.fetchOrderList, 3000);
                    
                 }
             }
