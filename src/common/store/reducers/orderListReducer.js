@@ -19,13 +19,13 @@ const OrderListReducer = (state = initialState, action) => {
                 newAskOrder.pop();
                 newAskOrder.unshift(action.element);
                 newOrderToShow.askOrders = [...newAskOrder];
-               // console.log('OrderListReducer', state.ordersToShow.askOrders === newOrderToShow.askOrders);
+                // console.log('OrderListReducer', state.ordersToShow.askOrders === newOrderToShow.askOrders);
             } else {
                 const newBidOrder = [...state.ordersToShow['bidOrders']]
                 newBidOrder.pop();
                 newBidOrder.unshift(action.element);
                 newOrderToShow.bidOrders = [...newBidOrder];
-              //  console.log('OrderListReducer', state.ordersToShow.bidOrders === newOrderToShow.bidOrders);
+                //  console.log('OrderListReducer', state.ordersToShow.bidOrders === newOrderToShow.bidOrders);
             }
             return {
                 ...state, ordersToShow: newOrderToShow
@@ -38,7 +38,7 @@ const OrderListReducer = (state = initialState, action) => {
                 const newAskOrder = [...state.ordersToShow['askOrders']]
                 newAskOrder.push(action.element);
                 newOrderToShow2.askOrders = [...newAskOrder];
-              //  console.log('OrderListReducer', state.ordersToShow.askOrders === newOrderToShow2.askOrders);
+                //  console.log('OrderListReducer', state.ordersToShow.askOrders === newOrderToShow2.askOrders);
             } else {
                 const newBidOrder = [...state.ordersToShow['bidOrders']]
                 newBidOrder.push(action.element);
@@ -47,6 +47,14 @@ const OrderListReducer = (state = initialState, action) => {
             return {
                 ...state, ordersToShow: newOrderToShow2
             }
+        case ActionTypes.Clear_BidAsk_List_Orders: {
+            const newOrderToShow = { ...state.ordersToShow };
+            newOrderToShow['askOrders'] = [];
+            newOrderToShow['bidOrders'] = [];
+            return {
+                ...state, ordersToShow: newOrderToShow
+            }
+        }
 
         default:
             return state;

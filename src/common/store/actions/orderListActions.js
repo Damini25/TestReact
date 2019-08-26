@@ -15,3 +15,9 @@ export const AddNewOrders = (type,item) => {
         orderType:type
     }
 }
+
+export const ClearBidAskOrders = () => {
+    return {
+        type: Actiontypes.Clear_BidAsk_List_Orders,
+    }
+}

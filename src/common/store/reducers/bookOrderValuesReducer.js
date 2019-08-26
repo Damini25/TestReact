@@ -2,26 +2,34 @@ import * as ActionTypes from '../actions/actionTypes';
 
 const initialState = {
     bookOrderFormValue: {
-        stockSymbol: '',
-        transaction: '',
+        stockSymbol: '1',
+        transaction: 'Bid',
         price: '',
         quantity: ''
     }
 }
 
 const BookNewOrderReducer = (state = initialState, action) => {
-    // console.log('BookNewOrderReducer',state);
+
     switch (action.type) {
         case ActionTypes.Update_BookOrderForm_Values:
-            const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };
+            console.log('BookNewOrderReducer', action);
+            const updatedOrderFormValue = { ...state.bookOrderFormValue };
+            updatedOrderFormValue['stockSymbol'] = action['element']['stockSymbol'];
+            console.log('BookNewOrderReducer', state.bookOrderFormValue, updatedOrderFormValue);
+
             return {
-                bookOrderFormValue: updatedOrderFormValue
+                ...state, bookOrderFormValue: {
+                    ...state.bookOrderFormValue,
+                    stockSymbol: updatedOrderFormValue['stockSymbol']
+                }
             }
+
         case ActionTypes.Clear_BookOrderForm_Values:
             return {
                 bookOrderFormValue: {
                     stockSymbol: '',
-                    transaction: '',
+                    transaction: 'Bid',
                     price: '',
                     quantity: ''
                 }

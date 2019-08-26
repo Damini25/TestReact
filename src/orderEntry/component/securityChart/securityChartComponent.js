@@ -750,33 +750,32 @@ class SecurityChart extends React.Component {
                 y: elem.price
             })
         });
-        console.log('componentDidUpdate', this.props.askOrderList);
+     //   console.log('componentDidUpdate', this.props.askOrderList);
         //  console.log('componentDidUpdate', askData, bidData, this.convertTimeToDecimal('4:30'));
         this.myChart = new Chart(this.canvasRef.current, {
             type: 'line',
             data: {
                 labels:this.timeAxis,
                 datasets: [
-                    // {
-                    //     label: '# Bid',
-                    //     data: bidData,
-                    //     /// type: "candlestick",
-                    //     borderWidth: 1,
-                    //     fill: false,
-                    //     backgroundColor: "#ed7d31",
-                    //     borderColor: "#ed7d31",
-                    //     //  lineTension: 0,
-                    //     //  pointStyle: 'rectRot',
-                    //     //   pointRadius: 4,
-                    //     //  pointHitRadius: 10,
-                    //     pointBorderColor: "black",
-                    //     pointBackgroundColor: "white",
-                    //     pointBorderWidth: 1,
-                    //     pointHoverRadius: 8,
-                    //     pointHoverBackgroundColor: "yellow",
-                    //     pointHoverBorderColor: "brown",
-                    //     pointHoverBorderWidth: 2,
-                    // },
+                    {
+                        label: '# Bid',
+                        data: this.props.bidOrderList,
+                        borderWidth: 1,
+                        fill: false,
+                        backgroundColor: "#ed7d31",
+                        borderColor: "#ed7d31",
+                        //  lineTension: 0,
+                        //  pointStyle: 'rectRot',
+                        //   pointRadius: 4,
+                        //  pointHitRadius: 10,
+                        pointBorderColor: "black",
+                        pointBackgroundColor: "white",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 8,
+                        pointHoverBackgroundColor: "yellow",
+                        pointHoverBorderColor: "brown",
+                        pointHoverBorderWidth: 2,
+                    },
                     {
                         label: '# Ask',
                         data: this.props.askOrderList,

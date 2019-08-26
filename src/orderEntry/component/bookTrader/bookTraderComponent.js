@@ -19,7 +19,7 @@ class BookTrader extends React.Component {
 
     fetchOrderList = () => {
         const payload = {
-            "productId": "001",
+            "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
             "gameId": "001",
             "noOfRows": 20
         }
@@ -30,8 +30,9 @@ class BookTrader extends React.Component {
                     if (this.orderListInterval) {
                         clearInterval(this.orderListInterval);
                     }
-                 this.orderListInterval = setInterval(this.fetchOrderList, 3000);
-                   
+
+                   // this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+
                 }
             }
         }, (err) => {
@@ -44,15 +45,16 @@ class BookTrader extends React.Component {
 
     fetchTotalOrderList = () => {
         const payload = {
-            productId: "001",
+            productId: parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
             gameId: "001"
         }
         getChartDataInitialOrderList(payload).then((res) => {
             if (res.data.success) {
-                console.log('ddd',res.data['data'][0]['askOrders'])
+                // console.log('ddd',res.data['data'][0]['askOrders'])
                 if (res.data['data']) {
                     this.props.onAddToTotalAskOrders(res.data['data'][0]['askOrders']);
-                   // this.setStateBasedOnTotalOrders(res.data['data']);
+                    this.props.onAddToTotalBidOrders(res.data['data'][0]['bidOrders']);
+                    // this.setStateBasedOnTotalOrders(res.data['data']);
 
                     if (this.orderTotalListInterval) {
                         clearInterval(this.orderTotalListInterval);
@@ -113,6 +115,15 @@ class BookTrader extends React.Component {
 
     productChange(event) {
         this.props.onUpdateProductValue({ [event.target.name]: event.target.value })
+        this.props.onClearTotalOrders();
+        this.props.onClearBidAskOrders();
+        if (this.orderListInterval) {
+            clearInterval(this.orderListInterval);
+        }
+        
+        console.log('value',this.props.bookOrderFormNewValue['stockSymbol'])
+        this.fetchOrderList();
+        this.fetchTotalOrderList();
     }
 
     onClickPrice = (elem) => {
@@ -125,10 +136,10 @@ class BookTrader extends React.Component {
     render() {
         const askBid = this.tradeOpen ? <div className="sub-div">
             <AskComponent orders={this.props.askOrderList}
-                priceClicked={this.onClickPrice}>
+                askPriceClicked={this.onClickPrice}>
             </AskComponent>
             <BidComponent orders={this.props.bidOrderList}
-               bidPriceClicked={this.onClickPrice} >
+                bidPriceClicked={this.onClickPrice} >
             </BidComponent>
         </div> : <div className="sub-div"> No Trades to display</div>
         return (
@@ -137,13 +148,13 @@ class BookTrader extends React.Component {
 
                 <div className="product-drop">
                     <select onChange={(e) => { this.productChange(e) }}
-                        value={this.props.bookOrderFormValue['stockSymbol']}
+                        value={this.props.bookOrderFormNewValue['stockSymbol']}
                         name="stockSymbol">
                         <option disabled value="">Select product name</option>
                         {this.props.stockSymbol && this.props.stockSymbol.length ?
                             this.props.stockSymbol.map((elem) => {
                                 return (
-                                    <option key={elem['productId']} value={elem['productCode']}>
+                                    <option key={elem['productId']} value={elem['productId']}>
                                         {elem['productCode'] + '-' + elem['productName']}
                                     </option>
                                 )
@@ -187,15 +198,19 @@ const mapdispatchToProps = (dispatch) => {
         onAddToTotalBidOrders: (obj) => {
             dispatch(actiontypes.AddToTotalBidOrders(obj))
         },
+        onClearBidAskOrders: () => {
+            dispatch(actiontypes.ClearBidAskOrders());
+        },
     }
 }
 
 const mapStateToProps = (state) => {
+    console.log('statebooktrader',event.target.name,event.target.value);
     return {
         bidOrderList: state.orderListReducer['ordersToShow']['bidOrders'],
         askOrderList: state.orderListReducer['ordersToShow']['askOrders'],
         totalOrdersToBeShown: state.orderListReducer['totalOrdersToBeShown'],
-        bookOrderFormValue: state.orderBookReducer.bookOrderFormValue,
+        bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
         stockSymbol: state.fetchDataReducer.stockSymbols['data']
     }
 }

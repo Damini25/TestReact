@@ -35,7 +35,7 @@ class BookNewOrder extends React.Component {
         const payload = {
             "gameId": parseInt("001"),
             "traderId": parseInt("001"),
-            "productId": formvalues['stockSymbol'],
+            "productId": parseInt(formvalues['stockSymbol']),
             "unfulfilledQuantity": null,
             "totalQty": parseInt(formvalues['quantity']),
             "bidOffer": formvalues['transaction'],
@@ -46,7 +46,7 @@ class BookNewOrder extends React.Component {
             "orderStatusId": null
         }
         bookNewOrder(payload).then((res) => {
-            if (res.data.success) {
+           // if (res.data.success) {
                 this.setState({
                     showSuccessMessage: true
                 })
@@ -56,7 +56,7 @@ class BookNewOrder extends React.Component {
                     })
                 }, 2000);
                 this.props.onResetOrderFormValues();
-            }
+         //   }
         }, (err) => {
             // showToast('error', err);
         })
@@ -121,12 +121,12 @@ class BookNewOrder extends React.Component {
                         </div>
                         <div>
                             <label>Price</label>
-                            <input type="number" onChange={(e) => { this.handleChange(e) }}
+                            <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['price']} name="price" />
                         </div>
                         <div>
                             <label>Quantity</label>
-                            <input type="number" onChange={(e) => { this.handleChange(e) }}
+                            <input type="number" autoComplete="off"  onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['quantity']} name="quantity" />
                         </div>
                         <div>

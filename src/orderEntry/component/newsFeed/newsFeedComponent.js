@@ -9,7 +9,7 @@ class NewsFeed extends React.Component {
             <div>
                 <ul>
                     <li>1. An increase in wind energy and a record low PV tariff have reduced electricity prices </li>
-                    <li>2. The European Energy Exchange (EEX) will expand its product range ... peak load products with weekly, monthly, quarterly </li>
+                    <li className="tempColor">2. The European Energy Exchange (EEX) will expand its product range ... peak load products with weekly, monthly, quarterly </li>
                     <li>3. Global warming will hit solar panel performance</li>
                 </ul>
                 <a href="#">Click here for more news..</a>

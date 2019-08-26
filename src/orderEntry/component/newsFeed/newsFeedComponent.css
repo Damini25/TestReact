@@ -15,12 +15,16 @@
 }
 
 .news-feed-div li{
+    font-size:14px;
     margin: 0 0 1% 0;
-    color: #0563C1;
+    color: #0fc7f1bf;;
     text-decoration: underline;
 }
 .news-feed-div ul,.news-feed-div a{
     color: #0563C1;
     text-align:left;
     margin-bottom: 2%;
+}
+.tempColor{
+    color:#000000d9 !important;
 }

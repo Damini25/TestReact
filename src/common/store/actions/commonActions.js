@@ -6,3 +6,11 @@ export const SetUserDetails=(data)=>{
         element:data
     }
 }
+
+export const SetLoginFormValidity=(data)=>{
+    return {
+        type:Actiontypes.Set_LoginForm_ValidityState,
+        fieldName:data['fieldName'],
+        value:data['formError']
+    }
+}
