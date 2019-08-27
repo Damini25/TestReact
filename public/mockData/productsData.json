@@ -11,11 +11,6 @@
             "productId": 2,
             "productCode": " FZBQ[1/2/3/4]",
             "productName": "Quarter"
-        },
-        {
-            "productId": 3,
-            "productCode": "FZBY19",
-            "productName": "Year Futures on PXE (EEX)"
         }
     ]
 } 

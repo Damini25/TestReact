@@ -5,8 +5,8 @@ export const getInitialOrderList = (payload) => {
     return axios.post(`${env.apiUrl}`+'/userdashb/bidaskscreen/fetch',payload);
 }
 
-export const getChartDataInitialOrderList = () => {
-  return axios.get(`${env.apiUrl}`+'/userdashb/graphscr/allorders');
+export const getChartDataInitialOrderList = (payload) => {
+  return axios.get(`${env.apiUrl}`+'/userdashb/graphscr/allorders?productId='+ payload['productId']);
 }
 // export const getInitialOrderList = (payload) => {
 //   return axios.get(process.env.PUBLIC_URL+'/mockData/orderList.json');

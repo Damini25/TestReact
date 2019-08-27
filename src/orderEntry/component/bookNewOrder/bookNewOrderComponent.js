@@ -37,10 +37,10 @@ class BookNewOrder extends React.Component {
             "traderId": parseInt("001"),
             "productId": parseInt(formvalues['stockSymbol']),
             "unfulfilledQuantity": null,
-            "totalQty": parseInt(formvalues['quantity']),
+            "totalQty": parseFloat(formvalues['quantity']),
             "bidOffer": formvalues['transaction'],
             "currencyId": null,
-            "price": parseInt(formvalues['price']),
+            "price": parseFloat(formvalues['price']),
             "orderTypeId": null,
             "orderTime": Date.now(),
             "orderStatusId": null

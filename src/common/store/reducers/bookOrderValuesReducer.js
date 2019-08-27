@@ -13,26 +13,23 @@ const BookNewOrderReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case ActionTypes.Update_BookOrderForm_Values:
-            console.log('BookNewOrderReducer', action);
-            const updatedOrderFormValue = { ...state.bookOrderFormValue };
-            updatedOrderFormValue['stockSymbol'] = action['element']['stockSymbol'];
-            console.log('BookNewOrderReducer', state.bookOrderFormValue, updatedOrderFormValue);
-
+            const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };
             return {
-                ...state, bookOrderFormValue: {
-                    ...state.bookOrderFormValue,
-                    stockSymbol: updatedOrderFormValue['stockSymbol']
-                }
+                bookOrderFormValue: updatedOrderFormValue
             }
 
         case ActionTypes.Clear_BookOrderForm_Values:
+            const clearData = { ...state['bookOrderFormValue'] }
+            clearData['transaction'] = 'Bid';
+            clearData['price'] = '';
+            clearData['quantity'] = ''
+            // const clearData={
+            //     transaction: 'Bid',
+            //     price: '',
+            //     quantity: ''
+            // }
             return {
-                bookOrderFormValue: {
-                    stockSymbol: '',
-                    transaction: 'Bid',
-                    price: '',
-                    quantity: ''
-                }
+                ...state, bookOrderFormValue: clearData
             }
         default:
             return state;

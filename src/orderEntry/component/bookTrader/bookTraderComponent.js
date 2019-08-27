@@ -17,6 +17,9 @@ class BookTrader extends React.Component {
         this.props.onLoadStockSymbols();
     }
 
+    /**
+     * API call to fetch Bid/Ask List data
+     */
     fetchOrderList = () => {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
@@ -30,8 +33,7 @@ class BookTrader extends React.Component {
                     if (this.orderListInterval) {
                         clearInterval(this.orderListInterval);
                     }
-
-                   // this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+                      this.orderListInterval = setInterval(this.fetchOrderList, 3000);
 
                 }
             }
@@ -42,7 +44,31 @@ class BookTrader extends React.Component {
         })
     }
 
+    /**
+    * function call to set state on basis of bid/ask data from api
+    */
+    setStateBasedOnOrderData(data) {
+        data.forEach((elem) => {
+            if (elem['bidOffer'] === 'Ask') {
+                if (this.props.askOrderList.length < this.props.totalOrdersToBeShown) {
+                    this.props.onInitalOrdersFetch('ask', elem);
+                } else {
+                    this.props.onAddingRecentOrders('ask', elem);
+                }
+            } else {
+                if (this.props.bidOrderList.length < this.props.totalOrdersToBeShown) {
+                    this.props.onInitalOrdersFetch('bid', elem);
+                } else {
 
+                    this.props.onAddingRecentOrders('bid', elem);
+                }
+            }
+        })
+    }
+
+    /**
+    * API call to fetch Security Chart spread  data
+    */
     fetchTotalOrderList = () => {
         const payload = {
             productId: parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
@@ -68,25 +94,6 @@ class BookTrader extends React.Component {
         })
     }
 
-    setStateBasedOnOrderData(data) {
-        data.forEach((elem) => {
-            if (elem['bidOffer'] === 'Ask') {
-                if (this.props.askOrderList.length < this.props.totalOrdersToBeShown) {
-                    this.props.onInitalOrdersFetch('ask', elem);
-                } else {
-                    this.props.onAddingRecentOrders('ask', elem);
-                }
-            } else {
-                if (this.props.bidOrderList.length < this.props.totalOrdersToBeShown) {
-                    this.props.onInitalOrdersFetch('bid', elem);
-                } else {
-
-                    this.props.onAddingRecentOrders('bid', elem);
-                }
-            }
-        })
-    }
-
     setStateBasedOnTotalOrders(data) {
         this.props.onClearTotalOrders();
 
@@ -109,23 +116,39 @@ class BookTrader extends React.Component {
         // })
     }
 
+    /**
+     * Function call when component is destroyed
+     */
     componentWillUnmount() {
         clearInterval(this.orderListInterval);
     }
 
+    /**
+     *Function call on product symbol change
+     */
     productChange(event) {
-        this.props.onUpdateProductValue({ [event.target.name]: event.target.value })
-        this.props.onClearTotalOrders();
-        this.props.onClearBidAskOrders();
-        if (this.orderListInterval) {
-            clearInterval(this.orderListInterval);
-        }
-        
-        console.log('value',this.props.bookOrderFormNewValue['stockSymbol'])
-        this.fetchOrderList();
-        this.fetchTotalOrderList();
+        this.props.onUpdateProductValue({ 'stockSymbol': event.target.value })
     }
 
+    /**
+     *Function call to refresh bid/ask list and spread data on  product symbol change
+     */
+    componentDidUpdate(prevstate) {
+        if (this.props.bookOrderFormNewValue['stockSymbol'] && prevstate.bookOrderFormNewValue['stockSymbol'] !== this.props.bookOrderFormNewValue['stockSymbol']) {
+            console.log('com', prevstate.bookOrderFormNewValue, this.props.bookOrderFormNewValue)
+            if (this.orderListInterval) {
+                clearInterval(this.orderListInterval);
+            }
+            this.props.onClearTotalOrders();
+            this.props.onClearBidAskOrders();
+            this.fetchOrderList();
+            this.fetchTotalOrderList();
+        }
+    }
+
+    /**
+     *Function call hyperlink-price click in bid/ask list
+     */
     onClickPrice = (elem) => {
         console.log('elem', elem);
         this.props.onUpdateOrderFormValue({ 'transaction': elem['bidOffer'] })
@@ -205,7 +228,7 @@ const mapdispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log('statebooktrader',event.target.name,event.target.value);
+    // console.log('statebooktrader', state.orderBookReducer.bookOrderFormValue);
     return {
         bidOrderList: state.orderListReducer['ordersToShow']['bidOrders'],
         askOrderList: state.orderListReducer['ordersToShow']['askOrders'],
