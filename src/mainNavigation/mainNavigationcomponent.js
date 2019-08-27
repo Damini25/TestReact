@@ -18,11 +18,9 @@ class MainNavigation extends React.Component {
 
     render() {
         return (
-            <div id="App">
-                <SideBar pageWrapId={"page-wrap"} outerContainerId={"App"} />
-                <div id="page-wrap">
-                    <h1>Cool Restaurant 🍔🍕</h1>
-                    <h2>Check out our offerings in the sidebar!</h2>
+            <div className="outer-container">
+                <div className="header-div" >
+                <SideBar  pageWrapId={"page-wrap"} />
                 </div>
             </div>
         )

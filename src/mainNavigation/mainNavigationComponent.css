@@ -1,13 +1,14 @@
-#App {
-    font-family: sans-serif;
-  
-    /* Give app full page to work with */
-    height: 100vh;
-  }
-
+.outer-container{
+  background-color: #b8b7ad;
+}
+.outer-container .header-div{
+  background-color: #373a47;
+  height: 35px;
+  width: 100%;
+}
 #page-wrap {
     text-align: center;
-  
+  /* background-color: #b8b7ad; */
     /* Prevent sidebar from showing a scrollbar on page */
     overflow: auto;
   }
@@ -20,6 +21,7 @@
     margin-bottom: 10px;
     color: #d1d1d1;
     transition: color 0.2s;
+    border:none;
   }
   
   /* Change color on hover */
@@ -35,12 +37,12 @@
     width: 36px;
     height: 30px;
     left: 36px;
-    top: 36px;
+    top: 2px;
   }
   
   /* Color/shape of burger icon bars */
   .bm-burger-bars {
-    background: blue;
+    background:white;
   }
   
   /* Position and sizing of clickable cross button */
@@ -74,4 +76,23 @@
   /* Styling of overlay */
   .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
+  }
+  .menu-btn{
+    font-size:31px;
+    color: white
+  }
+  .user-img{
+    width: 80px;
+    height: 80px;
+    border-radius:40px;
+  }
+  .menu-userimg-div{
+    display: flex !important;
+    align-items: center;
+  }
+  .menu-userimg-div div{
+    margin-left:10%;
+  }
+  nav *:focus{
+    outline: none;
   }

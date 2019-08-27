@@ -7,22 +7,30 @@ class MenuLinks extends React.Component {
     }
     render() {
         return (
-            <Menu {...this.props}>
-                <a className="menu-item" href="/">
+            <Menu customBurgerIcon={
+                <i className="fa fa-bars menu-btn" aria-hidden="true"></i>
+            }>
+               
+                    <div className="menu-userimg-div">
+                            <img alt="" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" className="user-img" />
+                            <div>Welcome! Damini</div>
+                    </div>
+              
+                <a className="menu-item" href="#">
                     Home
-        </a>
+                </a>
 
-                <a className="menu-item" href="/burgers">
+                <a className="menu-item" href="#">
                     Burgers
-        </a>
+                </a>
 
-                <a className="menu-item" href="/pizzas">
+                <a className="menu-item" href="#">
                     Pizzas
-        </a>
+                </a>
 
-                <a className="menu-item" href="/desserts">
+                <a className="menu-item" href="#">
                     Desserts
-        </a>
+                 </a>
             </Menu>
         )
     }
