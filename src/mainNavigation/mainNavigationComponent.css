@@ -1,10 +1,11 @@
 .outer-container{
-  background-color: #b8b7ad;
+  /* background-color: #b8b7ad; */
 }
 .outer-container .header-div{
   background-color: #373a47;
-  height: 35px;
+  height: 45px;
   width: 100%;
+  margin-bottom: 3%;
 }
 #page-wrap {
     text-align: center;
@@ -37,7 +38,7 @@
     width: 36px;
     height: 30px;
     left: 36px;
-    top: 2px;
+    top: 5px;
   }
   
   /* Color/shape of burger icon bars */
@@ -53,7 +54,9 @@
   
   /* Color/shape of close button cross */
   .bm-cross {
-    background: #bdc3c7;
+    /* background: #bdc3c7; */
+    font-size: 25px;
+    color: white;
   }
   
   /* General sidebar styles */
@@ -89,10 +92,21 @@
   .menu-userimg-div{
     display: flex !important;
     align-items: center;
+    padding-bottom: 4%;
+    border-bottom: 1px solid white;
+    margin-bottom: 12%;
   }
   .menu-userimg-div div{
     margin-left:10%;
   }
   nav *:focus{
+    outline: none;
+  }
+  .is-active{
+    color: #5ac8fa;
+    font-weight: 600;
+  }
+
+  .bm-cross-button :focus{
     outline: none;
   }

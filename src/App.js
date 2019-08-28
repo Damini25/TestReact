@@ -1,6 +1,6 @@
 import React from 'react';
 import AppRoutes from './appRouting';
-import './App.css';
+import './App.scss';
 import {MessageContainer} from './common/component/toastMessages/toastcomponent'
 
 class App extends React.Component {

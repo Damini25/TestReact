@@ -10,8 +10,8 @@ const AppRoutes = () => {
         <Switch>
             <Route path="/" exact strict component={Login} ></Route>
             <Route path="/login" exact component={Login} ></Route>
-            <Route path="/orderEntry" exact component={OrderEntry} ></Route>
-            <Route path="/mainNav" exact component={MainNavigation} ></Route>
+            {/* <Route path="/mainNav/orderEntry" exact component={OrderEntry} ></Route> */}
+            <Route path="/mainNav" strict component={MainNavigation} ></Route>
             <Route component={Notfound}></Route>
         </Switch>
     </BrowserRouter>
