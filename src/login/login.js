@@ -10,7 +10,7 @@ class Logincomponent extends React.Component {
     login(e) {
         /** API call */
         e.preventDefault();
-        this.props.history.push("/orderEntry");
+        this.props.history.push("/mainNav");
     }
 
     handleChange = (event) => {
@@ -38,7 +38,7 @@ class Logincomponent extends React.Component {
                 <form onSubmit={(e) => { this.login(e) }}>
                     <div className="input-div">
                         <div >
-                            <label htmlFor="name">Email Address</label>
+                            <label htmlFor="name">Username</label>
                             <input type="text" autoComplete="off" name="name" onChange={(e) => { this.handleChange(e) }} />
                         </div>
                         <div>

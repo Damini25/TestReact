@@ -846,8 +846,21 @@ class SecurityChart extends React.Component {
     }
 
     render() {
+        let prodName;
+        if (this.props.stockSymbolData && this.props.stockSymbolData.length) {
+            this.props.stockSymbolData.forEach(elem => {
+               // console.log('elem', elem['productId'], this.props.bookOrderFormNewValue['stockSymbol'])
+                if (elem['productId'] === this.props.bookOrderFormNewValue['stockSymbol']) {
+
+                    prodName = elem;
+                }
+            });
+        }
         return (<div className="security-chart-div">
             <h3>Bid/Ask Spread</h3>
+            <div className="prod-name-label">
+                <label>Product Name - </label> {prodName ? prodName['productCode'] + '-' + prodName['productName'] : ''}
+            </div>
             <canvas ref={this.canvasRef} />
         </div>);
     }
@@ -857,7 +870,9 @@ const mapStateToProps = (state) => {
     //  console.log('chart',state.chartReducer)
     return {
         bidOrderList: state.chartReducer['totalOrderTillNow']['bidOrders'],
-        askOrderList: state.chartReducer['totalOrderTillNow']['askOrders']
+        askOrderList: state.chartReducer['totalOrderTillNow']['askOrders'],
+        bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
+        stockSymbolData: state.fetchDataReducer.stockSymbols['data']
     }
 }
 

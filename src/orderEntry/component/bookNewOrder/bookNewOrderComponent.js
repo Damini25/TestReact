@@ -12,7 +12,8 @@ class BookNewOrder extends React.Component {
 
     handleChange = (event) => {
         //  console.log('value', event.target.name, event.target.value);
-        this.props.onUpdateOrderFormValue({ [event.target.name]: event.target.value })
+        const val=event.target.name ==='stockSymbol' ? parseInt(event.target.value):event.target.value;
+        this.props.onUpdateOrderFormValue({ [event.target.name]: val })
     }
 
     executeOrder = (event) => {
@@ -27,7 +28,7 @@ class BookNewOrder extends React.Component {
         //     })
         // }, 5000);
         // this.props.onResetOrderFormValues();
-       this.postBookOrderData(this.props.formValues);
+        this.postBookOrderData(this.props.formValues);
     }
 
 
@@ -46,17 +47,17 @@ class BookNewOrder extends React.Component {
             "orderStatusId": null
         }
         bookNewOrder(payload).then((res) => {
-           // if (res.data.success) {
+            // if (res.data.success) {
+            this.setState({
+                showSuccessMessage: true
+            })
+            setTimeout(() => {
                 this.setState({
-                    showSuccessMessage: true
+                    showSuccessMessage: false
                 })
-                setTimeout(() => {
-                    this.setState({
-                        showSuccessMessage: false
-                    })
-                }, 2000);
-                this.props.onResetOrderFormValues();
-         //   }
+            }, 2000);
+            this.props.onResetOrderFormValues();
+            //   }
         }, (err) => {
             // showToast('error', err);
         })
@@ -120,13 +121,30 @@ class BookNewOrder extends React.Component {
                             </select> */}
                         </div>
                         <div>
+                            <label>Order Type</label>
+                            <select onChange={(e) => { this.handleChange(e) }}
+                                value={this.props.formValues['orderType']}
+                                name="orderType">
+
+                                <option disabled value="">Select order type</option>
+
+                                <option value='market'>
+                                    Market
+                                </option>
+
+                                <option value='limit'>
+                                    Limit
+                                </option>
+                            </select>
+                        </div>
+                        <div>
                             <label>Price</label>
                             <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['price']} name="price" />
                         </div>
                         <div>
                             <label>Quantity</label>
-                            <input type="number" autoComplete="off"  onChange={(e) => { this.handleChange(e) }}
+                            <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['quantity']} name="quantity" />
                         </div>
                         <div>

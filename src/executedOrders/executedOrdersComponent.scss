@@ -1,0 +1,22 @@
+.exec-orderlist-div{
+    border: 1px solid;
+    width: 60%;
+    margin-left: 20%;
+    display: flex;
+    flex-direction: column;
+    table{
+    border: 1px solid #eee;
+    border-spacing: 0;
+    margin: 2%;
+    thead{
+        tr{
+            background-color: #BCD6EE;
+        }
+    }
+    tbody{
+        td{
+            text-align: center;
+        }
+        }
+    }
+}

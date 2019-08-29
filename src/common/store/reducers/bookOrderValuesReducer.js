@@ -2,8 +2,9 @@ import * as ActionTypes from '../actions/actionTypes';
 
 const initialState = {
     bookOrderFormValue: {
-        stockSymbol: '1',
+        stockSymbol: 1,
         transaction: 'Bid',
+        orderType:'',
         price: '',
         quantity: ''
     }
@@ -21,6 +22,7 @@ const BookNewOrderReducer = (state = initialState, action) => {
         case ActionTypes.Clear_BookOrderForm_Values:
             const clearData = { ...state['bookOrderFormValue'] }
             clearData['transaction'] = 'Bid';
+            clearData['orderType'] = ''
             clearData['price'] = '';
             clearData['quantity'] = ''
             // const clearData={

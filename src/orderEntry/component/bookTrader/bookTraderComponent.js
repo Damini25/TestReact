@@ -127,7 +127,7 @@ class BookTrader extends React.Component {
      *Function call on product symbol change
      */
     productChange(event) {
-        this.props.onUpdateProductValue({ 'stockSymbol': event.target.value })
+        this.props.onUpdateProductValue({ 'stockSymbol': parseInt(event.target.value) })
     }
 
     /**
@@ -135,7 +135,7 @@ class BookTrader extends React.Component {
      */
     componentDidUpdate(prevstate) {
         if (this.props.bookOrderFormNewValue['stockSymbol'] && prevstate.bookOrderFormNewValue['stockSymbol'] !== this.props.bookOrderFormNewValue['stockSymbol']) {
-            console.log('com', prevstate.bookOrderFormNewValue, this.props.bookOrderFormNewValue)
+          //  console.log('com', prevstate.bookOrderFormNewValue, this.props.bookOrderFormNewValue)
             if (this.orderListInterval) {
                 clearInterval(this.orderListInterval);
             }
@@ -151,7 +151,7 @@ class BookTrader extends React.Component {
      */
     onClickPrice = (elem) => {
         console.log('elem', elem);
-        this.props.onUpdateOrderFormValue({ 'transaction': elem['bidOffer'] })
+        this.props.onUpdateOrderFormValue({ 'transaction': elem['bidOffer'] === 'Ask' ? 'Bid' : 'Ask' })
         this.props.onUpdateOrderFormValue({ 'price': elem['price'] })
         this.props.onUpdateOrderFormValue({ 'quantity': elem['totalQty'] })
     }

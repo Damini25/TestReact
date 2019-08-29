@@ -1,5 +1,5 @@
 .parent-div .trader-info-div{
-    border:1px solid black;
+    border:1px solid #eee;
     min-width: 30%;
 }
 
@@ -7,7 +7,7 @@
     background-color: #BCD6EE;
     font-weight: 500;
     margin: 0;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #bab7b6;
     text-align: center;
 }
 .trader-info-div .sub-div{
