@@ -8,6 +8,7 @@ import BookNewOrder from '../component/bookNewOrder/bookNewOrderComponent';
 import BookTrader from '../component/bookTrader/bookTraderComponent';
 import NewsFeed from '../component/newsFeed/newsFeedComponent';
 import TraderInfo from '../component/traderInfo/traderInfoComponent';
+import ExecutedOrders from '../../executedOrders/executedOrdersComponent';
 
 
 class EnterOrder extends React.Component {
@@ -25,7 +26,8 @@ class EnterOrder extends React.Component {
                 <div className="parent-div">
                     <TraderInfo></TraderInfo>
                     <PLChart className="sub-div"></PLChart>
-                    <NewsFeed></NewsFeed>
+                    {/* <NewsFeed></NewsFeed> */}
+                    <ExecutedOrders></ExecutedOrders>
                 </div>
                 <div className="parent-div">
                     <BookTrader></BookTrader>

@@ -13,3 +13,7 @@ export const Add_To_Ask_TOrders="Add_To_Ask_TOrders";
 export const Add_To_Bid_TOrders="Add_To_Bid_TOrders";
 export const Set_LoginForm_ValidityState="Set_LoginForm_ValidityState";
 export const Clear_BidAsk_List_Orders="Clear_BidAsk_List_Orders"
+export const Load_Booked_Orders="Load_Booked_Orders";
+export const Load_Executed_Orders="Load_Executed_Orders";
+export const Fetch_Booked_Orders="Fetch_Booked_Orders";
+export const Fetch_Executed_Orders="Fetch_Executed_Orders";

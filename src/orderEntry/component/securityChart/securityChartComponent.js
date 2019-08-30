@@ -1,5 +1,6 @@
 import React from 'react';
 import Chart from 'chart.js';
+import 'chartjs-plugin-zoom';
 import './securityChartComponent.css';
 import { connect } from 'react-redux';
 
@@ -8,7 +9,7 @@ class SecurityChart extends React.Component {
     constructor(props) {
         super(props);
         this.canvasRef = React.createRef();
-        this.timeAxis= [
+        this.timeAxis = [
             "6:0",
             "6:1",
             "6:2",
@@ -750,12 +751,12 @@ class SecurityChart extends React.Component {
                 y: elem.price
             })
         });
-     //   console.log('componentDidUpdate', this.props.askOrderList);
+        //   console.log('componentDidUpdate', this.props.askOrderList);
         //  console.log('componentDidUpdate', askData, bidData, this.convertTimeToDecimal('4:30'));
         this.myChart = new Chart(this.canvasRef.current, {
             type: 'line',
             data: {
-                labels:this.timeAxis,
+                labels: this.timeAxis,
                 datasets: [
                     {
                         label: '# Bid',
@@ -830,6 +831,14 @@ class SecurityChart extends React.Component {
                         }
                     }]
                 },
+                // pan: {
+                //     enabled: true,
+                //     mode: 'yx'
+                // },
+                // zoom: {
+                //     enabled: true,
+                //     mode: 'xy',
+                // }
             }
         });
         // }
@@ -849,7 +858,7 @@ class SecurityChart extends React.Component {
         let prodName;
         if (this.props.stockSymbolData && this.props.stockSymbolData.length) {
             this.props.stockSymbolData.forEach(elem => {
-               // console.log('elem', elem['productId'], this.props.bookOrderFormNewValue['stockSymbol'])
+                // console.log('elem', elem['productId'], this.props.bookOrderFormNewValue['stockSymbol'])
                 if (elem['productId'] === this.props.bookOrderFormNewValue['stockSymbol']) {
 
                     prodName = elem;

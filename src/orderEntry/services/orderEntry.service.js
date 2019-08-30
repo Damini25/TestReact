@@ -25,3 +25,13 @@ export const getProducts = () => {
   return axios.get(process.env.PUBLIC_URL+'/mockData/productsData.json');
  // return axios.get(`${env.apiUrl}`+'/userdashb/orderscreen/book',payload,null);
 }  
+
+export const getBookedOrderList = (payload) => {
+  return axios.get(process.env.PUBLIC_URL+'/mockData/orderList.json');
+ // return axios.get(`${env.apiUrl}`+'/userdashb/orderscreen/book',payload,null);
+}  
+
+export const getExecutedOrderList = (payload) => {
+  return axios.get(process.env.PUBLIC_URL+'/mockData/orderList.json');
+ // return axios.post(`${env.apiUrl}`+'/userdashb/orderscreen/book',payload,null);
+}  

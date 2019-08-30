@@ -1,36 +1,139 @@
 import React from 'react';
 import './executedOrdersComponent.scss';
+import { getBookedOrderList, getExecutedOrderList } from '../orderEntry/services/orderEntry.service';
+import { connect } from 'react-redux';
+import * as actiontypes from '../common/store/actions/actionIndex';
 
 class ExecutedOrderList extends React.Component {
+    state = {
+        orderTabActive: true,
+        tradeTabActive: false,
+        dataToShow: []
+    }
+
+    componentDidMount() {
+        this.fetchBookedOrderList();
+        this.fetchExecutedOrderList();
+        this.setState({
+            ...this.state,
+            dataToShow: [...this.props.bookedOrdersList]
+        })
+    }
+    componentDidUpdate(prevProps) {
+        if(prevProps.bookedOrdersList !==this.props.bookedOrdersList){
+            this.setState({
+                orderTabActive: this.state.orderTabActive,
+                tradeTabActive: this.state.tradeTabActive,
+                dataToShow:this.props.bookedOrdersList
+            })
+        }
+    }
+    showOrderTradeData(type) {
+        // this.setState({
+        //     orderTabActive: !this.state.orderTabActive,
+        //     tradeTabActive: !this.state.tradeTabActive
+        // })
+        console.log('ss',this.state);
+        if (this.state.tradeTabActive) {
+            this.setState({
+                orderTabActive: !this.state.orderTabActive,
+                tradeTabActive: !this.state.tradeTabActive,
+                dataToShow: [...this.props.executedOrdersList]
+            })
+        } else {
+            this.setState({
+                orderTabActive: !this.state.orderTabActive,
+                tradeTabActive: !this.state.tradeTabActive,
+                dataToShow: [...this.props.bookedOrdersList]
+            })
+        }
+    }
+
+    /**
+      * API call to fetch Booked Orders List data
+      */
+    fetchBookedOrderList = () => {
+        const payload = {
+            "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
+            "gameId": "001",
+            "noOfRows": 20
+        }
+        this.props.onLoadBookedOrders(payload);
+    }
+
+    /**
+      * API call to fetch Executed Orders List data
+      */
+    fetchExecutedOrderList = () => {
+        const payload = {
+            "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
+            "gameId": "001",
+            "noOfRows": 20
+        }
+        this.props.onLoadExecutedOrders(payload);
+        /*  getExecutedOrderList(payload).then((res) => {
+              if (res.data.success) {
+                  if (res.data['data']) {
+                      console.log('executedorders', res.data['data']);
+                  }
+              }
+          }, (err) => {
+          })*/
+    }
+
     render() {
-        return (
-            <div className="exec-orderlist-div">
-                <h3>Executed Orders</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Timestamp</th>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>BID/ASK</th>
-                            <th>Filed</th>
-                            <th>Volume</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
+        console.log('this.state.dataToShow', this.props.bookedOrdersList, this.props.executedOrdersList)
+        let row=[];
+      
+       // this.state.dataToShow=this.props.bookedOrdersList;
+        if(this.state.dataToShow && this.state.dataToShow.length){
+             row = this.state.dataToShow.map((elem, i) => {
+                return (
+                    // <tr key={i}>
+                    //     <td>{elem['orderTime']}</td>
+                    //     <td>{elem['bidOffer']}</td>
+                    //     <td>{elem['price']}</td>
+                    //     <td>{elem['volume']}</td>
+                    //     <td>{elem['orderStatusId']}</td>
+                    // </tr>
+                        <tr key={i}>
                             <td>158</td>
                             <td>11:07:02</td>
                             <td>NCG</td>
                             <td>23.55</td>
                             <td>BID</td>
-                            <td>0/1000</td>
-                            <td>30</td>
-                            <td>Executed</td>
-
+                        </tr>);
+            })
+        }
+   
+        return (
+            <div className="exec-orderlist-div">
+                {/* <h3>Executed Orders</h3> */}
+                <div className="tab-div">
+                    <label className={this.state.orderTabActive ? 'lbl-active' : ''}
+                        onClick={() => { this.showOrderTradeData('orders') }}>Order Book</label>
+                    <label className={this.state.tradeTabActive ? 'lbl-active' : ''}
+                        onClick={() => { this.showOrderTradeData('trades') }}>Trade Book</label>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Bid/Ask</th>
+                            <th>Price</th>
+                            <th>Volume</th>
+                            <th>Status</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        {/* <tr>
+                            <td>158</td>
+                            <td>11:07:02</td>
+                            <td>NCG</td>
+                            <td>23.55</td>
+                            <td>BID</td>
+                        </tr> */}
+                        {row}
                     </tbody>
                 </table>
             </div>
@@ -38,4 +141,24 @@ class ExecutedOrderList extends React.Component {
     }
 }
 
-export default ExecutedOrderList
+
+const mapdispatchToProps = (dispatch) => {
+    return {
+        onLoadBookedOrders: (payload) => {
+            dispatch(actiontypes.LoadBookedOrders(payload));
+        },
+        onLoadExecutedOrders: (payload) => {
+            dispatch(actiontypes.LoadExecutedOrders(payload));
+        },
+    }
+}
+const mapStateToProps = (state) => {
+    // console.log('stateExecutedOrderList', state.fetchDataReducer['bookedOrders'],
+    // state.fetchDataReducer['executedOrders']);
+    return {
+        bookedOrdersList: state.fetchDataReducer['bookedOrders'],
+        executedOrdersList: state.fetchDataReducer['executedOrders'],
+        bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
+    }
+}
+export default connect(mapStateToProps, mapdispatchToProps)(ExecutedOrderList)

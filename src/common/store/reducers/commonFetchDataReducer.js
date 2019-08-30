@@ -8,11 +8,13 @@ const initialState = {
     loginFormError: {
         emailInvalid: false,
         passwordInvalid: false
-    }
+    },
+    bookedOrders: [],
+    executedOrders: []
 }
 
 const FetchDataReducer = (state = initialState, action) => {
-  //  console.log('ftech reducer state action',state,action)
+    //  console.log('ftech reducer state action',state,action)
     switch (action.type) {
         case ActionTypes.Set_User_Details:
             const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };
@@ -36,6 +38,18 @@ const FetchDataReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loginFormError: { ...state.loginFormError, ...loginFormValidity }
+            }
+        case ActionTypes.Fetch_Booked_Orders:
+           // console.log('fetchredbooked',action)
+            return {
+                ...state,
+                bookedOrders: action.data
+            }
+        case ActionTypes.Fetch_Executed_Orders:
+               // console.log('fetchredexecutd',action)
+            return {
+                ...state,
+                executedOrders: action.data
             }
         default:
             return state;

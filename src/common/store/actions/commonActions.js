@@ -14,3 +14,17 @@ export const SetLoginFormValidity=(data)=>{
         value:data['formError']
     }
 }
+
+export const LoadBookedOrders=(payload)=>{
+    return {
+        type:Actiontypes.Load_Booked_Orders,
+        payload:payload
+    }
+}
+
+export const LoadExecutedOrders=(payload)=>{
+    return {
+        type:Actiontypes.Load_Executed_Orders,
+        payload:payload
+    }
+}
