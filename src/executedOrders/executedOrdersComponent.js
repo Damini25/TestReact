@@ -82,7 +82,7 @@ class ExecutedOrderList extends React.Component {
     }
 
     render() {
-        console.log('this.state.dataToShow', this.props.bookedOrdersList, this.props.executedOrdersList)
+       // console.log('this.state.dataToShow', this.props.bookedOrdersList, this.props.executedOrdersList)
         let row=[];
       
        // this.state.dataToShow=this.props.bookedOrdersList;

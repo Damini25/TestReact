@@ -11,7 +11,7 @@ class NewsFeed extends React.Component {
     }
 
     render() {
-        console.log('newsList', this.props.newsList, this.props.newsList.join(' '));
+      //  console.log('newsList', this.props.newsList, this.props.newsList.join(' '));
         const news1 = <h5>hello</h5>
         const news = this.props.newsList && this.props.newsList.length ?
             this.props.newsList.map((elem, index) => {

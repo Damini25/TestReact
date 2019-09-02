@@ -27,3 +27,17 @@ export const AddToTotalBidOrders = (item) => {
         element: item
     }
 }
+
+export const AddMinMaxTotalAskOrders = (item) => {
+    return {
+        type: Actiontypes.Add_MinMax_Ask_TOrders,
+        element: item
+    }
+}
+
+export const AddMinMaxTotalBidOrders = (item) => {
+    return {
+        type: Actiontypes.Add_MinMax_Bid_TOrders,
+        element: item
+    }
+}

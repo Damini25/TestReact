@@ -3,7 +3,9 @@ import * as ActionTypes from '../actions/actionTypes';
 const initialState = {
     totalOrderTillNow: {
         askOrders: [],
-        bidOrders: []
+        bidOrders: [],
+        minMaxAskOrders: [],
+        minMaxBidOrders: []
     }
 }
 
@@ -45,6 +47,21 @@ const ChartReducer = (state = initialState, action) => {
         case ActionTypes.Add_To_Bid_TOrders: {
             const newOrders = { ...state.totalOrderTillNow }
             newOrders.bidOrders = [...newOrders.bidOrders, ...action.element];
+            return {
+                ...state, totalOrderTillNow: newOrders
+            }
+        }
+        case ActionTypes.Add_MinMax_Ask_TOrders: {
+            console.log('cc',action);
+            const newOrders = { ...state.totalOrderTillNow }
+            newOrders.minMaxAskOrders = [...newOrders.minMaxAskOrders, action.element['minAsk']];
+            return {
+                ...state, totalOrderTillNow: newOrders
+            }
+        }
+        case ActionTypes.Add_MinMax_Bid_TOrders: {
+            const newOrders = { ...state.totalOrderTillNow }
+            newOrders.minMaxBidOrders = [...newOrders.minMaxBidOrders, action.element['maxBid']];
             return {
                 ...state, totalOrderTillNow: newOrders
             }
