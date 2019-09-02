@@ -10,7 +10,8 @@ const initialState = {
         passwordInvalid: false
     },
     bookedOrders: [],
-    executedOrders: []
+    executedOrders: [],
+    newsFeed:[]
 }
 
 const FetchDataReducer = (state = initialState, action) => {
@@ -51,6 +52,12 @@ const FetchDataReducer = (state = initialState, action) => {
                 ...state,
                 executedOrders: action.data
             }
+            case ActionTypes.Fetch_News_List:
+                // console.log('fetchredexecutd',action)
+             return {
+                 ...state,
+                 newsFeed: action.data
+             }
         default:
             return state;
     }

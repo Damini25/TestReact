@@ -28,3 +28,9 @@ export const LoadExecutedOrders=(payload)=>{
         payload:payload
     }
 }
+
+export const LoadNewsList=()=>{
+    return {
+        type:Actiontypes.Load_News_List
+    }
+}

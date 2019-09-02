@@ -35,3 +35,8 @@ export const getExecutedOrderList = (payload) => {
   return axios.get(process.env.PUBLIC_URL+'/mockData/orderList.json');
  // return axios.post(`${env.apiUrl}`+'/userdashb/orderscreen/book',payload,null);
 }  
+
+export const getNewsList = (payload) => {
+  return axios.get(process.env.PUBLIC_URL+'/mockData/news.json');
+ // return axios.post(`${env.apiUrl}`+'/userdashb/orderscreen/book',payload,null);
+}  

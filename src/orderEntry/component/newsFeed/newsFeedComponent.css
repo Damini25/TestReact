@@ -1,4 +1,17 @@
-.parent-div .news-feed-div{
+.news-list{
+white-space: nowrap;
+color:blue;
+}
+.news-else-placeholder{
+visibility: hidden;
+}
+.ticker{
+    height:45px !important;
+}
+
+
+
+/*.parent-div .news-feed-div{
     border:1px solid #eee;
     min-width: 30%;
 }
@@ -27,4 +40,4 @@
 }
 .tempColor{
     color:#000000d9 !important;
-}
+}*/

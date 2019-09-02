@@ -17,3 +17,5 @@ export const Load_Booked_Orders="Load_Booked_Orders";
 export const Load_Executed_Orders="Load_Executed_Orders";
 export const Fetch_Booked_Orders="Fetch_Booked_Orders";
 export const Fetch_Executed_Orders="Fetch_Executed_Orders";
+export const Fetch_News_List="Fetch_News_List";
+export const Load_News_List="Load_News_List"
