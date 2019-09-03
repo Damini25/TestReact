@@ -1,7 +1,7 @@
 import React from 'react';
 import Chart from 'chart.js';
 import 'chartjs-plugin-zoom';
-import './securityChartComponent.css';
+import './securityChartComponent.scss';
 import { connect } from 'react-redux';
 
 class SecurityChart extends React.Component {
@@ -740,16 +740,20 @@ class SecurityChart extends React.Component {
         const bidData = [];
         const askData = [];
         this.props.minMaxBidOrders.map((elem) => {
-            bidData.push({
-               // x: this.convertTimeToDecimal(elem.order.timestamp),
-                y: elem.order.price
-            })
+            if (elem) {
+                bidData.push({
+                    // x: this.convertTimeToDecimal(elem.order.timestamp),
+                    y: elem.order.price
+                })
+            }
         });
         this.props.minMaxAskOrders.map((elem) => {
-            askData.push({
-               // x: this.convertTimeToDecimal(elem.order.timestamp),
-                y: elem.order.price
-            })
+            if (elem) {
+                askData.push({
+                    // x: this.convertTimeToDecimal(elem.order.timestamp),
+                    y: elem.order.price
+                })
+            }
         });
         //   console.log('componentDidUpdate', this.props.askOrderList);
         console.log('componentDidUpdate', askData, bidData, this.convertTimeToDecimal('4:30'));
@@ -760,8 +764,8 @@ class SecurityChart extends React.Component {
                 datasets: [
                     {
                         label: '# Bid',
-                       // data: this.props.bidOrderList,
-                        data:bidData,
+                        // data: this.props.bidOrderList,
+                        data: bidData,
                         borderWidth: 1,
                         fill: false,
                         backgroundColor: "#ed7d31",
@@ -780,8 +784,8 @@ class SecurityChart extends React.Component {
                     },
                     {
                         label: '# Ask',
-                       // data: this.props.askOrderList,
-                        data:askData,
+                        // data: this.props.askOrderList,
+                        data: askData,
                         borderWidth: 1,
                         fill: false,
                         backgroundColor: "#5b9bd5",
@@ -884,8 +888,8 @@ const mapStateToProps = (state) => {
         askOrderList: state.chartReducer['totalOrderTillNow']['askOrders'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
         stockSymbolData: state.fetchDataReducer.stockSymbols['data'],
-        minMaxAskOrders:state.chartReducer['totalOrderTillNow']['minMaxAskOrders'],
-        minMaxBidOrders:state.chartReducer['totalOrderTillNow']['minMaxBidOrders']
+        minMaxAskOrders: state.chartReducer['totalOrderTillNow']['minMaxAskOrders'],
+        minMaxBidOrders: state.chartReducer['totalOrderTillNow']['minMaxBidOrders']
     }
 }
 

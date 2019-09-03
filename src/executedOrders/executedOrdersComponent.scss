@@ -5,19 +5,34 @@
     // margin-left: 20%;
     display: flex;
     flex-direction: column;
+    .table-div{
+        height: 100%;
+    }
     table{
     border: 1px solid #eee;
     border-spacing: 0;
-    margin: 2%;
+    // margin: 2%;
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    overflow: auto;
     thead{
         tr{
             background-color: #BCD6EE;
+            th{
+                width: 23%;
+            }
         }
     }
     tbody{
         td{
             text-align: center;
+            width: 23%;
+            }
         }
+    tr{
+    display: flex;
+    flex-direction: row;
         }
     }
     .tab-div{

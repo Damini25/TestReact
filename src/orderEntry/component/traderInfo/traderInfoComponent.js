@@ -1,5 +1,5 @@
 import React from 'react';
-import './traderInfoComponent.css';
+import './traderInfoComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../../common/store/actions/actionIndex';
 

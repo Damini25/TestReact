@@ -13,28 +13,33 @@ class ExecutedOrderList extends React.Component {
 
     componentDidMount() {
         this.fetchBookedOrderList();
-        this.fetchExecutedOrderList();
+        // this.fetchExecutedOrderList();
         this.setState({
             ...this.state,
             dataToShow: [...this.props.bookedOrdersList]
         })
     }
     componentDidUpdate(prevProps) {
-        if(prevProps.bookedOrdersList !==this.props.bookedOrdersList){
+        if (prevProps.bookedOrdersList !== this.props.bookedOrdersList) {
             this.setState({
                 orderTabActive: this.state.orderTabActive,
                 tradeTabActive: this.state.tradeTabActive,
-                dataToShow:this.props.bookedOrdersList
+                dataToShow: this.props.bookedOrdersList
             })
+        }
+        if (this.props.bookOrderFormNewValue['stockSymbol'] &&
+            prevProps.bookOrderFormNewValue['stockSymbol'] !== this.props.bookOrderFormNewValue['stockSymbol']) {
+            this.fetchBookedOrderList();
         }
     }
     showOrderTradeData(type) {
         // this.setState({
+        //     ...this.state,
         //     orderTabActive: !this.state.orderTabActive,
         //     tradeTabActive: !this.state.tradeTabActive
         // })
-        console.log('ss',this.state);
-        if (this.state.tradeTabActive) {
+       // console.log('ss', this.state);
+        if (type === 'trades') {
             this.setState({
                 orderTabActive: !this.state.orderTabActive,
                 tradeTabActive: !this.state.tradeTabActive,
@@ -55,7 +60,8 @@ class ExecutedOrderList extends React.Component {
     fetchBookedOrderList = () => {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
-            "gameId": "001",
+            "gameId": 1,
+            "traderId": 999,
             "noOfRows": 20
         }
         this.props.onLoadBookedOrders(payload);
@@ -82,30 +88,33 @@ class ExecutedOrderList extends React.Component {
     }
 
     render() {
-       // console.log('this.state.dataToShow', this.props.bookedOrdersList, this.props.executedOrdersList)
-        let row=[];
-      
-       // this.state.dataToShow=this.props.bookedOrdersList;
-        if(this.state.dataToShow && this.state.dataToShow.length){
-             row = this.state.dataToShow.map((elem, i) => {
+        // console.log('this.state.dataToShow', this.props.bookedOrdersList, this.props.executedOrdersList)
+        let row = [];
+
+        // this.state.dataToShow=this.props.bookedOrdersList;
+        if (this.state.dataToShow && this.state.dataToShow.length) {
+            row = this.state.dataToShow.map((elem, i) => {
+                const d = new Date(elem['orderTime']);
+                const date = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
                 return (
+                    <tr key={i}>
+                        <td>{date}</td>
+                        <td>{elem['bidOffer']}</td>
+                        <td>{elem['price']}</td>
+                        <td>{elem['totalQty']}</td>
+                        <td>{elem['orderStatusId']}</td>
+                    </tr>
                     // <tr key={i}>
-                    //     <td>{elem['orderTime']}</td>
-                    //     <td>{elem['bidOffer']}</td>
-                    //     <td>{elem['price']}</td>
-                    //     <td>{elem['volume']}</td>
-                    //     <td>{elem['orderStatusId']}</td>
+                    //     <td>158</td>
+                    //     <td>11:07:02</td>
+                    //     <td>NCG</td>
+                    //     <td>23.55</td>
+                    //     <td>BID</td>
                     // </tr>
-                        <tr key={i}>
-                            <td>158</td>
-                            <td>11:07:02</td>
-                            <td>NCG</td>
-                            <td>23.55</td>
-                            <td>BID</td>
-                        </tr>);
+                );
             })
         }
-   
+
         return (
             <div className="exec-orderlist-div">
                 {/* <h3>Executed Orders</h3> */}
@@ -115,27 +124,22 @@ class ExecutedOrderList extends React.Component {
                     <label className={this.state.tradeTabActive ? 'lbl-active' : ''}
                         onClick={() => { this.showOrderTradeData('trades') }}>Trade Book</label>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Bid/Ask</th>
-                            <th>Price</th>
-                            <th>Volume</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* <tr>
-                            <td>158</td>
-                            <td>11:07:02</td>
-                            <td>NCG</td>
-                            <td>23.55</td>
-                            <td>BID</td>
-                        </tr> */}
-                        {row}
-                    </tbody>
-                </table>
+                <div className="table-div">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Bid/Ask</th>
+                                <th>Price</th>
+                                <th>Volume</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {row}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }

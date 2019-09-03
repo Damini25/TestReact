@@ -1,5 +1,5 @@
 import React from 'react';
-import './askComponent.css';
+import './askComponent.scss';
 import _ from 'lodash';
 
 class AskComponent extends React.Component {

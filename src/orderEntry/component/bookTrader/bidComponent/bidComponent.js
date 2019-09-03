@@ -1,5 +1,5 @@
 import React from 'react';
-import './bidComponent.css';
+import './bidComponent.scss';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../../../common/store/actions/actionIndex';
@@ -26,8 +26,8 @@ class BidComponent extends React.Component {
             const random = this.randomNumber(0, 1);
             return (
                 <tr key={i} className={random === 1 ? 'backgroundBlue' : ''}>
-                    <td ><a  href="#" onClick={() => { this.props.bidPriceClicked(elem) }}>{elem['price']}</a></td>
                     <td>{elem['totalQty']}</td>
+                    <td ><a  href="#" onClick={() => { this.props.bidPriceClicked(elem) }}>{elem['price']}</a></td>
                 </tr>
             );
         })
@@ -38,8 +38,8 @@ class BidComponent extends React.Component {
                 <table>
                     <thead>
                         <tr>
-                            <th>Price</th>
                             <th>Volume</th>
+                            <th>Price</th>
                         </tr>
                     </thead>
                     <tbody>

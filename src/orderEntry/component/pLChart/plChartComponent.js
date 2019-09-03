@@ -1,6 +1,6 @@
 import React from 'react';
 import Chart from 'chart.js';
-import './plChartComponent.css';
+import './plChartComponent.scss';
 
 class LineChart extends React.Component {
 

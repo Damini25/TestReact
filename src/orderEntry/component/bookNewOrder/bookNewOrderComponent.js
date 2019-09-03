@@ -1,5 +1,5 @@
 import React from 'react';
-import './bookNewOrderComponent.css';
+import './bookNewOrderComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../../common/store/actions/actionIndex';
 import { showToast } from '../../../common/component/toastMessages/toastcomponent';

@@ -1,5 +1,5 @@
 import React from 'react';
-import './orderEntry.css';
+import './orderEntry.scss';
 import { env } from '../../common/environment';
 import { bookNewOrder } from '../services/orderEntry.service';
 import PLChart from '../component/pLChart/plChartComponent';

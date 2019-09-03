@@ -2,8 +2,10 @@ import axios from 'axios';
 import { env } from '../../common/environment';
 
 export const getInitialOrderList = (payload) => {
-  return axios.get(process.env.PUBLIC_URL + '/mockData/orderList.json');
-  //  return axios.post(`${env.apiUrl}`+'/userdashb/bidaskscreen/fetch',payload);
+ // return axios.get(process.env.PUBLIC_URL + '/mockData/orderList.json');
+ // return axios.post(`${env.apiUrl}`+'/userdashb/bidaskscreen/fetch',payload);
+  return axios.post(`${env.apiUrl}`+'/trading/ordermgmt-service/userdashb/bidaskscreen/fetch',payload);
+
 }
 
 export const getChartDataInitialOrderList = (payload) => {
@@ -28,8 +30,8 @@ export const getProducts = () => {
 }
 
 export const getBookedOrderList = (payload) => {
-  return axios.get(process.env.PUBLIC_URL + '/mockData/orderList.json');
-  // return axios.get(`${env.apiUrl}`+'/userdashb/orderscreen/book',payload,null);
+  //return axios.get(process.env.PUBLIC_URL + '/mockData/orderList.json');
+   return axios.post(`${env.apiUrl}`+'/trading/ordermgmt-service/ordermgmt/orderbook',payload,null);
 }
 
 export const getExecutedOrderList = (payload) => {

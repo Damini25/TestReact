@@ -1,5 +1,5 @@
 import React from 'react';
-import './newsFeedComponent.css';
+import './newsFeedComponent.scss';
 import { connect } from 'react-redux';
 import Ticker from 'react-ticker';
 import * as actiontypes from '../../../common/store/actions/actionIndex';

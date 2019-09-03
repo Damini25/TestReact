@@ -1,6 +1,6 @@
 import React from 'react';
 //import Sidebar from "react-sidebar";
-import './mainNavigationComponent.css'
+import './mainNavigationComponent.scss'
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import SideBar from './menuLinks/menuLinkComponent'
 import OrderEntry from '../orderEntry/container/orderEntry';

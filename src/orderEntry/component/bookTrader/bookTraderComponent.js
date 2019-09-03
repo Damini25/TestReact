@@ -1,5 +1,5 @@
 import React from 'react';
-import './bookTraderComponent.css';
+import './bookTraderComponent.scss';
 import { getInitialOrderList, getChartDataInitialOrderList } from '../../services/orderEntry.service';
 import { connect } from 'react-redux';
 // import { UpdateRecentOrders, AddNewOrders, AddTototalOrders, ClearTotalOrders } from '../../../common/store/actions/actionIndex';
@@ -27,14 +27,15 @@ class BookTrader extends React.Component {
     fetchOrderList = () => {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
-            "gameId": "001",
+            "gameId": 1,
+            "traderId":1,
             "noOfRows": 20
         }
         getInitialOrderList(payload).then((res) => {
             if (res.data.success) {
                 if (res.data['data']) {
                     this.setStateBasedOnOrderData(res.data['data']);
-                    this.setStateForMinMaxTotalOrder(res.data['data']);
+                  //  this.setStateForMinMaxTotalOrder(res.data['data']);
                     if (this.orderListInterval) {
                         clearInterval(this.orderListInterval);
                     }
@@ -49,12 +50,6 @@ class BookTrader extends React.Component {
         })
     }
 
-    /** 
-     * function call to set state on basis of Min Max bid/ask data
-     */
-    setStateForMinMaxTotalOrder(data) {
-        console.log('data', data);
-    }
     /**
     * function call to set state on basis of bid/ask data from api
     */
@@ -94,12 +89,13 @@ class BookTrader extends React.Component {
         const minAskPrice = _.minBy(this.state['minMaxAskOrders'], (o) => {
             return o.order.price;
         });
-        const maxBidPrice=_.maxBy(this.state['minMaxBidOrders'], (o) => {
+        const maxBidPrice = _.maxBy(this.state['minMaxBidOrders'], (o) => {
             return o.order.price;
         });
-        console.log('minmax', this.state,minAskPrice,maxBidPrice);
-        this.props.onAddMinMaxTotalAskOrders({minAsk:minAskPrice});
-        this.props.onAddMinMaxTotalBidOrders({maxBid:maxBidPrice});
+        console.log('minmax', this.state, minAskPrice, maxBidPrice);
+        const time = new Date().getHours() + ':' + new Date().getMinutes();
+        this.props.onAddMinMaxTotalAskOrders({ minAsk: minAskPrice,time:time });
+        this.props.onAddMinMaxTotalBidOrders({ maxBid: maxBidPrice, time:time });
     }
 
     /**
@@ -178,7 +174,7 @@ class BookTrader extends React.Component {
             this.props.onClearTotalOrders();
             this.props.onClearBidAskOrders();
             this.fetchOrderList();
-            this.fetchTotalOrderList();
+          //  this.fetchTotalOrderList();
         }
     }
 
@@ -194,12 +190,12 @@ class BookTrader extends React.Component {
 
     render() {
         const askBid = this.tradeOpen ? <div className="sub-div">
-            <AskComponent orders={this.props.askOrderList}
-                askPriceClicked={this.onClickPrice}>
-            </AskComponent>
             <BidComponent orders={this.props.bidOrderList}
                 bidPriceClicked={this.onClickPrice} >
             </BidComponent>
+            <AskComponent orders={this.props.askOrderList}
+                askPriceClicked={this.onClickPrice}>
+            </AskComponent>
         </div> : <div className="sub-div"> No Trades to display</div>
         return (
             <div className="trader-div">
@@ -270,7 +266,7 @@ const mapdispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log('statebooktrader', state);
+   // console.log('statebooktrader', state);
     // console.log('statebooktrader', state.orderBookReducer.bookOrderFormValue);
     return {
         bidOrderList: state.orderListReducer['ordersToShow']['bidOrders'],
