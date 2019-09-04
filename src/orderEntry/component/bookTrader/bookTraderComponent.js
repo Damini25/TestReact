@@ -39,7 +39,7 @@ class BookTrader extends React.Component {
                     if (this.orderListInterval) {
                         clearInterval(this.orderListInterval);
                     }
-                    //  this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+                  //    this.orderListInterval = setInterval(this.fetchOrderList, 3000);
 
                 }
             }
@@ -92,10 +92,12 @@ class BookTrader extends React.Component {
         const maxBidPrice = _.maxBy(this.state['minMaxBidOrders'], (o) => {
             return o.order.price;
         });
-        console.log('minmax', this.state, minAskPrice, maxBidPrice);
-        const time = new Date().getHours() + ':' + new Date().getMinutes();
-        this.props.onAddMinMaxTotalAskOrders({ minAsk: minAskPrice,time:time });
-        this.props.onAddMinMaxTotalBidOrders({ maxBid: maxBidPrice, time:time });
+     //   console.log('minmax', this.state, minAskPrice, maxBidPrice);
+        const time = new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
+        if(minAskPrice && maxBidPrice){
+            this.props.onAddMinMaxTotalAskOrders({ minAsk: minAskPrice,time:time });
+            this.props.onAddMinMaxTotalBidOrders({ maxBid: maxBidPrice, time:time });
+        }
     }
 
     /**

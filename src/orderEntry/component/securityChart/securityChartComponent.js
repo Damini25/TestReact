@@ -734,129 +734,158 @@ class SecurityChart extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-
-        //    if (prevProps.bidOrderList !== this.props.bidOrderList) {
-
-        const bidData = [];
-        const askData = [];
-        this.props.minMaxBidOrders.map((elem) => {
-            if (elem) {
-                bidData.push({
-                    // x: this.convertTimeToDecimal(elem.order.timestamp),
-                    y: elem.order.price
-                })
-            }
-        });
-        this.props.minMaxAskOrders.map((elem) => {
-            if (elem) {
-                askData.push({
-                    // x: this.convertTimeToDecimal(elem.order.timestamp),
-                    y: elem.order.price
-                })
-            }
-        });
-        //   console.log('componentDidUpdate', this.props.askOrderList);
-        console.log('componentDidUpdate', askData, bidData, this.convertTimeToDecimal('4:30'));
-        this.myChart = new Chart(this.canvasRef.current, {
-            type: 'line',
-            data: {
-                labels: this.timeAxis,
-                datasets: [
-                    {
-                        label: '# Bid',
-                        // data: this.props.bidOrderList,
-                        data: bidData,
-                        borderWidth: 1,
-                        fill: false,
-                        backgroundColor: "#ed7d31",
-                        borderColor: "#ed7d31",
-                        //  lineTension: 0,
-                        //  pointStyle: 'rectRot',
-                        //   pointRadius: 4,
-                        //  pointHitRadius: 10,
-                        pointBorderColor: "black",
-                        pointBackgroundColor: "white",
-                        pointBorderWidth: 1,
-                        pointHoverRadius: 8,
-                        pointHoverBackgroundColor: "yellow",
-                        pointHoverBorderColor: "brown",
-                        pointHoverBorderWidth: 2,
-                    },
-                    {
-                        label: '# Ask',
-                        // data: this.props.askOrderList,
-                        data: askData,
-                        borderWidth: 1,
-                        fill: false,
-                        backgroundColor: "#5b9bd5",
-                        borderColor: "#5b9bd5",
-                        borderColor: "blue",
-                        // lineTension: 0,
-                        //  pointStyle: 'rectRot',
-                        //  pointRadius: 4,
-                        //  pointHitRadius: 10,
-                        pointBorderColor: "black",
-                        pointBackgroundColor: "white",
-                        pointBorderWidth: 1,
-                        pointHoverRadius: 8,
-                        pointHoverBackgroundColor: "yellow",
-                        pointHoverBorderColor: "brown",
-                        pointHoverBorderWidth: 2,
-                    }
-                ]
-            },
-            options: {
-                showTooltips: false,
-                elements: {
-                    point: {
-                        radius: 0
-                    }
-                },
-                legend: {
-                    display: true,
-                },
-                scales: {
-                    xAxes: [{
-                        gridLines: {
-                            display: false
+        // console.log('prevProps', this.props.minMaxBidOrders, this.props.minMaxAskOrders);
+        if (prevProps.minMaxBidOrders !== this.props.minMaxBidOrders) {
+            const bidData = [];
+            const askData = [];
+            this.props.minMaxBidOrders.map((elem) => {
+                if (elem) {
+                    bidData.push({
+                        x: this.convertTimeToDecimal(elem.time),
+                        y: elem.maxBid.order.price
+                    })
+                }
+            });
+            this.props.minMaxAskOrders.map((elem) => {
+                if (elem) {
+                    askData.push({
+                        // x: this.convertTimeToDecimal(elem.order.timestamp),
+                        x: this.convertTimeToDecimal(elem.time),
+                        y: elem.minAsk.order.price
+                    })
+                    console.log('ask',elem.time, this.convertTimeToDecimal(elem.time));
+                }
+            });
+         //   console.log('componentDidUpdate', askData, bidData, this.convertTimeToDecimal('16:05:02'));
+            this.myChart = new Chart(this.canvasRef.current, {
+                type: 'line',
+                data: {
+                   // labels: [],
+                    datasets: [
+                        {
+                            label: '# Bid',
+                            // data: this.props.bidOrderList,
+                            data:bidData,
+                            // data: [{
+                            //     y:'23.5',
+                            //     x:'13.9'
+                            // },
+                            // {
+                            //     y:'23.5',
+                            //     x:'13.9'
+                            // },
+                            // {
+                            //     y:'23.5',
+                            //     x:'13.9'
+                            // },
+                            // {
+                            //     y:'28.5',
+                            //     x:'14.2'
+                            // },
+                            // {
+                            //     y:'26.5',
+                            //     x:'14.2'
+                            // },
+                            // {
+                            //     y:'27.5',
+                            //     x:'14.3'
+                            // }],
+                            borderWidth: 1,
+                            fill: false,
+                            backgroundColor: "#ed7d31",
+                            borderColor: "#ed7d31",
+                           // lineTension: 1,
+                            //  pointStyle: 'rectRot',
+                            //   pointRadius: 4,
+                            //  pointHitRadius: 10,
+                            pointBorderColor: "#ed7d31",
+                            pointBackgroundColor: "#ed7d31",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 4,
+                            pointHoverBackgroundColor: "#ed7d31",
+                            pointHoverBorderColor: "black",
+                            pointHoverBorderWidth: 2,
                         },
-                        // ticks: {
-                        //     padding: 5,
-                        //     min: 6,
-                        //     max: 18,
-                        //     stepSize: 1
-                        // },
-                        //  type: 'linear'
-                    }],
-                    yAxes: [{
-                        gridLines: {
-                            drawBorder: false,
-                        },
-                        ticks: {
-                            padding: 15
+                        {
+                            label: '# Ask',
+                            // data: this.props.askOrderList,
+                            data: askData,
+                            borderWidth: 1,
+                            fill: false,
+                            backgroundColor: "#5b9bd5",
+                            borderColor: "#5b9bd5",
+                            borderColor: "#5b9bd5",
+                            // lineTension: 0,
+                            //  pointStyle: 'rectRot',
+                            //  pointRadius: 4,
+                            //  pointHitRadius: 10,
+                            pointBorderColor: "#5b9bd5",
+                            pointBackgroundColor: "#5b9bd5",
+                            pointBorderWidth: 1,
+                            pointHoverRadius: 4,
+                            pointHoverBackgroundColor: "#5b9bd5",
+                            pointHoverBorderColor: "black",
+                            pointHoverBorderWidth: 2,
                         }
-                    }]
+                    ]
                 },
-                // pan: {
-                //     enabled: true,
-                //     mode: 'yx'
-                // },
-                // zoom: {
-                //     enabled: true,
-                //     mode: 'xy',
-                // }
-            }
-        });
-        // }
+                options: {
+                    showTooltips: false,
+                    animation:false,
+                    elements: {
+                        point: {
+                            radius: 0.4
+                        }
+                    },
+                    legend: {
+                        display: true,
+                    },
+                    scales: {
+                        xAxes: [{
+                            gridLines: {
+                                display: false
+                            },
+                            ticks:{
+                                precision:2
+                            },
+                            // ticks: {
+                            //     padding: 5,
+                            //     min: 6,
+                            //     max: 18,
+                            //     stepSize: 1
+                            // },
+                            type: 'linear'
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                drawBorder: false,
+                            },
+                            ticks: {
+                                padding: 15
+                            }
+                        }]
+                    },
+                    // pan: {
+                    //     enabled: true,
+                    //     mode: 'yx'
+                    // },
+                    // zoom: {
+                    //     enabled: true,
+                    //     mode: 'xy',
+                    // }
+                }
+            });
+        }
     }
 
     convertTimeToDecimal(val) {
         if (val && val.indexOf(':') > -1) {
             val = val.split(':');
-            val = parseFloat(parseInt(val[0], 10) + parseInt(val[1], 10) / 60);
-            return Math.round(val * 100) / 100;
+            val = parseFloat(parseInt(val[0], 10) + parseInt(val[1], 10) / 60 + parseInt(val[2], 10) / 3600 );
+            return Math.round(val * 1000) / 1000;
         } else {
-            return parseInt(val, 10);
+            const v = parseInt(val, 10);
+            return Math.round(v * 1000) / 1000;
         }
     }
 
@@ -882,7 +911,7 @@ class SecurityChart extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    //  console.log('chart',state.chartReducer)
+    // console.log('chart', state.chartReducer['totalOrderTillNow'])
     return {
         bidOrderList: state.chartReducer['totalOrderTillNow']['bidOrders'],
         askOrderList: state.chartReducer['totalOrderTillNow']['askOrders'],

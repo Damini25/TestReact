@@ -21,7 +21,7 @@ export const getLatestOrderList = (payload) => {
 }
 
 export const bookNewOrder = (payload) => {
-  return axios.post(`${env.apiUrl}` + '/userdashb/orderscreen/book', payload, null);
+  return axios.post(`${env.apiUrl}` + '/trading/ordermgmt-service/ordermgmt/neworder', payload, null);
 }
 
 export const getProducts = () => {
