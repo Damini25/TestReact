@@ -27,7 +27,7 @@ class AskComponent extends React.Component {
         
         return (
             <div >
-                <h3>Ask</h3>
+                <h3>Sell</h3>
                 <table>
                     <thead>
                         <tr>

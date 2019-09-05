@@ -52,7 +52,7 @@ const ChartReducer = (state = initialState, action) => {
             }
         }
         case ActionTypes.Add_MinMax_Ask_TOrders: {
-          //  console.log('cc',action);
+            //  console.log('cc',action);
             const newOrders = { ...state.totalOrderTillNow }
             newOrders.minMaxAskOrders = [...newOrders.minMaxAskOrders, action.element];
             return {
@@ -66,7 +66,14 @@ const ChartReducer = (state = initialState, action) => {
                 ...state, totalOrderTillNow: newOrders
             }
         }
-
+        case ActionTypes.Clear_MinMax_AskBid_TOrders: {
+            return {
+                ...state, totalOrderTillNow: {
+                    ...state['totalOrderTillNow'], minMaxAskOrders: [],
+                    minMaxBidOrders: []
+                }
+            }
+        }
         default:
             return state;
     }

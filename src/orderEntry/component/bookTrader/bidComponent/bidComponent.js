@@ -34,7 +34,7 @@ class BidComponent extends React.Component {
 
         return (
             <div>
-                <h3>Bid</h3>
+                <h3>Buy</h3>
                 <table>
                     <thead>
                         <tr>

@@ -6,6 +6,7 @@ import SideBar from './menuLinks/menuLinkComponent'
 import OrderEntry from '../orderEntry/container/orderEntry';
 import ManageGame from '../manageGame/manageGameComponent';
 import ExecOrderList from '../executedOrders/executedOrdersComponent';
+import CreateGame from '../manageGame/createGame/createGameComponent';
 
 class MainNavigation extends React.Component {
 
@@ -33,6 +34,7 @@ class MainNavigation extends React.Component {
                         {/* <Route path="/mainNav" component={OrderEntry} ></Route> */}
                         <Route path="/mainNav/orderEntry" component={OrderEntry} ></Route>
                         <Route path="/mainNav/manageGame" component={ManageGame} ></Route>
+                        <Route path="/mainNav/createGame" component={CreateGame} ></Route>
                         <Route path="/mainNav/execOrderList" component={ExecOrderList} ></Route>
                     </Switch>
 

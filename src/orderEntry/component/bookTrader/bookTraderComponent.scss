@@ -1,5 +1,5 @@
 .parent-div .trader-div{
-    /* border:1px solid black; */
+    border: 1px solid #eee;
     min-width: 30%;
     position: relative;
 }
@@ -15,7 +15,7 @@
 
 .trader-div .sub-div{
     display: flex;
-     height: 81%; 
+     height: 91%; 
     width: 100%;
     position: absolute;
 }

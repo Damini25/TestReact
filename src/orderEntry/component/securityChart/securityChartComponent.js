@@ -734,7 +734,7 @@ class SecurityChart extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-       // console.log('prevProps', this.props.minMaxBidOrders, this.props.minMaxAskOrders);
+        console.log('prevProps', this.props.minMaxBidOrders, this.props.minMaxAskOrders);
         if (prevProps.minMaxBidOrders !== this.props.minMaxBidOrders ||
             prevProps.minMaxAskOrders !== this.props.minMaxAskOrders) {
             const bidData = [];

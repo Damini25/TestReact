@@ -6,12 +6,21 @@ class MenuLinks extends React.Component {
         super(props);
         this.props = props;
         this.state = {
-            menuOpen: false
+            menuOpen: false,
+            showGameMenu: false
         }
     }
 
     handleMenuStateChange(state) {
         this.setState({ menuOpen: state.isOpen })
+    }
+
+    showNestedMenu(val) {
+        if (val === 'game') {
+            this.setState({
+                ...this.state, showGameMenu: !this.state.showGameMenu
+            })
+        }
     }
 
     closeMenuOnNavClick() {
@@ -29,7 +38,7 @@ class MenuLinks extends React.Component {
         return (
             <Menu isOpen={this.state.menuOpen} onStateChange={(state) => this.handleMenuStateChange(state)}
                 customBurgerIcon={
-                    <i className="fa fa-bars menu-btn" aria-hidden="true"></i>
+                    <i className="fa fa-bars font-i-btn" aria-hidden="true"></i>
                 } customCrossIcon={<i className="fa fa-angle-double-left" ></i>}>
 
                 <div className="menu-userimg-div">
@@ -41,9 +50,24 @@ class MenuLinks extends React.Component {
 
                 <NavLink activeClassName='is-active'>Portfolio</NavLink>
 
-                {/* <NavLink activeClassName='is-active' to={{
-                    pathname: this.props.match.url + "/manageGame"
-                }} onClick={() => { this.closeMenuOnNavClick() }}>Games</NavLink> */}
+                <div>
+                    <label onClick={() => this.showNestedMenu('game')}>Game
+                     {this.state.showGameMenu ? <i className="fa fa-caret-up font-i-nestedbtn"></i> :
+                        <i className="fa fa-caret-down font-i-nestedbtn"></i>
+                    }
+                    </label>
+                   
+
+                    {this.state.showGameMenu ? <div className="nested-menu-item-div">
+                        <NavLink className="bm-item" activeClassName='is-active' >Manage Game
+                    </NavLink>
+                        <NavLink className="bm-item" activeClassName='is-active' to={{
+                            pathname: this.props.match.url + "/createGame"
+                        }} onClick={() => { this.closeMenuOnNavClick() }}>Create Game</NavLink>
+                    </div> : ''}
+                </div>
+
+
 
                 {/* <NavLink activeClassName='is-active' to={{
                     pathname: this.props.match.url + "/execOrderList"

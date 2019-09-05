@@ -41,3 +41,10 @@ export const AddMinMaxTotalBidOrders = (item) => {
         element: item
     }
 }
+
+export const ClearTotalMinMaxOrders = (item) => {
+    return {
+        type: Actiontypes.Clear_MinMax_AskBid_TOrders,
+        element: item
+    }
+}

@@ -28,18 +28,18 @@ class BookTrader extends React.Component {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
             "gameId": 1,
-            "traderId":1,
+            "traderId": 1,
             "noOfRows": 20
         }
         getInitialOrderList(payload).then((res) => {
             if (res.data.success) {
                 if (res.data['data']) {
                     this.setStateBasedOnOrderData(res.data['data']);
-                  //  this.setStateForMinMaxTotalOrder(res.data['data']);
+                    //  this.setStateForMinMaxTotalOrder(res.data['data']);
                     if (this.orderListInterval) {
                         clearInterval(this.orderListInterval);
                     }
-                this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+                      this.orderListInterval = setInterval(this.fetchOrderList, 3000);
 
                 }
             }
@@ -92,11 +92,11 @@ class BookTrader extends React.Component {
         const maxBidPrice = _.maxBy(this.state['minMaxBidOrders'], (o) => {
             return o.order.price;
         });
-     //   console.log('minmax', this.state, minAskPrice, maxBidPrice);
+        //   console.log('minmax', this.state, minAskPrice, maxBidPrice);
         const time = new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
-        if(minAskPrice && maxBidPrice){
-            this.props.onAddMinMaxTotalAskOrders({ minAsk: minAskPrice,time:time });
-            this.props.onAddMinMaxTotalBidOrders({ maxBid: maxBidPrice, time:time });
+        if (minAskPrice && maxBidPrice) {
+            this.props.onAddMinMaxTotalAskOrders({ minAsk: minAskPrice, time: time });
+            this.props.onAddMinMaxTotalBidOrders({ maxBid: maxBidPrice, time: time });
         }
     }
 
@@ -176,7 +176,7 @@ class BookTrader extends React.Component {
             this.props.onClearTotalOrders();
             this.props.onClearBidAskOrders();
             this.fetchOrderList();
-          //  this.fetchTotalOrderList();
+            //  this.fetchTotalOrderList();
         }
     }
 
@@ -203,7 +203,7 @@ class BookTrader extends React.Component {
             <div className="trader-div">
                 <h3>Buy/Sell</h3>
 
-                <div className="product-drop">
+                {/* <div className="product-drop">
                     <select onChange={(e) => { this.productChange(e) }}
                         value={this.props.bookOrderFormNewValue['stockSymbol']}
                         name="stockSymbol">
@@ -217,7 +217,7 @@ class BookTrader extends React.Component {
                                 )
                             }) : ''}
                     </select>
-                </div>
+                </div>*/}
 
                 {askBid}
             </div>
@@ -268,7 +268,7 @@ const mapdispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-   // console.log('statebooktrader', state);
+    // console.log('statebooktrader', state);
     // console.log('statebooktrader', state.orderBookReducer.bookOrderFormValue);
     return {
         bidOrderList: state.orderListReducer['ordersToShow']['bidOrders'],

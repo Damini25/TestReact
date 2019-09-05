@@ -21,9 +21,10 @@ class ExecutedOrderList extends React.Component {
     }
     componentDidUpdate(prevProps) {
         if (prevProps.bookedOrdersList !== this.props.bookedOrdersList) {
+            console.log('list',this.props.bookedOrdersList)
             this.setState({
-                orderTabActive: this.state.orderTabActive,
-                tradeTabActive: this.state.tradeTabActive,
+                orderTabActive: true,
+                tradeTabActive: false,
                 dataToShow: this.props.bookedOrdersList
             })
         }
@@ -104,8 +105,10 @@ class ExecutedOrderList extends React.Component {
         // this.state.dataToShow=this.props.bookedOrdersList;
         if (this.state.dataToShow && this.state.dataToShow.length) {
             row = this.state.dataToShow.map((elem, i) => {
-                const d = new Date(elem['orderTime']);
+                const time= this.state.tradeTabActive ? elem['orderExecutionTime']:elem['orderTime']
+                const d = new Date(time);
                 const date = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+               
                 return (
                     <tr key={i}>
                         <td>{date}</td>

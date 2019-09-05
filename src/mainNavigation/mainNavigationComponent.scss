@@ -80,7 +80,7 @@
   .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
   }
-  .menu-btn{
+  .font-i-btn{
     font-size:31px;
     color: white
   }
@@ -109,4 +109,11 @@
 
   .bm-cross-button :focus{
     outline: none;
+  }
+  .nested-menu-item-div{
+  display: flex;
+  flex-direction: column;
+  }
+  .font-i-nestedbtn{
+    margin-left:3%
   }

@@ -57,6 +57,13 @@ class BookNewOrder extends React.Component {
                 })
             }, 2000);
             this.props.onResetOrderFormValues();
+            const payload2 = {
+                "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
+                "gameId": 1,
+                "traderId": 999,
+                "noOfRows": 20
+            }
+            this.props.onLoadBookedOrders(payload2);
             //   }
         }, (err) => {
             // showToast('error', err);
@@ -162,7 +169,8 @@ const mapStateToProps = (state) => {
     return {
         formValues: state.orderBookReducer.bookOrderFormValue,
         stockSymbol: state.fetchDataReducer.stockSymbols['data'],
-        defaultStockSymbol: 'Select stock symbol'
+        defaultStockSymbol: 'Select stock symbol',
+        bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
     }
 }
 
@@ -173,6 +181,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onResetOrderFormValues: () => {
             dispatch(actiontypes.ResetOrderFormValues())
+        },
+        onLoadBookedOrders: (payload) => {
+            dispatch(actiontypes.LoadBookedOrders(payload));
         }
     }
 }
