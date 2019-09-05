@@ -73,7 +73,6 @@ class BookNewOrder extends React.Component {
                             <label>Product Name</label>
                             <select onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['stockSymbol']}
-
                                 name="stockSymbol">
 
                                 <option disabled value="">Select product name</option>
@@ -98,7 +97,7 @@ class BookNewOrder extends React.Component {
                                     checked={this.props.formValues['transaction'] === 'Bid'}
                                     onChange={(e) => { this.handleChange(e) }}
                                 />
-                                <label htmlFor="bid">Bid</label>
+                                <label htmlFor="bid">Buy</label>
                             </div>
                             <div className="transaction-radio-div">
                                 <input
@@ -109,7 +108,7 @@ class BookNewOrder extends React.Component {
                                     checked={this.props.formValues['transaction'] === 'Ask'}
                                     onChange={(e) => { this.handleChange(e) }}
                                 />
-                                <label htmlFor="ask">Ask</label>
+                                <label htmlFor="ask">Sell</label>
                             </div>
 
                             {/* <select onChange={(e) => { this.handleChange(e) }}
@@ -137,11 +136,11 @@ class BookNewOrder extends React.Component {
                                 </option>
                             </select>
                         </div>
-                        <div>
+                        {this.props.formValues['orderType']==='limit' ? <div>
                             <label>Price</label>
                             <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['price']} name="price" />
-                        </div>
+                        </div> : ""}
                         <div>
                             <label>Quantity</label>
                             <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}

@@ -39,7 +39,7 @@ class BookTrader extends React.Component {
                     if (this.orderListInterval) {
                         clearInterval(this.orderListInterval);
                     }
-                  //    this.orderListInterval = setInterval(this.fetchOrderList, 3000);
+                this.orderListInterval = setInterval(this.fetchOrderList, 3000);
 
                 }
             }
@@ -201,7 +201,7 @@ class BookTrader extends React.Component {
         </div> : <div className="sub-div"> No Trades to display</div>
         return (
             <div className="trader-div">
-                <h3>Bid/Ask</h3>
+                <h3>Buy/Sell</h3>
 
                 <div className="product-drop">
                     <select onChange={(e) => { this.productChange(e) }}

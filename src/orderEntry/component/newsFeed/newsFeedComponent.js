@@ -23,7 +23,7 @@ class NewsFeed extends React.Component {
                 <Ticker>{
                     () => (
                         this.props.newsList && this.props.newsList.length ?
-                            <p className="news-list">{this.props.newsList.join(' ')}</p> :
+                            <p className="news-list">{this.props.newsList.join('  ~  ')}</p> :
                             <h5 className="news-else-placeholder">Not forun</h5>)
                 }</Ticker>
             </div>

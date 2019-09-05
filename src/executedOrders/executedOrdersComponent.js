@@ -27,6 +27,7 @@ class ExecutedOrderList extends React.Component {
                 dataToShow: this.props.bookedOrdersList
             })
         }
+        //  console.log('execOrder',prevProps.bookOrderFormNewValue['stockSymbol'],this.props.bookOrderFormNewValue['stockSymbol'])
         if (this.props.bookOrderFormNewValue['stockSymbol'] &&
             prevProps.bookOrderFormNewValue['stockSymbol'] !== this.props.bookOrderFormNewValue['stockSymbol']) {
             this.fetchBookedOrderList();
@@ -38,7 +39,7 @@ class ExecutedOrderList extends React.Component {
         //     orderTabActive: !this.state.orderTabActive,
         //     tradeTabActive: !this.state.tradeTabActive
         // })
-       // console.log('ss', this.state);
+        // console.log('ss', this.state);
         if (type === 'trades') {
             this.setState({
                 orderTabActive: !this.state.orderTabActive,
@@ -65,6 +66,10 @@ class ExecutedOrderList extends React.Component {
             "noOfRows": 20
         }
         this.props.onLoadBookedOrders(payload);
+        if (this.fetchOrderListInterval) {
+            clearInterval(this.fetchOrderListInterval);
+        }
+        this.fetchOrderListInterval = setInterval(this.fetchBookedOrderList, 30000);
     }
 
     /**
@@ -86,7 +91,12 @@ class ExecutedOrderList extends React.Component {
           }, (err) => {
           })*/
     }
-
+    /**
+        * Function call when component is destroyed
+         */
+    componentWillUnmount() {
+        clearInterval(this.fetchOrderListInterval);
+    }
     render() {
         // console.log('this.state.dataToShow', this.props.bookedOrdersList, this.props.executedOrdersList)
         let row = [];
@@ -129,7 +139,7 @@ class ExecutedOrderList extends React.Component {
                         <thead>
                             <tr>
                                 <th>Time</th>
-                                <th>Bid/Ask</th>
+                                <th>Buy/Sell</th>
                                 <th>Price</th>
                                 <th>Volume</th>
                                 <th>Status</th>

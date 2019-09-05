@@ -734,38 +734,44 @@ class SecurityChart extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // console.log('prevProps', this.props.minMaxBidOrders, this.props.minMaxAskOrders);
-        if (prevProps.minMaxBidOrders !== this.props.minMaxBidOrders) {
+       // console.log('prevProps', this.props.minMaxBidOrders, this.props.minMaxAskOrders);
+        if (prevProps.minMaxBidOrders !== this.props.minMaxBidOrders ||
+            prevProps.minMaxAskOrders !== this.props.minMaxAskOrders) {
             const bidData = [];
             const askData = [];
-            this.props.minMaxBidOrders.map((elem) => {
-                if (elem) {
-                    bidData.push({
-                        x: this.convertTimeToDecimal(elem.time),
-                        y: elem.maxBid.order.price
-                    })
-                }
-            });
-            this.props.minMaxAskOrders.map((elem) => {
-                if (elem) {
-                    askData.push({
-                        // x: this.convertTimeToDecimal(elem.order.timestamp),
-                        x: this.convertTimeToDecimal(elem.time),
-                        y: elem.minAsk.order.price
-                    })
-                    console.log('ask',elem.time, this.convertTimeToDecimal(elem.time));
-                }
-            });
-         //   console.log('componentDidUpdate', askData, bidData, this.convertTimeToDecimal('16:05:02'));
+            if (this.props.minMaxBidOrders) {
+                this.props.minMaxBidOrders.map((elem) => {
+                    if (elem) {
+                        bidData.push({
+                            x: this.convertTimeToDecimal(elem.time),
+                            y: elem.maxBid.order.price
+                        })
+                    }
+                });
+            }
+            if (this.props.minMaxAskOrders) {
+                this.props.minMaxAskOrders.map((elem) => {
+                    if (elem) {
+                        askData.push({
+                            // x: this.convertTimeToDecimal(elem.order.timestamp),
+                            x: this.convertTimeToDecimal(elem.time),
+                            y: elem.minAsk.order.price
+                        })
+                        console.log('ask', elem.time, this.convertTimeToDecimal(elem.time));
+                    }
+                });
+            }
+
+            //   console.log('componentDidUpdate', askData, bidData, this.convertTimeToDecimal('16:05:02'));
             this.myChart = new Chart(this.canvasRef.current, {
                 type: 'line',
                 data: {
-                   // labels: [],
+                    // labels: [],
                     datasets: [
                         {
                             label: '# Bid',
                             // data: this.props.bidOrderList,
-                            data:bidData,
+                            data: bidData,
                             // data: [{
                             //     y:'23.5',
                             //     x:'13.9'
@@ -794,7 +800,7 @@ class SecurityChart extends React.Component {
                             fill: false,
                             backgroundColor: "#ed7d31",
                             borderColor: "#ed7d31",
-                           // lineTension: 1,
+                            // lineTension: 1,
                             //  pointStyle: 'rectRot',
                             //   pointRadius: 4,
                             //  pointHitRadius: 10,
@@ -831,7 +837,7 @@ class SecurityChart extends React.Component {
                 },
                 options: {
                     showTooltips: false,
-                    animation:false,
+                    animation: false,
                     elements: {
                         point: {
                             radius: 0.4
@@ -845,8 +851,8 @@ class SecurityChart extends React.Component {
                             gridLines: {
                                 display: false
                             },
-                            ticks:{
-                                precision:2
+                            ticks: {
+                                precision: 2
                             },
                             // ticks: {
                             //     padding: 5,
@@ -881,7 +887,7 @@ class SecurityChart extends React.Component {
     convertTimeToDecimal(val) {
         if (val && val.indexOf(':') > -1) {
             val = val.split(':');
-            val = parseFloat(parseInt(val[0], 10) + parseInt(val[1], 10) / 60 + parseInt(val[2], 10) / 3600 );
+            val = parseFloat(parseInt(val[0], 10) + parseInt(val[1], 10) / 60 + parseInt(val[2], 10) / 3600);
             return Math.round(val * 1000) / 1000;
         } else {
             const v = parseInt(val, 10);
@@ -901,7 +907,7 @@ class SecurityChart extends React.Component {
             });
         }
         return (<div className="security-chart-div">
-            <h3>Bid/Ask Spread</h3>
+            <h3>Buy/Sell Spread</h3>
             <div className="prod-name-label">
                 <label>Product Name - </label> {prodName ? prodName['productCode'] + '-' + prodName['productName'] : ''}
             </div>
