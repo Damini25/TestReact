@@ -1,6 +1,8 @@
 import React from 'react';
 import { slide as Menu } from "react-burger-menu";
 import { Link, NavLink } from 'react-router-dom';
+import {clearLocalStorage} from '../../common/localStorageService';
+
 class MenuLinks extends React.Component {
     constructor(props) {
         super(props);
@@ -31,7 +33,8 @@ class MenuLinks extends React.Component {
     }
 
     logout() {
-
+        clearLocalStorage();
+        this.props.history.push("/login");
     }
 
     render() {

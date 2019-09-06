@@ -34,3 +34,10 @@ export const LoadNewsList=()=>{
         type:Actiontypes.Load_News_List
     }
 }
+
+export const CallLoginApi=(payload)=>{
+    return {
+        type:Actiontypes.Call_Login_Api,
+        payload:payload
+    }
+}

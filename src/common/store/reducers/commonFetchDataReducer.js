@@ -3,7 +3,9 @@ import * as ActionTypes from '../actions/actionTypes';
 const initialState = {
     stockSymbols: [],
     userDetails: {
-        name: 'test'
+        name: 'test',
+        password:'',
+        traderId: ''
     },
     loginFormError: {
         emailInvalid: false,
@@ -11,17 +13,20 @@ const initialState = {
     },
     bookedOrders: [],
     executedOrders: [],
-    newsFeed:[]
+    newsFeed: []
 }
 
 const FetchDataReducer = (state = initialState, action) => {
     //  console.log('ftech reducer state action',state,action)
     switch (action.type) {
         case ActionTypes.Set_User_Details:
-            const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };
+           // const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };
             return {
                 ...state,
-                userDetails: updatedOrderFormValue
+                userDetails: {
+                    ...state.userDetails,
+                    ...action.element
+                }
             }
 
         case ActionTypes.Fetch_Stock_Symbols:
@@ -41,24 +46,24 @@ const FetchDataReducer = (state = initialState, action) => {
                 loginFormError: { ...state.loginFormError, ...loginFormValidity }
             }
         case ActionTypes.Fetch_Booked_Orders:
-           console.log('fetchredbooked',action)
+            console.log('fetchredbooked', action)
             return {
                 ...state,
                 bookedOrders: action.data[0]['allOrders'],
-                executedOrders:action.data[0]['allTrades']
+                executedOrders: action.data[0]['allTrades']
             }
         case ActionTypes.Fetch_Executed_Orders:
-               // console.log('fetchredexecutd',action)
+            // console.log('fetchredexecutd',action)
             return {
                 ...state,
                 executedOrders: action.data
             }
-            case ActionTypes.Fetch_News_List:
-                // console.log('fetchredexecutd',action)
-             return {
-                 ...state,
-                 newsFeed: action.data
-             }
+        case ActionTypes.Fetch_News_List:
+            // console.log('fetchredexecutd',action)
+            return {
+                ...state,
+                newsFeed: action.data
+            }
         default:
             return state;
     }

@@ -63,7 +63,7 @@ class ExecutedOrderList extends React.Component {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
             "gameId": 1,
-            "traderId": 999,
+            "traderId": parseInt(this.props.traderId),
             "noOfRows": 20
         }
         this.props.onLoadBookedOrders(payload);
@@ -176,6 +176,7 @@ const mapStateToProps = (state) => {
         bookedOrdersList: state.fetchDataReducer['bookedOrders'],
         executedOrdersList: state.fetchDataReducer['executedOrders'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
+        traderId:state.fetchDataReducer['userDetails']['traderId']
     }
 }
 export default connect(mapStateToProps, mapdispatchToProps)(ExecutedOrderList)

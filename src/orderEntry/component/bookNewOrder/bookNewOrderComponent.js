@@ -35,7 +35,7 @@ class BookNewOrder extends React.Component {
     postBookOrderData(formvalues) {
         const payload = {
             "gameId": parseInt("001"),
-            "traderId": parseInt("001"),
+            "traderId": parseInt(this.props.traderId),
             "productId": parseInt(formvalues['stockSymbol']),
             "unfulfilledQuantity": null,
             "totalQty": parseFloat(formvalues['quantity']),
@@ -60,7 +60,7 @@ class BookNewOrder extends React.Component {
             const payload2 = {
                 "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
                 "gameId": 1,
-                "traderId": 999,
+                "traderId": parseInt(this.props.traderId),
                 "noOfRows": 20
             }
             this.props.onLoadBookedOrders(payload2);
@@ -171,6 +171,7 @@ const mapStateToProps = (state) => {
         stockSymbol: state.fetchDataReducer.stockSymbols['data'],
         defaultStockSymbol: 'Select stock symbol',
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
+        traderId:state.fetchDataReducer['userDetails']['traderId']
     }
 }
 

@@ -10,17 +10,10 @@ import OrderListReducer from './common/store/reducers/orderListReducer';
 import OrderBookReducer from './common/store/reducers/bookOrderValuesReducer';
 import ChartReducer from './common/store/reducers/chartReducer';
 import FetchDataReducer from './common/store/reducers/commonFetchDataReducer';
-import axios from 'axios';
+import './common/httpInterceptor';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './common/store/sagas/sagaIndex';
 
-/*axios.defaults.baseURL = 'http://localhost:8303';
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-axios.interceptors.request.use((req) => {
-    req.url=req.url+`?requestedTime=${Date.now()}`
-    return req;
-});*/
 
 const rootReducers = combineReducers({
     orderListReducer: OrderListReducer,

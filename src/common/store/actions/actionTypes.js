@@ -22,3 +22,4 @@ export const Load_News_List="Load_News_List";
 export const Add_MinMax_Ask_TOrders="Add_MinMax_Ask_TOrders";
 export const Add_MinMax_Bid_TOrders="Add_MinMax_Bid_TOrders";
 export const Clear_MinMax_AskBid_TOrders="Clear_MinMax_AskBid_TOrders";
+export const  Call_Login_Api="Call_Login_Api";

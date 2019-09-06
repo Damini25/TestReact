@@ -3,13 +3,20 @@ import './login.scss';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actiontypes from '../common/store/actions/actionIndex';
-import { validateField } from '../common/component/validation/validationComponent'
+import { validateField } from '../common/component/validation/validationComponent';
 
 class Logincomponent extends React.Component {
 
     login(e) {
         /** API call */
+        console.log('vv',this.props.loginFormValues);
+        const payload={
+            username:this.props.loginFormValues['name'],
+            password:this.props.loginFormValues['password']
+        }
+        this.props.onLogin(payload)
         e.preventDefault();
+        
         this.props.history.push("/mainNav");
     }
 
@@ -25,9 +32,12 @@ class Logincomponent extends React.Component {
                 formError: false
             })
         }
-        if (event.target.name === 'name') {
-            this.props.onSettingUserDetails({ 'name': event.target.value });
-        }
+        this.props.onSettingUserDetails({ [event.target.name]: event.target.value });
+
+        // if (event.target.name === 'name') {
+        //     this.props.onSettingUserDetails({ 'name': event.target.value });
+        // }
+        
     }
 
     render() {
@@ -67,7 +77,8 @@ class Logincomponent extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        loginFormError: state.fetchDataReducer.loginFormError
+        loginFormError: state.fetchDataReducer.loginFormError,
+        loginFormValues:state.fetchDataReducer.userDetails
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -77,6 +88,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         onValidatingFormValues: (data) => {
             dispatch(actiontypes.SetLoginFormValidity(data))
+        },
+        onLogin:(payload)=>{
+            dispatch(actiontypes.CallLoginApi(payload))
         }
     }
 }

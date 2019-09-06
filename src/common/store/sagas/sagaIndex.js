@@ -1,7 +1,12 @@
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { getProducts ,getBookedOrderList, getExecutedOrderList,
-getNewsList} from '../../../orderEntry/services/orderEntry.service';
+import {
+  getProducts, getBookedOrderList, getExecutedOrderList,
+  getNewsList
+} from '../../../orderEntry/services/orderEntry.service';
+import { login } from '../../../login/loginService';
+import { setLocalStorage } from '../../../common/localStorageService';
+
 
 export function* fetchStockSymbol() {
   const response = yield call(getProducts);
@@ -13,7 +18,7 @@ export function* loadStockSymbol() {
 
 
 export function* fetchBookedOrders(action) {
-  const response = yield call(getBookedOrderList,action.payload);
+  const response = yield call(getBookedOrderList, action.payload);
   yield put({ type: ActionTypes.Fetch_Booked_Orders, data: response.data['data'] });
 }
 export function* loadBookedOrders() {
@@ -21,7 +26,7 @@ export function* loadBookedOrders() {
 }
 
 export function* fetchExecutedOrders(action) {
-  const response = yield call(getExecutedOrderList,action.payload);
+  const response = yield call(getExecutedOrderList, action.payload);
   yield put({ type: ActionTypes.Fetch_Executed_Orders, data: response.data['data'] });
 }
 export function* loadExecutedOrders() {
@@ -36,6 +41,20 @@ export function* loadNewsList() {
   yield takeLatest(ActionTypes.Load_News_List, fetchNewsList);
 }
 
+export function* loginUser(action) {
+  const response = yield call(login, action.payload);
+  if (response.success) {
+    setLocalStorage({
+      name: 'sessionId',
+      value: 'xyz'
+    });
+  }
+  yield put({ type: ActionTypes.Set_User_Details, data: response.data['data'] });
+}
+export function* callLoginApi() {
+  yield takeLatest(ActionTypes.Call_Login_Api, loginUser);
+}
+
 export default function* rootSaga() {
-  yield all([loadStockSymbol(),loadBookedOrders(),loadExecutedOrders(),loadNewsList()]);
+  yield all([loadStockSymbol(), loadBookedOrders(), loadExecutedOrders(), loadNewsList(), callLoginApi()]);
 }

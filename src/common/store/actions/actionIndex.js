@@ -4,4 +4,4 @@ export {
     AddTototalOrders, ClearTotalOrders, AddToTotalAskOrders,
     AddToTotalBidOrders, AddMinMaxTotalAskOrders, AddMinMaxTotalBidOrders, ClearTotalMinMaxOrders
 } from './chartActions';
-export { SetUserDetails, SetLoginFormValidity, LoadBookedOrders, LoadExecutedOrders, LoadNewsList } from './commonActions';
+export { SetUserDetails, SetLoginFormValidity, LoadBookedOrders, LoadExecutedOrders, LoadNewsList,CallLoginApi } from './commonActions';

@@ -28,7 +28,7 @@ class BookTrader extends React.Component {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
             "gameId": 1,
-            "traderId": 1,
+            "traderId": this.props.traderId,
             "noOfRows": 20
         }
         getInitialOrderList(payload).then((res) => {
@@ -275,7 +275,8 @@ const mapStateToProps = (state) => {
         askOrderList: state.orderListReducer['ordersToShow']['askOrders'],
         totalOrdersToBeShown: state.orderListReducer['totalOrdersToBeShown'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
-        stockSymbol: state.fetchDataReducer.stockSymbols['data']
+        stockSymbol: state.fetchDataReducer.stockSymbols['data'],
+        traderId:state.fetchDataReducer['userDetails']['traderId']
     }
 }
 

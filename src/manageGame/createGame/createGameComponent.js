@@ -83,7 +83,7 @@ class CreateGame extends React.Component {
                         </div> */}
                     </div>
                     <div>
-                        <button>Create Game</button>
+                        <button className="create-game-btn">Create Game</button>
                     </div>
                 </div>
             </div>
