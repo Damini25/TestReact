@@ -43,13 +43,16 @@ export function* loadNewsList() {
 
 export function* loginUser(action) {
   const response = yield call(login, action.payload);
-  if (response.success) {
+  if (response['data'].success) {
+    console.log('loginresponse',response,response['data'].success)
     setLocalStorage({
       name: 'sessionId',
       value: 'xyz'
     });
+    
+    yield put({ type: ActionTypes.Set_User_Details, element: {'traderId':response.data['data'][0]['userId'] } });
   }
-  yield put({ type: ActionTypes.Set_User_Details, data: response.data['data'] });
+
 }
 export function* callLoginApi() {
   yield takeLatest(ActionTypes.Call_Login_Api, loginUser);
