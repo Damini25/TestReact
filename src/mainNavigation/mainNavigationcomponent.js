@@ -31,7 +31,7 @@ class MainNavigation extends React.Component {
                     </div>
 
                     <Switch>
-                        {/* <Route path="/mainNav" component={OrderEntry} ></Route> */}
+                        <Route path="/mainNav" component={OrderEntry} ></Route>
                         <Route path="/mainNav/orderEntry" component={OrderEntry} ></Route>
                         <Route path="/mainNav/manageGame" component={ManageGame} ></Route>
                         <Route path="/mainNav/createGame" component={CreateGame} ></Route>

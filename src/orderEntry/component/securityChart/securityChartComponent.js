@@ -739,30 +739,33 @@ class SecurityChart extends React.Component {
             prevProps.minMaxAskOrders !== this.props.minMaxAskOrders) {
             const bidData = [];
             const askData = [];
-            if (this.props.minMaxBidOrders) {
+            if (this.props.minMaxBidOrders.length) {
                 this.props.minMaxBidOrders.map((elem) => {
-                    if (elem) {
+                    console.log('vvvvvvvvvv',elem)
+                    if (elem.maxBid) {
                         bidData.push({
                             x: this.convertTimeToDecimal(elem.time),
-                            y: elem.maxBid.order.price
+                            y: elem.maxBid.price
                         })
                     }
+                    console.log('bid',bidData)
                 });
             }
-            if (this.props.minMaxAskOrders) {
+            if (this.props.minMaxAskOrders.length) {
                 this.props.minMaxAskOrders.map((elem) => {
-                    if (elem) {
+                    console.log('vvvvvvvvvv',elem)
+                    if (elem.minAsk) {
                         askData.push({
                             // x: this.convertTimeToDecimal(elem.order.timestamp),
                             x: this.convertTimeToDecimal(elem.time),
-                            y: elem.minAsk.order.price
+                            y: elem.minAsk.price
                         })
-                        console.log('ask', elem.time, this.convertTimeToDecimal(elem.time));
+                        console.log('ask',askData)
                     }
                 });
             }
 
-            //   console.log('componentDidUpdate', askData, bidData, this.convertTimeToDecimal('16:05:02'));
+              console.log('askData, bidData', askData, bidData, this.convertTimeToDecimal('16:05:02'));
             this.myChart = new Chart(this.canvasRef.current, {
                 type: 'line',
                 data: {
@@ -923,8 +926,10 @@ const mapStateToProps = (state) => {
         askOrderList: state.chartReducer['totalOrderTillNow']['askOrders'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
         stockSymbolData: state.fetchDataReducer.stockSymbols['data'],
-        minMaxAskOrders: state.chartReducer['totalOrderTillNow']['minMaxAskOrders'],
-        minMaxBidOrders: state.chartReducer['totalOrderTillNow']['minMaxBidOrders']
+        // minMaxAskOrders: state.chartReducer['totalOrderTillNow']['minMaxAskOrders'],
+        // minMaxBidOrders: state.chartReducer['totalOrderTillNow']['minMaxBidOrders']
+        minMaxAskOrders: state.orderListReducer['ordersToShow']['minAskOrders'],
+        minMaxBidOrders: state.orderListReducer['ordersToShow']['maxBidOrders']
     }
 }
 

@@ -31,6 +31,12 @@ class BookTrader extends React.Component {
             "noOfRows": 20
         }
         this.props.onLoadBidAskList(payload);
+
+        if (this.orderListInterval) {
+            clearInterval(this.orderListInterval);
+        }
+        
+        this.orderListInterval = setInterval(this.fetchOrderList, 3000);
        /* getInitialOrderList(payload).then((res) => {
             if (res.data.success) {
                 if (res.data['data']) {
