@@ -1,18 +1,26 @@
 import * as Actiontypes from './actionTypes';
 
-export const UpdateRecentOrders = (type,item) => {
+export const LoadBidAskList = (payload) => {
     return {
-        type: Actiontypes.Update_Order_Front,
-        element: item,
-        orderType:type
+        type: Actiontypes.Load_BidAsk_List,
+        payload: payload
     }
 }
 
-export const AddNewOrders = (type,item) => {
+
+export const UpdateRecentOrders = (type, item) => {
+    return {
+        type: Actiontypes.Update_Order_Front,
+        element: item,
+        orderType: type
+    }
+}
+
+export const AddNewOrders = (type, item) => {
     return {
         type: Actiontypes.Add_New_Orders,
         element: item,
-        orderType:type
+        orderType: type
     }
 }
 

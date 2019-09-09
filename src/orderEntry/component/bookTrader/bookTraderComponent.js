@@ -1,12 +1,12 @@
 import React from 'react';
 import './bookTraderComponent.scss';
-import { getInitialOrderList, getChartDataInitialOrderList } from '../../services/orderEntry.service';
+//import { getInitialOrderList} from '../../services/orderEntry.service';
 import { connect } from 'react-redux';
 // import { UpdateRecentOrders, AddNewOrders, AddTototalOrders, ClearTotalOrders } from '../../../common/store/actions/actionIndex';
 import * as actiontypes from '../../../common/store/actions/actionIndex';
 import AskComponent from './askComponent/askComponent';
 import BidComponent from './bidComponent/bidComponent';
-import { showToast } from '../../../common/component/toastMessages/toastcomponent';
+import {getLocalStorage} from '../../../common/localStorageService';
 import _ from 'lodash';
 
 class BookTrader extends React.Component {
@@ -17,7 +17,6 @@ class BookTrader extends React.Component {
     }
     componentDidMount() {
         this.fetchOrderList();
-        // this.fetchTotalOrderList();
         this.props.onLoadStockSymbols();
     }
 
@@ -28,10 +27,11 @@ class BookTrader extends React.Component {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
             "gameId": 1,
-            "traderId": this.props.traderId,
+            "traderId": getLocalStorage('traderId'),
             "noOfRows": 20
         }
-        getInitialOrderList(payload).then((res) => {
+        this.props.onLoadBidAskList(payload);
+       /* getInitialOrderList(payload).then((res) => {
             if (res.data.success) {
                 if (res.data['data']) {
                     this.setStateBasedOnOrderData(res.data['data']);
@@ -47,7 +47,7 @@ class BookTrader extends React.Component {
             this.tradeOpen = false;
             clearInterval(this.orderListInterval);
             // showToast('error', err);
-        })
+        })*/
     }
 
     /**
@@ -101,56 +101,6 @@ class BookTrader extends React.Component {
     }
 
     /**
-    * API call to fetch Security Chart spread  data
-    */
-    fetchTotalOrderList = () => {
-        const payload = {
-            productId: parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
-            gameId: "001"
-        }
-        getChartDataInitialOrderList(payload).then((res) => {
-            if (res.data.success) {
-                // console.log('ddd',res.data['data'][0]['askOrders'])
-                if (res.data['data']) {
-                    this.props.onAddToTotalAskOrders(res.data['data'][0]['askOrders']);
-                    this.props.onAddToTotalBidOrders(res.data['data'][0]['bidOrders']);
-                    // this.setStateBasedOnTotalOrders(res.data['data']);
-
-                    if (this.orderTotalListInterval) {
-                        clearInterval(this.orderTotalListInterval);
-                    }
-                    // this.orderTotalListInterval = setInterval(this.fetchTotalOrderList, 3000);
-                }
-            }
-        }, (err) => {
-            this.tradeOpen = false;
-            // showToast('error', err);
-        })
-    }
-
-    setStateBasedOnTotalOrders(data) {
-        this.props.onClearTotalOrders();
-
-        for (let i = 0; i < 100; i++) {
-            if (data[i]['bidOffer'] === 'Ask') {
-                this.props.addToTotalOrder('ask', data[i]);
-            } else {
-                this.props.addToTotalOrder('bid', data[i]);
-
-            }
-        }
-
-        // data.forEach((elem) => {
-        //     if (elem['bidOffer'] === 'Ask') {
-        //         this.props.addToTotalOrder('ask', elem);
-        //     } else {
-        //         this.props.addToTotalOrder('bid', elem);
-
-        //     }
-        // })
-    }
-
-    /**
      * Function call when component is destroyed
      */
     componentWillUnmount() {
@@ -176,7 +126,6 @@ class BookTrader extends React.Component {
             this.props.onClearTotalOrders();
             this.props.onClearBidAskOrders();
             this.fetchOrderList();
-            //  this.fetchTotalOrderList();
         }
     }
 
@@ -202,23 +151,6 @@ class BookTrader extends React.Component {
         return (
             <div className="trader-div">
                 <h3>Buy/Sell</h3>
-
-                {/* <div className="product-drop">
-                    <select onChange={(e) => { this.productChange(e) }}
-                        value={this.props.bookOrderFormNewValue['stockSymbol']}
-                        name="stockSymbol">
-                        <option disabled value="">Select product name</option>
-                        {this.props.stockSymbol && this.props.stockSymbol.length ?
-                            this.props.stockSymbol.map((elem) => {
-                                return (
-                                    <option key={elem['productId']} value={elem['productId']}>
-                                        {elem['productCode'] + '-' + elem['productName']}
-                                    </option>
-                                )
-                            }) : ''}
-                    </select>
-                </div>*/}
-
                 {askBid}
             </div>
         );
@@ -228,6 +160,9 @@ class BookTrader extends React.Component {
 
 const mapdispatchToProps = (dispatch) => {
     return {
+        onLoadBidAskList: (payload) => {
+            dispatch(actiontypes.LoadBidAskList(payload))
+        },
         onInitalOrdersFetch: (type, data) => {
             dispatch(actiontypes.AddNewOrders(type, data))
         },

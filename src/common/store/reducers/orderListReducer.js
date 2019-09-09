@@ -1,16 +1,40 @@
 import * as ActionTypes from '../actions/actionTypes';
+import _ from 'lodash';
 
 const initialState = {
     ordersToShow: {
         askOrders: [],
-        bidOrders: []
+        bidOrders: [],
+        // minAskOrders:[],
+        // maxBidOrders:[]
     },
     totalOrdersToBeShown: 20
 }
 
 const OrderListReducer = (state = initialState, action) => {
-    // console.log('OrderListReducer', state, action);
+  //  console.log('OrderListReducer', state, action);
     switch (action.type) {
+
+        case ActionTypes.OnRecieve_BidAsk_Data: {
+
+            console.log('bid/as', action)
+            const newOrderToShow = { ...state.ordersToShow };
+          
+            newOrderToShow.askOrders = [...action['data'][0]['allAskOrders']];
+            newOrderToShow.bidOrders = [...action['data'][0]['allBidOrders']];
+            // newOrderToShow.minAskOrders=_.minBy(this.state['minMaxBidOrders'], (o) => {
+            //     return o.order.price;
+            // });
+            // newOrderToShow.maxBidOrders=_.maxBy(this.state['minMaxBidOrders'], (o) => {
+            //     return o.order.price;
+            // });
+
+        
+            console.log('state', { ...state, ordersToShow: newOrderToShow })
+            return {
+                ...state, ordersToShow: newOrderToShow
+            }
+        }
         case ActionTypes.Update_Order_Front:
             const newOrderToShow = { ...state.ordersToShow };
 

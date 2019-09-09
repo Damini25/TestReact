@@ -23,3 +23,5 @@ export const Add_MinMax_Ask_TOrders="Add_MinMax_Ask_TOrders";
 export const Add_MinMax_Bid_TOrders="Add_MinMax_Bid_TOrders";
 export const Clear_MinMax_AskBid_TOrders="Clear_MinMax_AskBid_TOrders";
 export const  Call_Login_Api="Call_Login_Api";
+export const Load_BidAsk_List="Load_BidAsk_List"
+export const OnRecieve_BidAsk_Data="OnRecieve_BidAsk_Data"

@@ -3,6 +3,7 @@ import './executedOrdersComponent.scss';
 import { getBookedOrderList, getExecutedOrderList } from '../orderEntry/services/orderEntry.service';
 import { connect } from 'react-redux';
 import * as actiontypes from '../common/store/actions/actionIndex';
+import {getLocalStorage} from '../common/localStorageService';
 
 class ExecutedOrderList extends React.Component {
     state = {
@@ -63,7 +64,7 @@ class ExecutedOrderList extends React.Component {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
             "gameId": 1,
-            "traderId": parseInt(this.props.traderId),
+            "traderId": parseInt(getLocalStorage('traderId')),
             "noOfRows": 20
         }
         this.props.onLoadBookedOrders(payload);

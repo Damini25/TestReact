@@ -2,8 +2,9 @@ import React from 'react';
 import './bookNewOrderComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../../common/store/actions/actionIndex';
-import { showToast } from '../../../common/component/toastMessages/toastcomponent';
+//import { showToast } from '../../../common/component/toastMessages/toastcomponent';
 import { bookNewOrder } from '../../services/orderEntry.service';
+import {getLocalStorage} from '../../../common/localStorageService';
 
 class BookNewOrder extends React.Component {
     state = {
@@ -35,7 +36,7 @@ class BookNewOrder extends React.Component {
     postBookOrderData(formvalues) {
         const payload = {
             "gameId": parseInt("001"),
-            "traderId": parseInt(this.props.traderId),
+            "traderId":  getLocalStorage('traderId'),
             "productId": parseInt(formvalues['stockSymbol']),
             "unfulfilledQuantity": null,
             "totalQty": parseFloat(formvalues['quantity']),
