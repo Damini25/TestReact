@@ -31,10 +31,10 @@ class MainNavigation extends React.Component {
                     </div>
 
                     <Switch>
-                        <Route path="/mainNav" component={OrderEntry} ></Route>
+                        <Route path="/mainNav" exact component={OrderEntry} ></Route>
                         <Route path="/mainNav/orderEntry" component={OrderEntry} ></Route>
-                        <Route path="/mainNav/manageGame" component={ManageGame} ></Route>
-                        <Route path="/mainNav/createGame" component={CreateGame} ></Route>
+                        <Route path="/mainNav/manageGame" exact strict component={ManageGame} ></Route>
+                        {/* <Route path="/mainNav/createGame" exact strict component={CreateGame} ></Route> */}
                         <Route path="/mainNav/execOrderList" component={ExecOrderList} ></Route>
                     </Switch>
 

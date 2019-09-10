@@ -6,10 +6,12 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import ShowLoaderReducer from './common/store/reducers/loaderReducer';
 import OrderListReducer from './common/store/reducers/orderListReducer';
 import OrderBookReducer from './common/store/reducers/bookOrderValuesReducer';
 import ChartReducer from './common/store/reducers/chartReducer';
 import FetchDataReducer from './common/store/reducers/commonFetchDataReducer';
+import GameManagementReducer from './common/store/reducers/admin/gameManagementReducer';
 import './common/httpInterceptor';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './common/store/sagas/sagaIndex';
@@ -19,7 +21,9 @@ const rootReducers = combineReducers({
     orderListReducer: OrderListReducer,
     chartReducer: ChartReducer,
     orderBookReducer: OrderBookReducer,
-    fetchDataReducer: FetchDataReducer
+    fetchDataReducer: FetchDataReducer,
+    gameManagementReducer:GameManagementReducer,
+    showLoaderReducer:ShowLoaderReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

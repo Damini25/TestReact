@@ -20,6 +20,7 @@
         margin-top: 1px;
         font-size: 14px;
         text-align: center;
+        height: 14%;
     }
 }
 
@@ -27,13 +28,18 @@
     margin-bottom: 4%;
     display: flex;
     label{
-        width:30%;
+        width:36%;
+        max-width: 36%;
     }
     input , select{
         width: 50%;
     }
     .react-datepicker__input-container input {
         width: 100%;
+    }
+    .transaction-radio-div{
+        display: flex;
+        margin-right: 8%;
     }
 }
 .late-entry-div{

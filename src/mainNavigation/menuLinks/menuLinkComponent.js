@@ -1,7 +1,7 @@
 import React from 'react';
 import { slide as Menu } from "react-burger-menu";
 import { Link, NavLink } from 'react-router-dom';
-import {clearLocalStorage} from '../../common/localStorageService';
+import { clearLocalStorage } from '../../common/localStorageService';
 
 class MenuLinks extends React.Component {
     constructor(props) {
@@ -56,17 +56,19 @@ class MenuLinks extends React.Component {
                 <div>
                     <label onClick={() => this.showNestedMenu('game')}>Game
                      {this.state.showGameMenu ? <i className="fa fa-caret-up font-i-nestedbtn"></i> :
-                        <i className="fa fa-caret-down font-i-nestedbtn"></i>
-                    }
+                            <i className="fa fa-caret-down font-i-nestedbtn"></i>
+                        }
                     </label>
-                   
+
 
                     {this.state.showGameMenu ? <div className="nested-menu-item-div">
-                        <NavLink className="bm-item" activeClassName='is-active' >Manage Game
-                    </NavLink>
                         <NavLink className="bm-item" activeClassName='is-active' to={{
+                            pathname: this.props.match.url + "/manageGame"
+                        }}>Manage Game
+                    </NavLink>
+                        {/* <NavLink className="bm-item" activeClassName='is-active' to={{
                             pathname: this.props.match.url + "/createGame"
-                        }} onClick={() => { this.closeMenuOnNavClick() }}>Create Game</NavLink>
+                        }} onClick={() => { this.closeMenuOnNavClick() }}>Create Game</NavLink> */}
                     </div> : ''}
                 </div>
 

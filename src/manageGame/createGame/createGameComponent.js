@@ -1,93 +1,148 @@
 import React from 'react';
 import './createGameComponent.scss';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { connect } from 'react-redux';
+import * as actiontypes from '../../common/store/actions/actionIndex';
 
 class CreateGame extends React.Component {
-    state = {
-        startDate: null,
-        endDate: null
-    };
 
-    handleChange = (val, date) => {
-        console.log('date,val', date, val)
-        if (val === 'start') {
-            this.setState({
-                ...this.state,
-                startDate: date
-            });
-        }
-        if (val === 'end') {
-            this.setState({
-                ...this.state,
-                endDate: date
-            });
-        }
-    };
+    handleChange = (event) => {
+        // console.log('value', event.target.name, event.target.value);
+      const value=  event.target.name === 'file'? event.target.files[0] : event.target.value;
+        this.props.onUpdateCreateGameFormValue({ [event.target.name]: value })
+    }
+
+    executeOrder = (event) => {
+        event.preventDefault();
+        console.log('formValurs', this.props.formValues);
+        this.postCreateGameData(this.props.formValues);
+    }
+
+    postCreateGameData(formvalues) {
+        this.props.onPostCreateGameData(formvalues);
+    }
 
     render() {
         return (
-            <div className="create-game">
-                <div className="sub-div">
-                    <h3>Game Name & Basic Trading Rules</h3>
-                    <p>*These settings cannot be changed once the game is created.</p>
-                    <div>
-                        <div className="label-input-div">
-                            <label>Game Name</label>
-                            <input placeholder="Enter name" />
-                        </div>
-                        <div className="label-input-div">
-                            <label>Game Mode</label>
-                            <select>
-                                <option>
-                                    General
-                                </option>
-                                <option>
-                                    Volume
-                                </option>
-                            </select>
-                        </div>
-                        <div className="label-input-div">
-                            <label>Starting Cash</label>
-                            <input placeholder="Enter starting cash" type="number" />
-                        </div>
-                    </div>
-                </div>
-                <div className="sub-div">
-                    <h3>Basic Game Rules</h3>
-                    <p>Basic game rules can be modified.</p>
-                    <div>
-                        <div className="label-input-div">
-                            <label>Start Date</label>
-                            <DatePicker selected={this.state.startDate}
-                                placeholderText="Click to select a date"
-                                onChange={(date) => this.handleChange('start', date)}
-                            />
-                        </div>
-                        <div className="label-input-div">
-                            <label>End Date</label>
-                            <DatePicker selected={this.state.endDate}
-                                placeholderText="Click to select a date"
-                                onChange={(date) => this.handleChange('end', date)}
-                            />
-                            {/* <input placeholder="End Date" /> */}
-                        </div>
-                        {/* <div className="label-input-div">
-                            <label >Allow Late Entry</label>
-                            <div className="radiobtn-div">
-                                <label htmlFor="yes">Yes</label>
-                                <input name="lateEntry" value="yes" id="yes" type="radio" />
-                                <label htmlFor="no">No</label>
-                                <input name="lateEntry" value="no" id="no" type="radio" />
+            <form onSubmit={(e) => { this.executeOrder(e) }}>
+                <div className="create-game">
+                    <div className="sub-div">
+                        <h3>Game Name & Basic Trading Rules</h3>
+                        <p>*These settings cannot be changed once the game is created.</p>
+                        <div>
+                            <div className="label-input-div">
+                                <label>Game Name</label>
+                                <input name="gameName" value={this.props.formValues['gameName']}
+                                    placeholder="Enter name" onChange={(e) => { this.handleChange(e) }} />
                             </div>
-                        </div> */}
+
+                            <div className="label-input-div">
+                                <label>Game Mode</label>
+                                <select name="gameMode"
+                                    value={this.props.formValues['gameMode']}
+                                    onChange={(e) => { this.handleChange(e) }}>
+
+                                    <option disabled value="">Select game mode </option>
+                                    <option value='general'>
+                                        General
+                                </option>
+                                    <option value='volume'>
+                                        Volume
+                                </option>
+                                </select>
+                            </div>
+
+                            {
+                                this.props.formValues['gameMode'] === 'volume' ?
+                                    <div>
+                                        <div className="label-input-div">
+                                            <label>Volume</label>
+                                            <input name="volume" value={this.props.formValues['volume']}
+                                                placeholder="Enter volume" type="number"
+                                                onChange={(e) => { this.handleChange(e) }} />
+                                        </div>
+                                        <div className="label-input-div">
+                                            <label>Transaction Type</label>
+                                            <div className="transaction-radio-div">
+                                                <input
+                                                    type="radio"
+                                                    name="transaction"
+                                                    value="Bid"
+                                                    id="bid"
+                                                    checked={this.props.formValues['transaction'] === 'Bid'}
+                                                    onChange={(e) => { this.handleChange(e) }}
+                                                />
+                                                <label htmlFor="bid">Buy</label>
+                                            </div>
+                                            <div className="transaction-radio-div">
+                                                <input
+                                                    type="radio"
+                                                    name="transaction"
+                                                    value="Ask"
+                                                    id="ask"
+                                                    checked={this.props.formValues['transaction'] === 'Ask'}
+                                                    onChange={(e) => { this.handleChange(e) }}
+                                                />
+                                                <label htmlFor="ask">Sell</label>
+                                            </div>
+                                        </div>
+                                    </div> :
+                                    <div className="label-input-div">
+                                        <label>Starting Cash</label>
+                                        <input name="startingCash"
+                                            value={this.props.formValues['startingCash']}
+                                            placeholder="Enter starting cash" type="number"
+                                            onChange={(e) => { this.handleChange(e) }} />
+                                    </div>
+                            }
+                        </div>
                     </div>
-                    <div>
-                        <button className="create-game-btn">Create Game</button>
+                    <div className="sub-div">
+                        <h3>Basic Game Rules</h3>
+                        <p>Basic game rules can be modified.</p>
+                        <div>
+                            <div className="label-input-div">
+                                <label title="Set game interval (in minutes)">Set game interval</label>
+                                <input name="gameInterval"
+                                    value={this.props.formValues['gameInterval']}
+                                    onChange={(e) => { this.handleChange(e) }}
+                                    placeholder="Set game interval" type="number" />
+                            </div>
+                            <div className="label-input-div">
+                                <label title="Choose file">Upload file</label>
+                                <input name="file" type="file" onChange={(e) => this.handleChange(e)}
+                                    placeholder="Set game interval" />
+                            </div>
+                        </div>
+                        <div>
+                            <button className="create-game-btn" type="submit" >Create Game</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         );
     }
 }
-export default CreateGame;
+
+const mapStateToProps = (state) => {
+    console.log('isFetchingData',state.showLoaderReducer.isFetching);
+    return {
+        formValues: state.gameManagementReducer.createGameFormValue,
+        isFetchingData:state.showLoaderReducer.isFetching
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onUpdateCreateGameFormValue: (obj) => {
+            dispatch(actiontypes.UpdateCreateGameFormValues(obj))
+        },
+        onPostCreateGameData: (obj) => {
+            dispatch(actiontypes.PostCreateGameData(obj))
+        },
+        onResetCreateGameFormValues: () => {
+            //dispatch(actiontypes.ResetGameFormValues())
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CreateGame);

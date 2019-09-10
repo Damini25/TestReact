@@ -3,8 +3,9 @@ import loginSaga from './loginSaga';
 import bookedExecutedOrderListSaga from './fetchBookedExecutedOrderSaga';
 import commonFetchSaga from './commonSaga';
 import bookTraderSaga from './bookTraderSaga';
+import gameManagementSaga from './admin/gameManagementSaga';
 
 
 export default function* rootSaga() {
-  yield all([ loginSaga(),commonFetchSaga(),bookTraderSaga(),bookedExecutedOrderListSaga()]);
+  yield all([ loginSaga(),commonFetchSaga(),bookTraderSaga(),bookedExecutedOrderListSaga(),gameManagementSaga()]);
 }
