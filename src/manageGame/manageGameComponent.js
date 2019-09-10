@@ -9,7 +9,7 @@ class ManageGame extends React.Component {
         return (
             <div className="manage-game">
                 <CreateGame></CreateGame>
-                {/* <ListGames></ListGames> */}
+                <ListGames></ListGames>
             </div>
         );
     }

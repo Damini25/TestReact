@@ -66,9 +66,9 @@ class MenuLinks extends React.Component {
                             pathname: this.props.match.url + "/manageGame"
                         }}>Manage Game
                     </NavLink>
-                        {/* <NavLink className="bm-item" activeClassName='is-active' to={{
-                            pathname: this.props.match.url + "/createGame"
-                        }} onClick={() => { this.closeMenuOnNavClick() }}>Create Game</NavLink> */}
+                        <NavLink className="bm-item" activeClassName='is-active' to={{
+                            pathname: this.props.match.url + "/joinGame"
+                        }} onClick={() => { this.closeMenuOnNavClick() }}>Join Game</NavLink>
                     </div> : ''}
                 </div>
 

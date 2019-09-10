@@ -12,6 +12,7 @@ import OrderBookReducer from './common/store/reducers/bookOrderValuesReducer';
 import ChartReducer from './common/store/reducers/chartReducer';
 import FetchDataReducer from './common/store/reducers/commonFetchDataReducer';
 import GameManagementReducer from './common/store/reducers/admin/gameManagementReducer';
+import TraderGameManagementReducer from './common/store/reducers/joinGameReducer';
 import './common/httpInterceptor';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './common/store/sagas/sagaIndex';
@@ -23,7 +24,8 @@ const rootReducers = combineReducers({
     orderBookReducer: OrderBookReducer,
     fetchDataReducer: FetchDataReducer,
     gameManagementReducer:GameManagementReducer,
-    showLoaderReducer:ShowLoaderReducer
+    showLoaderReducer:ShowLoaderReducer,
+    traderGameManagementReducer:TraderGameManagementReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

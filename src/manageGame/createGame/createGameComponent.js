@@ -8,18 +8,26 @@ class CreateGame extends React.Component {
 
     handleChange = (event) => {
         // console.log('value', event.target.name, event.target.value);
-      const value=  event.target.name === 'file'? event.target.files[0] : event.target.value;
+        const value = event.target.name === 'file' ? event.target.files[0] : event.target.value;
         this.props.onUpdateCreateGameFormValue({ [event.target.name]: value })
     }
 
     executeOrder = (event) => {
         event.preventDefault();
-        console.log('formValurs', this.props.formValues);
         this.postCreateGameData(this.props.formValues);
     }
 
     postCreateGameData(formvalues) {
-        this.props.onPostCreateGameData(formvalues);
+        const payload = {
+            'gameCode': formvalues['gameName'],
+            'gameMode': formvalues['gameMode'],
+            'buySell': formvalues['transaction'],
+            'gameInterval': formvalues['gameInterval'],
+            'startingBalance': formvalues['startingCash'],
+            'startingVolume': formvalues['volume']
+        }
+        console.log('formValurs', payload);
+        this.props.onPostCreateGameData(payload);
     }
 
     render() {
@@ -125,10 +133,10 @@ class CreateGame extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('isFetchingData',state.showLoaderReducer.isFetching);
+    console.log('isFetchingData', state.showLoaderReducer.isFetching);
     return {
         formValues: state.gameManagementReducer.createGameFormValue,
-        isFetchingData:state.showLoaderReducer.isFetching
+        isFetchingData: state.showLoaderReducer.isFetching
     }
 }
 

@@ -9,7 +9,8 @@ const initialState = {
         transaction: '',
         gameInterval: '',
         file: null
-    }
+    },
+    listGames: []
 }
 
 const GameManagementReducer = (state = initialState, action) => {
@@ -33,6 +34,12 @@ const GameManagementReducer = (state = initialState, action) => {
                 ...state, createGameFormValue: clearData
             }
         }
+        case ActionTypes.Fetch_All_Games:
+            console.log('Fetch_All_Games', [...action.data])
+            return {
+                ...state,
+                listGames: [...action.data]
+            }
         default:
             return state;
     }

@@ -31,3 +31,7 @@ export const Game_Created_Success="Game_Created_Success";
 export const Request_Posts="Request_Posts";
 export const Recieve_Posts="Recieve_Posts";
 export const RecieveError_Posts="RecieveError_Posts";
+export const Load_ALL_Games="Load_ALL_Games";
+export const Fetch_All_Games="Fetch_All_Games";
+export const Load_Trader_Games="Load_Trader_Games";
+export const Fetch_All_TraderGames="Fetch_All_TraderGames";

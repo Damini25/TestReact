@@ -6,7 +6,8 @@ import SideBar from './menuLinks/menuLinkComponent'
 import OrderEntry from '../orderEntry/container/orderEntry';
 import ManageGame from '../manageGame/manageGameComponent';
 import ExecOrderList from '../executedOrders/executedOrdersComponent';
-import CreateGame from '../manageGame/createGame/createGameComponent';
+// import CreateGame from '../manageGame/createGame/createGameComponent';
+import JoinGame from '../joinGame/joinGameComponent';
 
 class MainNavigation extends React.Component {
 
@@ -36,6 +37,7 @@ class MainNavigation extends React.Component {
                         <Route path="/mainNav/manageGame" exact strict component={ManageGame} ></Route>
                         {/* <Route path="/mainNav/createGame" exact strict component={CreateGame} ></Route> */}
                         <Route path="/mainNav/execOrderList" component={ExecOrderList} ></Route>
+                        <Route path="/mainNav/joinGame" component={JoinGame} ></Route>
                     </Switch>
 
                 </div>

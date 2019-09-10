@@ -1,22 +1,9 @@
 import React from 'react';
-import './listGameComponent.scss';
+import './joinGameComponent.scss';
 import { connect } from 'react-redux';
-import * as actiontypes from '../../common/store/actions/actionIndex';
-import EditGame from '../editGame/editGameComponent';
+import * as actiontypes from '../common/store/actions/actionIndex';
 
-// import * as actiontypes from '../common/store/actions/actionIndex';
-// import {getLocalStorage} from '../common/localStorageService';
-
-class ListGames extends React.Component {
-    state = {
-        editModal: false
-    }
-
-    openEditDialog() {
-        this.setState({
-            editModal: true
-        })
-    }
+class ListTraderGames extends React.Component {
 
     componentDidMount() {
         this.props.onLoadGameData();
@@ -44,7 +31,7 @@ class ListGames extends React.Component {
         }
 
         return (
-            <div className="list-games-div">
+            <div className="list-trader-games-div">
                 {/* <h3>games</h3> */}
                 <div className="table-div">
                     <table>
@@ -64,7 +51,6 @@ class ListGames extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <EditGame open={this.state.editModal}></EditGame>
             </div>
         );
     }
@@ -84,4 +70,4 @@ const mapStateToProps = (state) => {
         gameList: state.gameManagementReducer['listGames']
     }
 }
-export default connect(mapStateToProps, mapdispatchToProps)(ListGames)
+export default connect(mapStateToProps, mapdispatchToProps)(ListTraderGames)
