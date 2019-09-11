@@ -71,7 +71,7 @@ class ExecutedOrderList extends React.Component {
         if (this.fetchOrderListInterval) {
             clearInterval(this.fetchOrderListInterval);
         }
-        this.fetchOrderListInterval = setInterval(this.fetchBookedOrderList, 30000);
+        this.fetchOrderListInterval = setInterval(this.fetchBookedOrderList, 3000);
     }
 
     /**
@@ -115,7 +115,7 @@ class ExecutedOrderList extends React.Component {
                         <td>{date}</td>
                         <td>{elem['bidOffer']}</td>
                         <td>{elem['price']}</td>
-                        <td>{elem['totalQty']}</td>
+                        <td>{elem['unfulfilledQuantity']}</td>
                         <td>{elem['orderStatusId']}</td>
                     </tr>
                     // <tr key={i}>

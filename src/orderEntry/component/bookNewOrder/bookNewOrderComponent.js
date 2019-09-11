@@ -58,13 +58,13 @@ class BookNewOrder extends React.Component {
                 })
             }, 2000);
             this.props.onResetOrderFormValues();
-            const payload2 = {
-                "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
-                "gameId": 1,
-                "traderId": parseInt(this.props.traderId),
-                "noOfRows": 20
-            }
-            this.props.onLoadBookedOrders(payload2);
+            // const payload2 = {
+            //     "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
+            //     "gameId": 1,
+            //     "traderId": parseInt(this.props.traderId),
+            //     "noOfRows": 20
+            // }
+            // this.props.onLoadBookedOrders(payload2);
             //   }
         }, (err) => {
             // showToast('error', err);

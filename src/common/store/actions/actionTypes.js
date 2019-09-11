@@ -35,3 +35,7 @@ export const Load_ALL_Games="Load_ALL_Games";
 export const Fetch_All_Games="Fetch_All_Games";
 export const Load_Trader_Games="Load_Trader_Games";
 export const Fetch_All_TraderGames="Fetch_All_TraderGames";
+export const On_Join_Game_Success="On_Join_Game_Success";
+export const Join_Game="Join_Game";
+export const Game_Started_ByAdmin="Game_Started_ByAdmin";
+export const Game_Started_Success="Game_Started_Success";

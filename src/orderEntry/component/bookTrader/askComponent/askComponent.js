@@ -20,7 +20,7 @@ class AskComponent extends React.Component {
             return (
                 <tr key={i} className={random === 1 ? 'backgroundBlue' : ''}>
                     <td><a href="#" onClick={() => { this.props.askPriceClicked(elem) }}>{elem['price']}</a></td>
-                    <td>{elem['totalQty']}</td>
+                    <td>{elem['unfulfilledQuantity']}</td>
                 </tr>
             );
         })

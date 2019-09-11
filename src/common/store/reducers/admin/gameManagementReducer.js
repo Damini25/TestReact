@@ -10,7 +10,10 @@ const initialState = {
         gameInterval: '',
         file: null
     },
-    listGames: []
+    listGames: [],
+    gameStarted: {
+
+    }
 }
 
 const GameManagementReducer = (state = initialState, action) => {
@@ -39,6 +42,12 @@ const GameManagementReducer = (state = initialState, action) => {
             return {
                 ...state,
                 listGames: [...action.data]
+            }
+        case ActionTypes.Game_Started_ByAdmin:
+            console.log('Game_Started_ByAdmin', {...action.data})
+            return {
+                ...state,
+                gameStarted: {...action.data}
             }
         default:
             return state;

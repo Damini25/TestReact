@@ -2,11 +2,20 @@ import React from 'react';
 import './joinGameComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../common/store/actions/actionIndex';
+import {getLocalStorage} from '../common/localStorageService';
 
 class ListTraderGames extends React.Component {
 
     componentDidMount() {
-        this.props.onLoadGameData();
+        this.props.onLoadTraderGameData();
+    }
+
+    joinGame(elem) {
+        const payload={
+            gameId:elem['gameId'],
+            traderId: parseInt(getLocalStorage('traderId'))
+        }
+        this.props.onJoiningGame(payload);
     }
 
     render() {
@@ -22,8 +31,7 @@ class ListTraderGames extends React.Component {
                         <td>{elem['bidAsk']}</td>
                         <td>{elem['interval']}</td>
                         <td>
-                            <label onClick={() => this.openEditDialog}><i className="fa fa-edit" aria-hidden="true"></i></label>
-                            <label><i className="fa fa-trash" aria-hidden="true"></i></label>
+                            <button className="join-game-btn" onClick={() => this.joinGame(elem)}>Join</button>
                         </td>
                     </tr>
                 );
@@ -59,15 +67,18 @@ class ListTraderGames extends React.Component {
 
 const mapdispatchToProps = (dispatch) => {
     return {
-        onLoadGameData: () => {
-            dispatch(actiontypes.LoadGameData())
+        onLoadTraderGameData: () => {
+            dispatch(actiontypes.LoadTraderGameList())
         },
+        onJoiningGame: (payload) => {
+            dispatch(actiontypes.JoinGame(payload))
+        }
     }
 }
 const mapStateToProps = (state) => {
-    // console.log('stateExecutedOrderList', state.gameManagementReducer['listGames']);
+    console.log('stateExecutedOrderList', state.traderGameManagementReducer['listTraderGames']);
     return {
-        gameList: state.gameManagementReducer['listGames']
+        gameList: state.traderGameManagementReducer['listTraderGames']
     }
 }
 export default connect(mapStateToProps, mapdispatchToProps)(ListTraderGames)

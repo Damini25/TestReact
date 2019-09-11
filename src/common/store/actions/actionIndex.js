@@ -5,4 +5,5 @@ export {
     AddToTotalBidOrders, AddMinMaxTotalAskOrders, AddMinMaxTotalBidOrders, ClearTotalMinMaxOrders
 } from './chartActions';
 export { SetUserDetails, SetLoginFormValidity, LoadBookedOrders, LoadExecutedOrders, LoadNewsList,CallLoginApi } from './commonActions';
-export {UpdateCreateGameFormValues,PostCreateGameData, LoadGameData} from './admin/gameManagementActions';
+export {UpdateCreateGameFormValues,PostCreateGameData, LoadGameData,GameStartedByAdmin} from './admin/gameManagementActions';
+export {LoadTraderGameList,JoinGame} from './joinGameAction';

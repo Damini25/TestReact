@@ -3,7 +3,7 @@ import loginSaga from './loginSaga';
 import bookedExecutedOrderListSaga from './fetchBookedExecutedOrderSaga';
 import commonFetchSaga from './commonSaga';
 import bookTraderSaga from './bookTraderSaga';
-import gameManagementSaga from './admin/gameManagementSaga';
+import gameManagementSaga from './gameManagementSaga';
 
 
 export default function* rootSaga() {

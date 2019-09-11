@@ -12,6 +12,12 @@ const TraderGameManagementReducer = (state = initialState, action) => {
                 ...state,
                 listTraderGames: [...action.data]
             }
+        // case ActionTypes.On_Join_Game_Success:
+        //     console.log('Call_Join_Game', [...action.data])
+        //     return {
+        //         ...state,
+        //         listTraderGames: [...action.data]
+        //     }
         default:
             return state;
     }

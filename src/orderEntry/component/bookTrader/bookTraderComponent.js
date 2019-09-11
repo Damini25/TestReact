@@ -142,7 +142,7 @@ class BookTrader extends React.Component {
         console.log('elem', elem);
         this.props.onUpdateOrderFormValue({ 'transaction': elem['bidOffer'] === 'Ask' ? 'Bid' : 'Ask' })
         this.props.onUpdateOrderFormValue({ 'price': elem['price'] })
-        this.props.onUpdateOrderFormValue({ 'quantity': elem['totalQty'] })
+        this.props.onUpdateOrderFormValue({ 'quantity': elem['unfulfilledQuantity'] })
     }
 
     render() {

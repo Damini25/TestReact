@@ -18,16 +18,7 @@ class CreateGame extends React.Component {
     }
 
     postCreateGameData(formvalues) {
-        const payload = {
-            'gameCode': formvalues['gameName'],
-            'gameMode': formvalues['gameMode'],
-            'buySell': formvalues['transaction'],
-            'gameInterval': formvalues['gameInterval'],
-            'startingBalance': formvalues['startingCash'],
-            'startingVolume': formvalues['volume']
-        }
-        console.log('formValurs', payload);
-        this.props.onPostCreateGameData(payload);
+        this.props.onPostCreateGameData(formvalues);
     }
 
     render() {

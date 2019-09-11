@@ -26,3 +26,10 @@ export const ResetGameFormValues = () => {
       //  type: Actiontypes.Clear_BookOrderForm_Values
     }
 }
+
+export const GameStartedByAdmin = (payload) => {
+    return {
+        type: Actiontypes.Game_Started_ByAdmin,
+        payload:payload
+    }
+}

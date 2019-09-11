@@ -26,7 +26,7 @@ class BidComponent extends React.Component {
             const random = this.randomNumber(0, 1);
             return (
                 <tr key={i} className={random === 1 ? 'backgroundBlue' : ''}>
-                    <td>{elem['totalQty']}</td>
+                    <td>{elem['unfulfilledQuantity']}</td>
                     <td ><a  href="#" onClick={() => { this.props.bidPriceClicked(elem) }}>{elem['price']}</a></td>
                 </tr>
             );
