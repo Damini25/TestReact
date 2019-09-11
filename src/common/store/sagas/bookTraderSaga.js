@@ -19,7 +19,7 @@ export function* fetchBidAskOrders(action) {
        const response = yield call(getInitialOrderList, payload);
 
         yield put({ type: ActionTypes.OnRecieve_BidAsk_Data, data: response.data['data'] });
-        console.log(response);
+      //  console.log(response);
 
 
 

@@ -2,7 +2,7 @@ import React from 'react';
 import './joinGameComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../common/store/actions/actionIndex';
-import {getLocalStorage} from '../common/localStorageService';
+import { getLocalStorage } from '../common/localStorageService';
 
 class ListTraderGames extends React.Component {
 
@@ -11,8 +11,8 @@ class ListTraderGames extends React.Component {
     }
 
     joinGame(elem) {
-        const payload={
-            gameId:elem['gameId'],
+        const payload = {
+            gameId: elem['gameId'],
             traderId: parseInt(getLocalStorage('traderId'))
         }
         this.props.onJoiningGame(payload);
@@ -27,9 +27,9 @@ class ListTraderGames extends React.Component {
                         <td>{elem['gameCode']}</td>
                         <td>{elem['gameMode']}</td>
                         <td>{elem['startingBalance']}</td>
-                        <td>{elem['startingVolume']}</td>
-                        <td>{elem['bidAsk']}</td>
-                        <td>{elem['interval']}</td>
+                        <td>{elem['startingVolume'] ? elem['startingVolume'] : '-'}</td>
+                        <td>{elem['bidAsk'] ? elem['bidAsk'] : '-'}</td>
+                        <td>{elem['gameInterval']}</td>
                         <td>
                             <button className="join-game-btn" onClick={() => this.joinGame(elem)}>Join</button>
                         </td>

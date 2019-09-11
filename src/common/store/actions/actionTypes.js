@@ -39,3 +39,5 @@ export const On_Join_Game_Success="On_Join_Game_Success";
 export const Join_Game="Join_Game";
 export const Game_Started_ByAdmin="Game_Started_ByAdmin";
 export const Game_Started_Success="Game_Started_Success";
+export const Game_Stopped_ByAdmin="Game_Stopped_ByAdmin";
+export const Game_Deleted_ByAdmin="Game_Deleted_ByAdmin";

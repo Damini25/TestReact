@@ -17,7 +17,7 @@ const OrderListReducer = (state = initialState, action) => {
 
         case ActionTypes.OnRecieve_BidAsk_Data: {
 
-            console.log('bid/as', action)
+           // console.log('bid/as', action)
             const newOrderToShow = { ...state.ordersToShow };
 
             newOrderToShow.askOrders = [...action['data'][0]['allAskOrders']];
@@ -38,7 +38,7 @@ const OrderListReducer = (state = initialState, action) => {
                 newOrderToShow.maxBidOrders = [...state.ordersToShow.maxBidOrders,
                 { maxBid: maxBidPrice, time: time }];
             }
-            console.log('minAskPrice', action['data'][0]['allAskOrders'])
+           // console.log('minAskPrice', action['data'][0]['allAskOrders'])
             return {
                 ...state, ordersToShow: newOrderToShow
             }

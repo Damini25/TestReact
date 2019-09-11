@@ -35,9 +35,15 @@ export const getGameList = () => {
 }
 
 export const callJoinGame = (payload) => {
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/allgames`,payload);
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/joingame?gameId=${payload['gameId']}&userId=${payload['traderId']}`,{});
 }
 
 export const callStartGame = (payload) => {
   return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/startgame`,payload);
+}
+export const callStopGame = (payload) => {
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/stopgame?gameId=${payload['gameId']}`,{});
+}
+export const callDeleteGame = (payload) => {
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/deletegame`,payload);
 }

@@ -33,3 +33,16 @@ export const GameStartedByAdmin = (payload) => {
         payload:payload
     }
 }
+export const GameStoppedByAdmin = (payload) => {
+    return {
+        type: Actiontypes.Game_Stopped_ByAdmin,
+        payload:payload
+    }
+}
+
+export const GameDeletedByAdmin = (payload) => {
+    return {
+        type: Actiontypes.Game_Deleted_ByAdmin,
+        payload:payload
+    }
+}

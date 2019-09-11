@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { createNewGame, getGameList, uploadHistoricalDataFile, callJoinGame,callStartGame } from '../../../manageGame/manageGameService';
+import { createNewGame, getGameList, uploadHistoricalDataFile, callJoinGame,callStartGame,callStopGame,callDeleteGame } from '../../../manageGame/manageGameService';
 import { setLocalStorage } from '../../../common/localStorageService';
 
 export function* callCreateGameAPI(action) {
@@ -12,7 +12,8 @@ export function* callCreateGameAPI(action) {
         const response = yield call(createNewGame, payload);
         console.log('create new game api response', response);
         yield put({ type: ActionTypes.Game_Created_Success });
-        yield put({ type: ActionTypes.Recieve_Posts });
+        yield put({ type: ActionTypes.Load_ALL_Games });
+        yield put({ type: ActionTypes.Recieve_Posts });     
     }
     catch (e) {
         yield put({ type: ActionTypes.RecieveError_Posts });
@@ -58,7 +59,8 @@ export function* joinGame() {
 export function* callStartGameAPI(action) {
     const {payload}=action;
     const response = yield call(callStartGame,payload);
-    yield call(getGameList);
+    const games = yield call(getGameList);
+    yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
     yield put({ type: ActionTypes.Game_Started_Success, data: response.data['data'] });
 }
 
@@ -66,6 +68,29 @@ export function* startGameAdmin() {
     yield takeLatest(ActionTypes.Game_Started_ByAdmin, callStartGameAPI);
 }
 
+export function* callStopGameAPI(action) {
+    const {payload}=action;
+    const response = yield call(callStopGame,payload);
+    const games = yield call(getGameList);
+    yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
+}
+
+export function* stopGameAdmin() {
+    yield takeLatest(ActionTypes.Game_Stopped_ByAdmin, callStopGameAPI);
+}
+
+export function* callDeleteGameAPI(action) {
+    const {payload}=action;
+    const response = yield call(callDeleteGame,payload);
+    const games = yield call(getGameList);
+    yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
+}
+
+export function* gameDeleteByAdmin() {
+    yield takeLatest(ActionTypes.Game_Deleted_ByAdmin, callDeleteGameAPI);
+}
+
 export default function* GameManagementSaga() {
-    yield all([postGameFormValues(), loadGameList(),loadTraderGameList(),joinGame(),startGameAdmin()]);
+    yield all([postGameFormValues(), loadGameList(),loadTraderGameList(),
+        joinGame(),startGameAdmin(),stopGameAdmin(),gameDeleteByAdmin()]);
 }

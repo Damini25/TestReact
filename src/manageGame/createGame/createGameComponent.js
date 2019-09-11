@@ -18,6 +18,8 @@ class CreateGame extends React.Component {
     }
 
     postCreateGameData(formvalues) {
+        const payload={...formvalues}
+        payload['isGameActive']=false;
         this.props.onPostCreateGameData(formvalues);
     }
 

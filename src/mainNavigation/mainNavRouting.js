@@ -7,8 +7,8 @@ import OrderEntry from '../orderEntry/container/orderEntry';
 const MainNavRoutes = () => {
     return <BrowserRouter>
         <Switch>
-            <Route path="/mainNav" exact component={MainNavigation} ></Route>
-            <Route path="/mainNav/orderEntry" exact component={OrderEntry} ></Route>
+            {/* <Route path="/mainNav" exact component={MainNavigation} ></Route>
+            <Route path="/mainNav/orderEntry" exact component={OrderEntry} ></Route> */}
         </Switch>
     </BrowserRouter>
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { slide as Menu } from "react-burger-menu";
 import { Link, NavLink } from 'react-router-dom';
 import { clearLocalStorage } from '../../common/localStorageService';
+import { getLocalStorage } from '../../common/localStorageService';
 
 class MenuLinks extends React.Component {
     constructor(props) {
@@ -38,6 +39,7 @@ class MenuLinks extends React.Component {
     }
 
     render() {
+        console.log('menulinl',getLocalStorage('userTypeId'));
         return (
             <Menu isOpen={this.state.menuOpen} onStateChange={(state) => this.handleMenuStateChange(state)}
                 customBurgerIcon={
@@ -62,13 +64,19 @@ class MenuLinks extends React.Component {
 
 
                     {this.state.showGameMenu ? <div className="nested-menu-item-div">
-                        <NavLink className="bm-item" activeClassName='is-active' to={{
-                            pathname: this.props.match.url + "/manageGame"
-                        }}>Manage Game
-                    </NavLink>
-                        <NavLink className="bm-item" activeClassName='is-active' to={{
-                            pathname: this.props.match.url + "/joinGame"
-                        }} onClick={() => { this.closeMenuOnNavClick() }}>Join Game</NavLink>
+                        {parseInt(getLocalStorage('userTypeId')) === 0 ?
+                            <NavLink className="bm-item" activeClassName='is-active' to={{
+                                pathname: this.props.match.url + "/manageGame"
+                            }}>Manage Game
+                        </NavLink> :
+                            <NavLink className="bm-item" activeClassName='is-active' to={{
+                                pathname: this.props.match.url + "/joinGame"
+                            }} onClick={() => { this.closeMenuOnNavClick() }}>Join Game
+                        </NavLink>}
+
+
+
+
                     </div> : ''}
                 </div>
 

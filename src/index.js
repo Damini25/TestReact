@@ -14,8 +14,10 @@ import FetchDataReducer from './common/store/reducers/commonFetchDataReducer';
 import GameManagementReducer from './common/store/reducers/admin/gameManagementReducer';
 import TraderGameManagementReducer from './common/store/reducers/joinGameReducer';
 import './common/httpInterceptor';
+import { routerMiddleware } from 'react-router-redux'
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './common/store/sagas/sagaIndex';
+import { createBrowserHistory } from 'history'
 
 
 const rootReducers = combineReducers({
@@ -27,8 +29,10 @@ const rootReducers = combineReducers({
     showLoaderReducer:ShowLoaderReducer,
     traderGameManagementReducer:TraderGameManagementReducer
 });
-
+const history=createBrowserHistory();
+const routeMiddleware = routerMiddleware(history);
 const sagaMiddleware = createSagaMiddleware();
+const middleWares=[routeMiddleware,sagaMiddleware]
 const store = createStore(rootReducers, applyMiddleware(sagaMiddleware));
 //const store = createStore(rootReducers,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 sagaMiddleware.run(rootSaga);

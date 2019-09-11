@@ -8,7 +8,7 @@ const initialState = {
         volume: '',
         transaction: '',
         gameInterval: '',
-        file: null
+        file: ''
     },
     listGames: [],
     gameStarted: {
@@ -32,7 +32,7 @@ const GameManagementReducer = (state = initialState, action) => {
             clearData['volume'] = '';
             clearData['transaction'] = '';
             clearData['gameInterval'] = '';
-            clearData['file'] = null;
+            clearData['file'] = '';
             return {
                 ...state, createGameFormValue: clearData
             }

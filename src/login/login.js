@@ -4,20 +4,30 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actiontypes from '../common/store/actions/actionIndex';
 import { validateField } from '../common/component/validation/validationComponent';
+import { getLocalStorage, clearLocalStorage } from '../common/localStorageService';
 
 class Logincomponent extends React.Component {
 
+    componentDidMount() {
+        clearLocalStorage();
+    }
+
     login(e) {
         /** API call */
-        console.log('vv',this.props.loginFormValues);
-        const payload={
-            username:this.props.loginFormValues['name'],
-            password:this.props.loginFormValues['password']
+        console.log('vv', this.props.loginFormValues);
+        const payload = {
+            username: this.props.loginFormValues['name'],
+            password: this.props.loginFormValues['password']
         }
+        this.props.history.push("/mainNav");
         this.props.onLogin(payload)
         e.preventDefault();
-        
-        this.props.history.push("/mainNav");
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.loginFormValues['traderId'] !== this.props.loginFormValues['traderId'] && getLocalStorage('userTypeId')) {
+            this.props.history.push("/mainNav");
+        }
     }
 
     handleChange = (event) => {
@@ -37,7 +47,6 @@ class Logincomponent extends React.Component {
         // if (event.target.name === 'name') {
         //     this.props.onSettingUserDetails({ 'name': event.target.value });
         // }
-        
     }
 
     render() {
@@ -78,7 +87,7 @@ class Logincomponent extends React.Component {
 const mapStateToProps = (state) => {
     return {
         loginFormError: state.fetchDataReducer.loginFormError,
-        loginFormValues:state.fetchDataReducer.userDetails
+        loginFormValues: state.fetchDataReducer.userDetails
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -89,7 +98,7 @@ const mapDispatchToProps = (dispatch) => {
         onValidatingFormValues: (data) => {
             dispatch(actiontypes.SetLoginFormValidity(data))
         },
-        onLogin:(payload)=>{
+        onLogin: (payload) => {
             dispatch(actiontypes.CallLoginApi(payload))
         }
     }

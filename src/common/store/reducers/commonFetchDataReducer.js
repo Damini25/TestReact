@@ -46,7 +46,7 @@ const FetchDataReducer = (state = initialState, action) => {
                 loginFormError: { ...state.loginFormError, ...loginFormValidity }
             }
         case ActionTypes.Fetch_Booked_Orders:
-            console.log('fetchredbooked', action)
+           // console.log('fetchredbooked', action)
             return {
                 ...state,
                 bookedOrders: action.data[0]['allOrders'],
