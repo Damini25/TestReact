@@ -143,7 +143,7 @@ class ExecutedOrderList extends React.Component {
                         <thead>
                             <tr>
                                 <th>Time</th>
-                                <th>Buy/Sell</th>
+                                <th>Bid/Ask</th>
                                 <th>Price</th>
                                 <th>Volume</th>
                                 <th>Status</th>

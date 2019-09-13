@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as actiontypes from '../../common/store/actions/actionIndex';
 
 class CreateGame extends React.Component {
-
+    fileRef = React.createRef();
     handleChange = (event) => {
         // console.log('value', event.target.name, event.target.value);
         const value = event.target.name === 'file' ? event.target.files[0] : event.target.value;
@@ -17,9 +17,15 @@ class CreateGame extends React.Component {
         this.postCreateGameData(this.props.formValues);
     }
 
+    componentDidUpdate(prev) {
+        if (this.props.gameCreatedSuccessfully) {
+            this.fileRef.value = null;
+        }
+    }
     postCreateGameData(formvalues) {
-        const payload={...formvalues}
-        payload['isGameActive']=false;
+        console.log('vv', this.fileRef)
+        const payload = { ...formvalues }
+        payload['isGameActive'] = false;
         this.props.onPostCreateGameData(formvalues);
     }
 
@@ -111,7 +117,9 @@ class CreateGame extends React.Component {
                             </div>
                             <div className="label-input-div">
                                 <label title="Choose file">Upload file</label>
-                                <input name="file" type="file" onChange={(e) => this.handleChange(e)}
+                                <input
+                                    ref={(input) => { this.fileRef = input; }}
+                                    name="file" type="file" onChange={(e) => this.handleChange(e)}
                                     placeholder="Set game interval" />
                             </div>
                         </div>
@@ -129,6 +137,7 @@ const mapStateToProps = (state) => {
     console.log('isFetchingData', state.showLoaderReducer.isFetching);
     return {
         formValues: state.gameManagementReducer.createGameFormValue,
+        gameCreatedSuccessfully: state.gameManagementReducer.gameCreatedSucess,
         isFetchingData: state.showLoaderReducer.isFetching
     }
 }

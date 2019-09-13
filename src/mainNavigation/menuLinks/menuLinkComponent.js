@@ -13,7 +13,7 @@ class MenuLinks extends React.Component {
             showGameMenu: false
         }
     }
-
+  
     handleMenuStateChange(state) {
         this.setState({ menuOpen: state.isOpen })
     }
@@ -35,11 +35,12 @@ class MenuLinks extends React.Component {
 
     logout() {
         clearLocalStorage();
+        console.log('vthis.props.',this.props)
         this.props.history.push("/login");
     }
 
     render() {
-        console.log('menulinl',getLocalStorage('userTypeId'));
+        console.log('menulinl', getLocalStorage('userTypeId'));
         return (
             <Menu isOpen={this.state.menuOpen} onStateChange={(state) => this.handleMenuStateChange(state)}
                 customBurgerIcon={
@@ -50,48 +51,74 @@ class MenuLinks extends React.Component {
                     <img alt="" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" className="user-img" />
                     <div>Welcome! Damini</div>
                 </div>
+                {
+                    parseInt(getLocalStorage('userTypeId')) === 0 ?
+                        // admin menu
+                        <div>
+                            <div>
+                                <NavLink className="bm-item" activeClassName='is-active' >Home</NavLink>
+                            </div>
+                            <div>
+                                <NavLink className="bm-item" activeClassName='is-active' to={{
+                                    pathname: this.props.match.url + "/manageGame"
+                                }}>Manage Game
+                                </NavLink>
+                            </div>
 
-                <NavLink activeClassName='is-active' >Home</NavLink>
-
-                <NavLink activeClassName='is-active'>Portfolio</NavLink>
-
-                <div>
-                    <label onClick={() => this.showNestedMenu('game')}>Game
-                     {this.state.showGameMenu ? <i className="fa fa-caret-up font-i-nestedbtn"></i> :
-                            <i className="fa fa-caret-down font-i-nestedbtn"></i>
-                        }
-                    </label>
-
-
-                    {this.state.showGameMenu ? <div className="nested-menu-item-div">
-                        {parseInt(getLocalStorage('userTypeId')) === 0 ?
-                            <NavLink className="bm-item" activeClassName='is-active' to={{
-                                pathname: this.props.match.url + "/manageGame"
-                            }}>Manage Game
-                        </NavLink> :
-                            <NavLink className="bm-item" activeClassName='is-active' to={{
-                                pathname: this.props.match.url + "/joinGame"
-                            }} onClick={() => { this.closeMenuOnNavClick() }}>Join Game
-                        </NavLink>}
-
-
-
-
-                    </div> : ''}
-                </div>
-
-
-
-                {/* <NavLink activeClassName='is-active' to={{
-                    pathname: this.props.match.url + "/execOrderList"
-                }} onClick={() => { this.closeMenuOnNavClick() }}>Executed Orders</NavLink> */}
-
-                <NavLink activeClassName='is-active' to={{
-                    pathname: this.props.match.url + "/orderEntry"
-                }} onClick={() => { this.closeMenuOnNavClick() }}>Trade</NavLink>
-
-                <NavLink activeClassName='is-active' onClick={() => { this.logout() }}>Logout</NavLink>
-
+                            {/* <div>
+                                <label onClick={() => this.showNestedMenu('game')}>Game
+                            {this.state.showGameMenu ? <i className="fa fa-caret-up font-i-nestedbtn"></i> :
+                                        <i className="fa fa-caret-down font-i-nestedbtn"></i>
+                                    }
+                                </label>
+                                {this.state.showGameMenu ? <div className="nested-menu-item-div">
+                                    <NavLink className="bm-item" activeClassName='is-active' to={{
+                                        pathname: this.props.match.url + "/manageGame"
+                                    }}>Manage Game
+                                    </NavLink>
+                                </div> : ''}
+                            </div> */}
+                            <div>
+                                <NavLink className="bm-item" activeClassName='is-active' onClick={() => { this.logout() }}>Logout</NavLink>
+                            </div>
+                        </div> :
+                        //member menu
+                        <div>
+                            <div >
+                                <NavLink className="bm-item" activeClassName='is-active' >Home</NavLink>
+                            </div>
+                            <div>
+                                <NavLink className="bm-item" activeClassName='is-active'>Portfolio</NavLink>
+                            </div>
+                            <div>
+                                <label onClick={() => this.showNestedMenu('game')}>
+                                    Game
+                                    {
+                                        this.state.showGameMenu ?
+                                            <i className="fa fa-caret-up font-i-nestedbtn"></i> :
+                                            <i className="fa fa-caret-down font-i-nestedbtn"></i>
+                                    }
+                                </label>
+                                {
+                                    this.state.showGameMenu ?
+                                        <div className="nested-menu-item-div">
+                                            <NavLink className="bm-item" activeClassName='is-active' to={{
+                                                pathname: this.props.match.url + "/joinGame"
+                                            }} onClick={() => { this.closeMenuOnNavClick() }}>Join Game
+                                        </NavLink>
+                                        </div> : ''
+                                }
+                            </div>
+                            <div>
+                                <NavLink className="bm-item" activeClassName='is-active' to={{
+                                    pathname: this.props.match.url + "/orderEntry"
+                                }} onClick={() => { this.closeMenuOnNavClick() }}>Trade</NavLink>
+                            </div>
+                            <div>
+                                <NavLink className="bm-item" activeClassName='is-active' onClick={() => { this.logout() }}>Logout</NavLink>
+                            </div>
+                        </div>
+                }
             </Menu>
         )
     }

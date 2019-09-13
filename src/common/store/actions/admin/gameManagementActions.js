@@ -1,8 +1,9 @@
 import * as Actiontypes from '../actionTypes';
 
-export const LoadGameData = () => {
+export const LoadGameData = (payload) => {
     return {
-        type: Actiontypes.Load_ALL_Games
+        type: Actiontypes.Load_ALL_Games,
+        payload:payload
     }
 }
 

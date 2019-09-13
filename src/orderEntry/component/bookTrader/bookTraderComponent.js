@@ -156,7 +156,7 @@ class BookTrader extends React.Component {
         </div> : <div className="sub-div"> No Trades to display</div>
         return (
             <div className="trader-div">
-                <h3>Buy/Sell</h3>
+                <h3>Bid/Ask</h3>
                 {askBid}
             </div>
         );

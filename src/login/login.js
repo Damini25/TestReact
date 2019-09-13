@@ -26,7 +26,11 @@ class Logincomponent extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.loginFormValues['traderId'] !== this.props.loginFormValues['traderId'] && getLocalStorage('userTypeId')) {
-            this.props.history.push("/mainNav");
+            if( parseInt(getLocalStorage('userTypeId')) === 0){
+                this.props.history.push("/mainNav/manageGame");
+            }else{
+                this.props.history.push("/mainNav/joinGame");
+            }
         }
     }
 

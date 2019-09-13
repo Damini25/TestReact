@@ -1,12 +1,12 @@
 import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Login from './login/login';
 import Notfound from './common/component/notFound/notFoundComponent';
 import MainNavigation from './mainNavigation/mainNavigationcomponent';
 import PrivateRoute from './common/component/privateRouteComponent';
 
 const AppRoutes = () => {
-    return <BrowserRouter>
+    return <Router>
         <Switch>
             <Route path="/" exact strict  component={Login} ></Route>
             <Route path="/login" exact strict component={Login} ></Route>
@@ -16,7 +16,7 @@ const AppRoutes = () => {
             <Route component={Notfound}></Route>
             {/* <PrivateRoute path="/admin" component={AdminRouting}></PrivateRoute> */}
         </Switch>
-    </BrowserRouter>
+    </Router>
 }
 
-export default AppRoutes;
+export default (AppRoutes);

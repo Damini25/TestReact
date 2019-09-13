@@ -1,6 +1,7 @@
 import * as ActionTypes from '../../actions/actionTypes';
 
 const initialState = {
+    gameCreatedSucess: false,
     createGameFormValue: {
         gameName: '',
         gameMode: 'general',
@@ -33,8 +34,9 @@ const GameManagementReducer = (state = initialState, action) => {
             clearData['transaction'] = '';
             clearData['gameInterval'] = '';
             clearData['file'] = '';
+
             return {
-                ...state, createGameFormValue: clearData
+                ...state, createGameFormValue: clearData, gameCreatedSucess: true
             }
         }
         case ActionTypes.Fetch_All_Games:
@@ -44,10 +46,10 @@ const GameManagementReducer = (state = initialState, action) => {
                 listGames: [...action.data]
             }
         case ActionTypes.Game_Started_ByAdmin:
-            console.log('Game_Started_ByAdmin', {...action.data})
+            console.log('Game_Started_ByAdmin', { ...action.data })
             return {
                 ...state,
-                gameStarted: {...action.data}
+                gameStarted: { ...action.data }
             }
         default:
             return state;

@@ -910,7 +910,7 @@ class SecurityChart extends React.Component {
             });
         }
         return (<div className="security-chart-div">
-            <h3>Buy/Sell Spread</h3>
+            <h3>Bid/Ask Spread</h3>
             <div className="prod-name-label">
                 <label>Product Name - </label> {prodName ? prodName['productCode'] + '-' + prodName['productName'] : ''}
             </div>

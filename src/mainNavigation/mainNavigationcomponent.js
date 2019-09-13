@@ -29,7 +29,7 @@ class MainNavigation extends React.Component {
     render() {
         console.log('url', this.props.match.url)
         return (
-            <BrowserRouter>
+            // <BrowserRouter>
                 <div className="outer-container">
                     <div className="header-div" >
                         <SideBar pageWrapId={"page-wrap"} {...this.props} />
@@ -49,7 +49,7 @@ class MainNavigation extends React.Component {
                     </Switch>
 
                 </div>
-            </BrowserRouter>
+            //  </BrowserRouter> 
         )
     }
 }

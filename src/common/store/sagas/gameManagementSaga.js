@@ -1,7 +1,8 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { createNewGame, getGameList, uploadHistoricalDataFile, callJoinGame,callStartGame,callStopGame,callDeleteGame } from '../../../manageGame/manageGameService';
-import { setLocalStorage } from '../../../common/localStorageService';
+import { createNewGame, getGameList, uploadHistoricalDataFile, callJoinGame, callStartGame, callStopGame, callDeleteGame } from '../../../manageGame/manageGameService';
+import { setLocalStorage, getLocalStorage } from '../../../common/localStorageService';
+import { push } from 'react-router-redux';
 
 export function* callCreateGameAPI(action) {
     const { payload } = action;
@@ -12,8 +13,12 @@ export function* callCreateGameAPI(action) {
         const response = yield call(createNewGame, payload);
         console.log('create new game api response', response);
         yield put({ type: ActionTypes.Game_Created_Success });
-        yield put({ type: ActionTypes.Load_ALL_Games });
-        yield put({ type: ActionTypes.Recieve_Posts });     
+        yield put({
+            type: ActionTypes.Load_ALL_Games, payload: {
+                'userId': parseInt(getLocalStorage('traderId'))
+            }
+        });
+        yield put({ type: ActionTypes.Recieve_Posts });
     }
     catch (e) {
         yield put({ type: ActionTypes.RecieveError_Posts });
@@ -24,8 +29,9 @@ export function* postGameFormValues() {
     yield takeLatest(ActionTypes.Post_CreateGameForm_Values, callCreateGameAPI);
 }
 
-export function* fetchGameList() {
-    const response = yield call(getGameList);
+export function* fetchGameList(action) {
+    const { payload } = action
+    const response = yield call(getGameList, payload);
     yield put({ type: ActionTypes.Fetch_All_Games, data: response.data['data'] });
 }
 export function* loadGameList() {
@@ -33,8 +39,9 @@ export function* loadGameList() {
 }
 
 
-export function* fetchTraderGameList() {
-    const response = yield call(getGameList);
+export function* fetchTraderGameList(action) {
+    const { payload } = action
+    const response = yield call(getGameList, payload);
     yield put({ type: ActionTypes.Fetch_All_TraderGames, data: response.data['data'] });
 }
 export function* loadTraderGameList() {
@@ -42,14 +49,14 @@ export function* loadTraderGameList() {
 }
 
 export function* callJoinGameAPI(action) {
-    const {payload}=action;
-    const response = yield call(callJoinGame,payload);
+    const { payload } = action;
+    const response = yield call(callJoinGame, payload);
     setLocalStorage({
         name: 'gameSessionId',
-        value: response.data['data'][0]['userId']
-      });
-
-   // yield put({ type: ActionTypes.On_Join_Game_Success, data: response.data['data'] });
+        value: response.data['data']['gameSessionId']
+    });
+    yield put(push('/mainNav/orderEntry'));
+     yield put({ type: ActionTypes.On_Join_Game_Success, data: response.data['data'] });
 }
 export function* joinGame() {
     yield takeLatest(ActionTypes.Join_Game, callJoinGameAPI);
@@ -57,11 +64,17 @@ export function* joinGame() {
 
 
 export function* callStartGameAPI(action) {
-    const {payload}=action;
-    const response = yield call(callStartGame,payload);
-    const games = yield call(getGameList);
-    yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
+    const { payload } = action;
+    const response = yield call(callStartGame, payload);
+    yield put({
+        type: ActionTypes.Load_ALL_Games, payload: {
+            'userId': parseInt(getLocalStorage('traderId'))
+        }
+    });
+    //const games = yield call(getGameList);
+    //yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
     yield put({ type: ActionTypes.Game_Started_Success, data: response.data['data'] });
+    yield put({ type: ActionTypes.Generate_Orders});
 }
 
 export function* startGameAdmin() {
@@ -69,10 +82,15 @@ export function* startGameAdmin() {
 }
 
 export function* callStopGameAPI(action) {
-    const {payload}=action;
-    const response = yield call(callStopGame,payload);
-    const games = yield call(getGameList);
-    yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
+    const { payload } = action;
+    const response = yield call(callStopGame, payload);
+    yield put({
+        type: ActionTypes.Load_ALL_Games, payload: {
+            'userId': parseInt(getLocalStorage('traderId'))
+        }
+    });
+   // const games = yield call(getGameList);
+   // yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
 }
 
 export function* stopGameAdmin() {
@@ -80,10 +98,15 @@ export function* stopGameAdmin() {
 }
 
 export function* callDeleteGameAPI(action) {
-    const {payload}=action;
-    const response = yield call(callDeleteGame,payload);
-    const games = yield call(getGameList);
-    yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
+    const { payload } = action;
+    const response = yield call(callDeleteGame, payload);
+    yield put({
+        type: ActionTypes.Load_ALL_Games, payload: {
+            'userId': parseInt(getLocalStorage('traderId'))
+        }
+    });
+  //  const games = yield call(getGameList);
+  //  yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
 }
 
 export function* gameDeleteByAdmin() {
@@ -91,6 +114,6 @@ export function* gameDeleteByAdmin() {
 }
 
 export default function* GameManagementSaga() {
-    yield all([postGameFormValues(), loadGameList(),loadTraderGameList(),
-        joinGame(),startGameAdmin(),stopGameAdmin(),gameDeleteByAdmin()]);
+    yield all([postGameFormValues(), loadGameList(), loadTraderGameList(),
+    joinGame(), startGameAdmin(), stopGameAdmin(), gameDeleteByAdmin()]);
 }

@@ -43,4 +43,4 @@ class EnterOrder extends React.Component {
     }
 }
 
-export default EnterOrder;
+export default (EnterOrder);

@@ -7,7 +7,14 @@ import { getLocalStorage } from '../common/localStorageService';
 class ListTraderGames extends React.Component {
 
     componentDidMount() {
-        this.props.onLoadTraderGameData();
+        this.props.onLoadTraderGameData({ 'userId': parseInt(getLocalStorage('traderId')) });
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log('joingame', prevProps, this.props)
+        if (getLocalStorage('gameSessionId') && this.props.gameSessionId !== prevProps.gameSessionId) {
+            this.props.history.push("/mainNav/orderEntry");
+        }
     }
 
     joinGame(elem) {
@@ -16,6 +23,7 @@ class ListTraderGames extends React.Component {
             traderId: parseInt(getLocalStorage('traderId'))
         }
         this.props.onJoiningGame(payload);
+
     }
 
     render() {
@@ -67,8 +75,8 @@ class ListTraderGames extends React.Component {
 
 const mapdispatchToProps = (dispatch) => {
     return {
-        onLoadTraderGameData: () => {
-            dispatch(actiontypes.LoadTraderGameList())
+        onLoadTraderGameData: (param) => {
+            dispatch(actiontypes.LoadTraderGameList(param))
         },
         onJoiningGame: (payload) => {
             dispatch(actiontypes.JoinGame(payload))
@@ -78,7 +86,8 @@ const mapdispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     console.log('stateExecutedOrderList', state.traderGameManagementReducer['listTraderGames']);
     return {
-        gameList: state.traderGameManagementReducer['listTraderGames']
+        gameList: state.traderGameManagementReducer['listTraderGames'],
+        gameSessionId: state.traderGameManagementReducer['gameSessionId']
     }
 }
 export default connect(mapStateToProps, mapdispatchToProps)(ListTraderGames)

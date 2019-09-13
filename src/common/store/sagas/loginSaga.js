@@ -10,10 +10,6 @@ export function* loginUser(action) {
     if (response['data'].success) {
       console.log('loginresponse', response, response['data'].success)
       setLocalStorage({
-        name: 'sessionId',
-        value: 'xyz'
-      });
-      setLocalStorage({
         name: 'traderId',
         value: response.data['data'][0]['userId']
       });

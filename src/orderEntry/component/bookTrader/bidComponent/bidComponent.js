@@ -15,7 +15,7 @@ class BidComponent extends React.Component {
     }
 
     priceClicked(elem) {
-        console.log('ee', elem)
+       // console.log('ee', elem)
         //onClick={() => { this.props.bidPriceClicked(elem) }}
     }
 
@@ -34,7 +34,7 @@ class BidComponent extends React.Component {
 
         return (
             <div>
-                <h3>Buy</h3>
+                <h3>Bid</h3>
                 <table>
                     <thead>
                         <tr>

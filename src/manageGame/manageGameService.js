@@ -30,12 +30,12 @@ export const uploadHistoricalDataFile = (payload) => {
   return axios.post(`${env.apiUrl}/trading/ordergenerator-service/ordergen/uploadFile`, formData);
 }
 
-export const getGameList = () => {
+export const getGameList = (payload) => {
   return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/allgames`,{});
 }
 
 export const callJoinGame = (payload) => {
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/joingame?gameId=${payload['gameId']}&userId=${payload['traderId']}`,{});
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/joingame?gameId=${payload['gameId']}`,{});
 }
 
 export const callStartGame = (payload) => {

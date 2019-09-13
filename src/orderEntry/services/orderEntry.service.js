@@ -45,3 +45,7 @@ export const getNewsList = (payload) => {
   return axios.get(process.env.PUBLIC_URL + '/mockData/news.json');
   // return axios.post(`${env.apiUrl}`+'/userdashb/orderscreen/book',payload,null);
 }  
+
+export const generateOrders = () => {
+  return axios.get(`${env.apiUrl}`+'/trading/ordergenerator-service/ordergen/generateorders');
+}  

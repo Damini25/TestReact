@@ -33,7 +33,7 @@ const history=createBrowserHistory();
 const routeMiddleware = routerMiddleware(history);
 const sagaMiddleware = createSagaMiddleware();
 const middleWares=[routeMiddleware,sagaMiddleware]
-const store = createStore(rootReducers, applyMiddleware(sagaMiddleware));
+const store = createStore(rootReducers, applyMiddleware(...middleWares));
 //const store = createStore(rootReducers,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 sagaMiddleware.run(rootSaga);
 

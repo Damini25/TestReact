@@ -1,8 +1,9 @@
 import * as Actiontypes from './actionTypes';
 
-export const LoadTraderGameList = () => {
+export const LoadTraderGameList = (param) => {
     return {
-        type: Actiontypes.Load_Trader_Games
+        type: Actiontypes.Load_Trader_Games,
+        payload:param
     }
 }
 
