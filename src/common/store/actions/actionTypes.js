@@ -42,3 +42,5 @@ export const Game_Started_Success="Game_Started_Success";
 export const Game_Stopped_ByAdmin="Game_Stopped_ByAdmin";
 export const Game_Deleted_ByAdmin="Game_Deleted_ByAdmin";
 export const Generate_Orders="Generate_Orders";
+export const Close_SnackBar="Close_SnackBar";
+export const Show_SnackBar="Show_SnackBar";

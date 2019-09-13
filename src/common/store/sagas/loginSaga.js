@@ -2,6 +2,8 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
 import { login } from '../../../login/loginService';
 import { setLocalStorage } from '../../../common/localStorageService';
+import {push} from 'react-router-redux';
+
 
 
 export function* loginUser(action) {
@@ -18,6 +20,8 @@ export function* loginUser(action) {
         value: response.data['data'][0]['userTypeId']
       });
       yield put({ type: ActionTypes.Set_User_Details, element: { 'traderId': response.data['data'][0]['userId'] } });
+      yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successfull' })
+      yield put(push('/mainNav'))
     }
   } catch (e) {
 

@@ -135,11 +135,11 @@ class CreateGame extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('isFetchingData', state.showLoaderReducer.isFetching);
+  //  console.log('isFetchingData', state.showLoaderReducer.isFetching);
     return {
         formValues: state.gameManagementReducer.createGameFormValue,
         gameCreatedSuccessfully: state.gameManagementReducer.gameCreatedSucess,
-        isFetchingData: state.showLoaderReducer.isFetching
+        isFetchingData: state.requestStatusReducer.isFetching
     }
 }
 

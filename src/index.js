@@ -6,7 +6,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import ShowLoaderReducer from './common/store/reducers/loaderReducer';
+import RequestStatusReducer from './common/store/reducers/requestStatusReducer';
 import OrderListReducer from './common/store/reducers/orderListReducer';
 import OrderBookReducer from './common/store/reducers/bookOrderValuesReducer';
 import ChartReducer from './common/store/reducers/chartReducer';
@@ -26,7 +26,7 @@ const rootReducers = combineReducers({
     orderBookReducer: OrderBookReducer,
     fetchDataReducer: FetchDataReducer,
     gameManagementReducer:GameManagementReducer,
-    showLoaderReducer:ShowLoaderReducer,
+    requestStatusReducer:RequestStatusReducer,
     traderGameManagementReducer:TraderGameManagementReducer
 });
 const history=createBrowserHistory();

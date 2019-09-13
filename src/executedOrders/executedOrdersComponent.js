@@ -71,7 +71,7 @@ class ExecutedOrderList extends React.Component {
         if (this.fetchOrderListInterval) {
             clearInterval(this.fetchOrderListInterval);
         }
-        this.fetchOrderListInterval = setInterval(this.fetchBookedOrderList, 3000);
+        this.fetchOrderListInterval = setInterval(this.fetchBookedOrderList, 10000);
     }
 
     /**

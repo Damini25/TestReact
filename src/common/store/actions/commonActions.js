@@ -41,3 +41,14 @@ export const CallLoginApi=(payload)=>{
         payload:payload
     }
 }
+export const ShowSnackbar=()=>{
+    return {
+        type:Actiontypes.Show_SnackBar,
+    }
+}
+
+export const CloseSnackbar=()=>{
+    return {
+        type:Actiontypes.Close_SnackBar,
+    }
+}
