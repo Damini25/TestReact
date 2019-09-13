@@ -16,11 +16,11 @@ class TraderInfo extends React.Component {
         return (<div className="trader-info-div">
             <h3>Trader Info</h3>
             <div className="sub-div">
-                <div>
+                {/* <div>
                     <label>Trader Id </label>
                     <span>-</span>
                     <span>Trd-012</span>
-                </div>
+                </div> */}
                 <div>
                     <label>Name </label>
                     <span>-</span>
@@ -29,12 +29,12 @@ class TraderInfo extends React.Component {
                 <div>
                     <label>Game </label>
                     <span>-</span>
-                    <span>Test001</span>
+                    <span>Interactive Trading</span>
                 </div>
                 <div>
                     <label>Balance </label>
                     <span>-</span>
-                    <span>$1,00,000</span>
+                    <span>$1,00,00</span>
                 </div>
             </div>
             <div className="sub-div2">

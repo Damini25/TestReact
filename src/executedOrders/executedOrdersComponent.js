@@ -22,7 +22,7 @@ class ExecutedOrderList extends React.Component {
     }
     componentDidUpdate(prevProps) {
         if (prevProps.bookedOrdersList !== this.props.bookedOrdersList) {
-            console.log('list',this.props.bookedOrdersList)
+         //   console.log('list',this.props.bookedOrdersList)
             this.setState({
                 orderTabActive: true,
                 tradeTabActive: false,

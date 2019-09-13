@@ -4,7 +4,7 @@ import { getProducts, getNewsList} from '../../../orderEntry/services/orderEntry
 
 export function* fetchStockSymbol() {
   const response = yield call(getProducts);
-  console.log('products',response)
+//  console.log('products',response)
   yield put({ type: ActionTypes.Fetch_Stock_Symbols, data: response.data });
 }
 export function* loadStockSymbol() {

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { env } from '../../common/environment';
 
 export const getInitialOrderList = (payload) => {
-  console.log('servie', payload)
+ // console.log('servie', payload)
   //  return axios.get(process.env.PUBLIC_URL + '/mockData/orderList.json');
   return axios.post(`${env.apiUrl}` + '/trading/ordermgmt-service/userdashb/bidaskscreen/fetch', payload);
 

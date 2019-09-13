@@ -9,16 +9,13 @@ import CloseIcon from '@material-ui/icons/Close';
 
 class EditGameComponent extends React.Component {
 
-    // handleClose = () => {
-    //     onClose(selectedValue);
-    // }
     render() {
         return (
             <div>
                 <Dialog onClose={this.props.editDialogClose} aria-labelledby="simple-dialog-title"
                     open={this.props.editDialogopen}>
-                    <DialogTitle id="simple-dialog-title">Edit Game
-                    <IconButton aria-label="close"  onClick={this.props.editDialogClose}>
+                    <DialogTitle id="simple-dialog-title" onClose={this.props.editDialogClose}>Edit Game
+                    <IconButton aria-label="close"  onClose={this.props.editDialogClose} onClick={this.props.editDialogClose}>
                             <CloseIcon />
                         </IconButton>
                     </DialogTitle>

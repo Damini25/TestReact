@@ -3,7 +3,7 @@ import * as ActionTypes from '../actions/actionTypes';
 const initialState = {
     stockSymbols: [],
     userDetails: {
-        name: 'test',
+        name: 'john',
         password:'',
         traderId: ''
     },

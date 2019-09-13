@@ -9,7 +9,7 @@ export function* fetchBidAskOrders(action) {
         const response = yield call(getInitialOrderList, payload);
         yield put({ type: ActionTypes.OnRecieve_BidAsk_Data, data: response.data['data'] });
     } catch (error) {
-        console.error(error)
+        console.error('sagaFetchCallBidAskerror',error)
     }
 }
 

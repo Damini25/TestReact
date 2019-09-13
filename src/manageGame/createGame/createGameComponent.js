@@ -39,7 +39,7 @@ class CreateGame extends React.Component {
                         <div>
                             <div className="label-input-div">
                                 <label>Game Name</label>
-                                <input name="gameName" value={this.props.formValues['gameName']}
+                                <input name="gameName" autoComplete="off" value={this.props.formValues['gameName']}
                                     placeholder="Enter name" onChange={(e) => { this.handleChange(e) }} />
                             </div>
 
@@ -64,7 +64,7 @@ class CreateGame extends React.Component {
                                     <div>
                                         <div className="label-input-div">
                                             <label>Volume</label>
-                                            <input name="volume" value={this.props.formValues['volume']}
+                                            <input autoComplete="off" name="volume" value={this.props.formValues['volume']}
                                                 placeholder="Enter volume" type="number"
                                                 onChange={(e) => { this.handleChange(e) }} />
                                         </div>
@@ -97,6 +97,7 @@ class CreateGame extends React.Component {
                                     <div className="label-input-div">
                                         <label>Starting Cash</label>
                                         <input name="startingCash"
+                                            autoComplete="off"
                                             value={this.props.formValues['startingCash']}
                                             placeholder="Enter starting cash" type="number"
                                             onChange={(e) => { this.handleChange(e) }} />

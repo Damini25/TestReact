@@ -7,11 +7,11 @@ import { push } from 'react-router-redux';
 export function* callCreateGameAPI(action) {
     const { payload } = action;
     try {
-        console.log('create new game api response', 1);
+       // console.log('create new game api response', 1);
         yield put({ type: ActionTypes.Request_Posts });
         yield call(uploadHistoricalDataFile, payload);
         const response = yield call(createNewGame, payload);
-        console.log('create new game api response', response);
+     //   console.log('create new game api response', response);
         yield put({ type: ActionTypes.Game_Created_Success });
         yield put({
             type: ActionTypes.Load_ALL_Games, payload: {
@@ -51,6 +51,7 @@ export function* loadTraderGameList() {
 export function* callJoinGameAPI(action) {
     const { payload } = action;
     const response = yield call(callJoinGame, payload);
+  //  console.log('gamejoin',response.data['data']['gameSessionId'])
     setLocalStorage({
         name: 'gameSessionId',
         value: response.data['data']['gameSessionId']

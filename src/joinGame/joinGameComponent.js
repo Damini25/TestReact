@@ -11,7 +11,7 @@ class ListTraderGames extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('joingame', prevProps, this.props)
+       // console.log('joingame',getLocalStorage('gameSessionId'), prevProps, this.props)
         if (getLocalStorage('gameSessionId') && this.props.gameSessionId !== prevProps.gameSessionId) {
             this.props.history.push("/mainNav/orderEntry");
         }

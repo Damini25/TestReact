@@ -13,7 +13,7 @@ import PrivateRoute from '../common/component/privateRouteComponent';
 class MainNavigation extends React.Component {
 
     componentDidMount(){
-        console.log('urlddcomponentDidMount', this.props.match.url)
+     //   console.log('urlddcomponentDidMount', this.props.match.url)
     }
     state = {
         sidebarOpen: false
@@ -27,7 +27,7 @@ class MainNavigation extends React.Component {
     }
 
     render() {
-        console.log('url', this.props.match.url)
+      //  console.log('url', this.props.match.url)
         return (
             // <BrowserRouter>
                 <div className="outer-container">

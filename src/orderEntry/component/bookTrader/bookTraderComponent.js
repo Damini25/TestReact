@@ -27,7 +27,7 @@ class BookTrader extends React.Component {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
             "gameId": 1,
-            "traderId": getLocalStorage('traderId'),
+            "traderId": parseInt(getLocalStorage('traderId')),
             "noOfRows": 20
         }
         this.props.onLoadBidAskList(payload);
@@ -133,13 +133,17 @@ class BookTrader extends React.Component {
             this.props.onClearBidAskOrders();
             this.fetchOrderList();
         }
+       
+        // if (!getLocalStorage('gameSessionId') || !this.props.gameSessionId) {
+        //     this.props.history.push("/mainNav/joinGame");
+        // }
     }
 
     /**
      *Function call hyperlink-price click in bid/ask list
      */
     onClickPrice = (elem) => {
-        console.log('elem', elem);
+      //  console.log('elem', elem);
         this.props.onUpdateOrderFormValue({ 'transaction': elem['bidOffer'] === 'Ask' ? 'Bid' : 'Ask' })
         this.props.onUpdateOrderFormValue({ 'price': elem['price'] })
         this.props.onUpdateOrderFormValue({ 'quantity': elem['unfulfilledQuantity'] })
@@ -217,7 +221,8 @@ const mapStateToProps = (state) => {
         totalOrdersToBeShown: state.orderListReducer['totalOrdersToBeShown'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
         stockSymbol: state.fetchDataReducer.stockSymbols['data'],
-        traderId:state.fetchDataReducer['userDetails']['traderId']
+        traderId:state.fetchDataReducer['userDetails']['traderId'],
+        gameSessionId: state.traderGameManagementReducer['gameSessionId']
     }
 }
 

@@ -17,14 +17,13 @@ class ListGames extends React.Component {
     }
 
     openEditDialog(elem) {
-        console.log('editdialogelem',elem)
+        console.log('editdialogelem', elem)
         this.setState({
             editModalOpen: true
         })
     }
 
     handleEditDialogClose = (value) => {
-        console.log('v',value)
         this.setState({
             editModalOpen: false
         })
@@ -59,7 +58,7 @@ class ListGames extends React.Component {
                         <td>{elem['gameInterval']}</td>
                         <td>{elem['isGameActive'] ? 'Active' : 'Inactive'}</td>
                         <td>
-                            <label>
+                            <label >
                                 <i className="fa fa-edit" ></i></label>
                             <label onClick={() => this.deleteGame(elem)} title="Delete Game"><i className="fa fa-trash" ></i></label>
                             {
@@ -95,7 +94,8 @@ class ListGames extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <EditGameDialog editDialogopen={this.state.editModalOpen} editDialogClose={() => this.handleEditDialogClose}></EditGameDialog>
+                <EditGameDialog editDialogopen={this.state.editModalOpen}
+                    editDialogClose={this.handleEditDialogClose}></EditGameDialog>
             </div>
         );
     }

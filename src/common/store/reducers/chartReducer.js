@@ -18,7 +18,7 @@ const ChartReducer = (state = initialState, action) => {
                 const newAskOrder = [...state.totalOrderTillNow['askOrders']]
                 newAskOrder.push(action.element);
                 newOrderToShow2.askOrders = [...newAskOrder];
-                console.log('OrderListReducer', state.totalOrderTillNow.askOrders === newOrderToShow2.askOrders);
+               // console.log('OrderListReducer', state.totalOrderTillNow.askOrders === newOrderToShow2.askOrders);
             } else {
                 const newBidOrder = [...state.totalOrderTillNow['bidOrders']]
                 newBidOrder.push(action.element);
