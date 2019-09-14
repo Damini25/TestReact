@@ -47,3 +47,10 @@ export const GameDeletedByAdmin = (payload) => {
         payload:payload
     }
 }
+
+/*export const SetFetchOrderInterval = (data) => {
+    return {
+        type: Actiontypes.Set_Fetch_Order_Interval,
+        data:data
+    }
+}*/

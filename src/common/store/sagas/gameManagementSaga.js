@@ -7,17 +7,19 @@ import { push } from 'react-router-redux';
 export function* callCreateGameAPI(action) {
     const { payload } = action;
     try {
-       // console.log('create new game api response', 1);
+        // console.log('create new game api response', 1);
         yield put({ type: ActionTypes.Request_Posts });
-        yield call(uploadHistoricalDataFile, payload);
         const response = yield call(createNewGame, payload);
-     //   console.log('create new game api response', response);
         yield put({ type: ActionTypes.Game_Created_Success });
         yield put({
             type: ActionTypes.Load_ALL_Games, payload: {
                 'userId': parseInt(getLocalStorage('traderId'))
             }
         });
+        const gameId = response['data']['data']['gameId'];
+        yield call(uploadHistoricalDataFile, payload, gameId);
+        //   console.log('create new game api response', response);
+
         yield put({ type: ActionTypes.Recieve_Posts });
     }
     catch (e) {
@@ -51,13 +53,22 @@ export function* loadTraderGameList() {
 export function* callJoinGameAPI(action) {
     const { payload } = action;
     const response = yield call(callJoinGame, payload);
-  //  console.log('gamejoin',response.data['data']['gameSessionId'])
+    //  console.log('gamejoin',response.data['data']['gameSessionId'])
     setLocalStorage({
         name: 'gameSessionId',
         value: response.data['data']['gameSessionId']
     });
+    setLocalStorage({
+        name: 'gameId',
+        value: response.data['data']['gameId']
+    });
+    setLocalStorage({
+        name: 'orderFetchInterval',
+        value: response.data['data']['playbackFrequency']
+    });
+
     yield put(push('/mainNav/orderEntry'));
-     yield put({ type: ActionTypes.On_Join_Game_Success, data: response.data['data'] });
+    yield put({ type: ActionTypes.On_Join_Game_Success, data: response.data['data'] });
 }
 export function* joinGame() {
     yield takeLatest(ActionTypes.Join_Game, callJoinGameAPI);
@@ -75,7 +86,7 @@ export function* callStartGameAPI(action) {
     //const games = yield call(getGameList);
     //yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
     yield put({ type: ActionTypes.Game_Started_Success, data: response.data['data'] });
-    yield put({ type: ActionTypes.Generate_Orders});
+    // yield put({ type: ActionTypes.Generate_Orders});
 }
 
 export function* startGameAdmin() {
@@ -90,8 +101,8 @@ export function* callStopGameAPI(action) {
             'userId': parseInt(getLocalStorage('traderId'))
         }
     });
-   // const games = yield call(getGameList);
-   // yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
+    // const games = yield call(getGameList);
+    // yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
 }
 
 export function* stopGameAdmin() {
@@ -106,8 +117,8 @@ export function* callDeleteGameAPI(action) {
             'userId': parseInt(getLocalStorage('traderId'))
         }
     });
-  //  const games = yield call(getGameList);
-  //  yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
+    //  const games = yield call(getGameList);
+    //  yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
 }
 
 export function* gameDeleteByAdmin() {

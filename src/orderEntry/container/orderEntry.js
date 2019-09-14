@@ -9,6 +9,7 @@ import BookTrader from '../component/bookTrader/bookTraderComponent';
 import NewsFeed from '../component/newsFeed/newsFeedComponent';
 import TraderInfo from '../component/traderInfo/traderInfoComponent';
 import ExecutedOrders from '../../executedOrders/executedOrdersComponent';
+import PortfolioList from '../../portfolio/portfolioComponent';
 
 
 
@@ -29,6 +30,7 @@ class EnterOrder extends React.Component {
                 </div>
                 <div className="parent-div">
                     <TraderInfo></TraderInfo>
+                    {/* <PortfolioList></PortfolioList> */}
                     <PLChart className="sub-div"></PLChart>
                     {/* <NewsFeed></NewsFeed> */}
                     <ExecutedOrders></ExecutedOrders>

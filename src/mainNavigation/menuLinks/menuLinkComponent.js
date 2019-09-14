@@ -27,7 +27,6 @@ class MenuLinks extends React.Component {
     }
 
     closeMenuOnNavClick() {
-        console.log('nav click', this.state)
         this.setState((state) => ({
             menuOpen: !state.menuOpen
         }))
@@ -35,7 +34,6 @@ class MenuLinks extends React.Component {
 
     logout() {
         clearLocalStorage();
-        console.log('vthis.props.',this.props)
         this.props.history.push("/login");
     }
 

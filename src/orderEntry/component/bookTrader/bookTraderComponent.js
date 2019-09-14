@@ -36,24 +36,7 @@ class BookTrader extends React.Component {
             clearInterval(this.orderListInterval);
         }
         
-        this.orderListInterval = setInterval(this.fetchOrderList, 3000);
-       /* getInitialOrderList(payload).then((res) => {
-            if (res.data.success) {
-                if (res.data['data']) {
-                    this.setStateBasedOnOrderData(res.data['data']);
-                    //  this.setStateForMinMaxTotalOrder(res.data['data']);
-                    if (this.orderListInterval) {
-                        clearInterval(this.orderListInterval);
-                    }
-                      this.orderListInterval = setInterval(this.fetchOrderList, 3000);
-
-                }
-            }
-        }, (err) => {
-            this.tradeOpen = false;
-            clearInterval(this.orderListInterval);
-            // showToast('error', err);
-        })*/
+        this.orderListInterval = setInterval(this.fetchOrderList, getLocalStorage('orderFetchInterval'));
     }
 
     /**

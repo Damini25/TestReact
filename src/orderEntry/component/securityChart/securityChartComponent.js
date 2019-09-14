@@ -870,7 +870,8 @@ class SecurityChart extends React.Component {
                                 drawBorder: false,
                             },
                             ticks: {
-                                padding: 15
+                                padding: 15,
+                               // stepSize:0.1
                             }
                         }]
                     },

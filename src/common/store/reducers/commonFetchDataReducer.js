@@ -4,7 +4,7 @@ const initialState = {
     stockSymbols: [],
     userDetails: {
         name: 'john',
-        password:'',
+        password: '',
         traderId: ''
     },
     loginFormError: {
@@ -13,14 +13,15 @@ const initialState = {
     },
     bookedOrders: [],
     executedOrders: [],
-    newsFeed: []
+    newsFeed: [],
+   // orderFetchInterval: []
 }
 
 const FetchDataReducer = (state = initialState, action) => {
     //  console.log('ftech reducer state action',state,action)
     switch (action.type) {
         case ActionTypes.Set_User_Details:
-           // const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };
+            // const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };
             return {
                 ...state,
                 userDetails: {
@@ -46,7 +47,7 @@ const FetchDataReducer = (state = initialState, action) => {
                 loginFormError: { ...state.loginFormError, ...loginFormValidity }
             }
         case ActionTypes.Fetch_Booked_Orders:
-           // console.log('fetchredbooked', action)
+            // console.log('fetchredbooked', action)
             return {
                 ...state,
                 bookedOrders: action.data[0]['allOrders'],
@@ -64,6 +65,11 @@ const FetchDataReducer = (state = initialState, action) => {
                 ...state,
                 newsFeed: action.data
             }
+       /* case ActionTypes.On_Get_Order_Fetch_Interval:
+            return {
+                ...state,
+                orderFetchInterval: action.data
+            }*/
         default:
             return state;
     }

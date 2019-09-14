@@ -18,6 +18,10 @@ axios.interceptors.request.use((req) => {
     if (getLocalStorage('traderId')) {
         req['headers']['userId'] = getLocalStorage('traderId')
     }
+    if (getLocalStorage('gameId')) {
+        req['headers']['gameId'] = getLocalStorage('gameId')
+    }
+    
     //  req.url = req.url + `?requestedTime=${Date.now()}`
     return req;
 });

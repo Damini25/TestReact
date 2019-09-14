@@ -52,3 +52,16 @@ export const CloseSnackbar=()=>{
         type:Actiontypes.Close_SnackBar,
     }
 }
+
+/*export const GetOrderFetchInterval=()=>{
+    return {
+        type:Actiontypes.Get_Order_Fetch_Interval,
+    }
+}*/
+
+export const LoadPortfolioList=(payload)=>{
+    return {
+        type:Actiontypes.Load_Portfolio_List,
+        payload:payload
+    }
+}

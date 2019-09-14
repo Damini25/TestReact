@@ -16,11 +16,27 @@ class ListGames extends React.Component {
         this.props.onLoadGameData({ 'userId': parseInt(getLocalStorage('traderId')) });
     }
 
-    openEditDialog(elem) {
-        console.log('editdialogelem', elem)
-        this.setState({
-            editModalOpen: true
+    /* openEditDialog(elem) {
+         console.log('editdialogelem', elem)
+         this.setState({
+             editModalOpen: true
+         })
+     }*/
+
+    editGame(elem) {
+
+        this.props.onUpdateCreateGameFormValue({
+            gameName: elem['gameCode'],
+            gameMode: elem['gameMode'],
+            startingCash: elem['startingBalance'],
+            volume: elem['startingVolume'],
+            transaction: elem['bidAsk'],
+            playbackFrequency: elem['playbackFrequency'],
+            playbackStartTime: new Date(elem['playbackStartTime']),
+            playbackEndTime: new Date(elem['playbackEndTime'])
         })
+        //   this.props.onUpdateOrderFormValue({ 'price': elem['price'] })
+        //   this.props.onUpdateOrderFormValue({ 'quantity': elem['unfulfilledQuantity'] })
     }
 
     handleEditDialogClose = (value) => {
@@ -59,7 +75,7 @@ class ListGames extends React.Component {
                         <td>{elem['isGameActive'] ? 'Active' : 'Inactive'}</td>
                         <td>
                             <label >
-                                <i className="fa fa-edit" ></i></label>
+                                <i className="fa fa-edit" onClick={() => this.editGame(elem)}></i></label>
                             <label onClick={() => this.deleteGame(elem)} title="Delete Game"><i className="fa fa-trash" ></i></label>
                             {
                                 elem['isGameActive'] !== true ? <label title="Start Game" onClick={() => this.startGame(elem)}><i className="fa fa-arrow-right start-game-icon" ></i></label> :
@@ -115,6 +131,9 @@ const mapdispatchToProps = (dispatch) => {
         },
         onDeleteGame: (payload) => {
             dispatch(actiontypes.GameDeletedByAdmin(payload))
+        },
+        onUpdateCreateGameFormValue: (data) => {
+            dispatch(actiontypes.UpdateCreateGameFormValues(data))
         }
     }
 }

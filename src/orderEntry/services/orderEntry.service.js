@@ -49,3 +49,7 @@ export const getNewsList = (payload) => {
 export const generateOrders = () => {
   return axios.get(`${env.apiUrl}`+'/trading/ordergenerator-service/ordergen/generateorders');
 }  
+
+export const getPortfolioList = () => {
+  // return axios.get(`${env.apiUrl}`+'/userdashb/orderscreen/book');
+} 

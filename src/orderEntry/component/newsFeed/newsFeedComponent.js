@@ -19,7 +19,7 @@ class NewsFeed extends React.Component {
             }) : <h5></h5>;
         return (
             <div>
-                {/* <span>Todays News:</span> */}
+               {/* <p className="news-list">{this.props.newsList.join('  ~  ')}</p> */}
                 <Ticker>{
                     () => (
                         this.props.newsList && this.props.newsList.length ?

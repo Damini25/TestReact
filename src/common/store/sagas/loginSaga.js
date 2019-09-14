@@ -7,7 +7,7 @@ import {push} from 'react-router-redux';
 
 
 export function* loginUser(action) {
-  try {
+ try {
     const response = yield call(login, action.payload);
     if (response['data'].success) {
       console.log('loginresponse', response, response['data'].success)
@@ -20,8 +20,8 @@ export function* loginUser(action) {
         value: response.data['data'][0]['userTypeId']
       });
       yield put({ type: ActionTypes.Set_User_Details, element: { 'traderId': response.data['data'][0]['userId'] } });
-      yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successfull' })
-      yield put(push('/mainNav'))
+    //  yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successfull' })
+     // yield put(push('/mainNav'))
     }
   } catch (e) {
 

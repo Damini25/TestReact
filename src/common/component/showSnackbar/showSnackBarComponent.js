@@ -17,6 +17,7 @@ class ShowSnackbar extends React.Component{
         return (
             <div>
                 <Snackbar
+                
                     anchorOrigin={{
                         vertical: 'top',
                         horizontal: 'center',
@@ -26,7 +27,7 @@ class ShowSnackbar extends React.Component{
                     onClose={this.closeSnackBar}
                     ContentProps={{
                         classes:{
-                            message:'msg-span'
+                            root:'msg-span'
                         },
                         'aria-describedby': 'message-id',
                     }}

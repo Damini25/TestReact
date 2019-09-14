@@ -16,34 +16,38 @@ export const createNewGame = (formvalues) => {
     'buySell': formvalues['transaction'],
     'gameInterval': formvalues['gameInterval'],
     'startingBalance': formvalues['startingCash'],
-    'startingVolume': formvalues['volume']
-}
+    'startingVolume': formvalues['volume'],
+    'playbackStartTime': formvalues['playbackStartTime'],
+    'playbackEndTime': formvalues['playbackEndTime'],
+    'playbackFrequency': formvalues['playbackFrequency']
+  }
 
   return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/creategame`, payload);
 }
 
 
-export const uploadHistoricalDataFile = (payload) => {
-  console.log('vv',payload);
-  const formData=new FormData()
+export const uploadHistoricalDataFile = (payload, gameId) => {
+  console.log('uploadHistoricalDataFile', payload, gameId);
+  const formData = new FormData()
   formData.append('file', payload['file']);
-  return axios.post(`${env.apiUrl}/trading/ordergenerator-service/ordergen/uploadFile`, formData);
+  formData.append('gameId', gameId);
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/uploadFile`, formData);
 }
 
 export const getGameList = (payload) => {
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/allgames`,{});
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/allgames`, {});
 }
 
 export const callJoinGame = (payload) => {
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/joingame?gameId=${payload['gameId']}`,{});
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/joingame?gameId=${payload['gameId']}`, {});
 }
 
 export const callStartGame = (payload) => {
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/startgame`,payload);
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/startgame`, payload);
 }
 export const callStopGame = (payload) => {
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/stopgame?gameId=${payload['gameId']}`,{});
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/stopgame?gameId=${payload['gameId']}`, {});
 }
 export const callDeleteGame = (payload) => {
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/deletegame`,payload);
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/deletegame`, payload);
 }

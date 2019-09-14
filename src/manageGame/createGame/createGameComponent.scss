@@ -6,7 +6,7 @@
     /* margin-left: 7%; */
     /* margin-right: 7%; */
     margin: 0 7% 0 7%;
-    margin-top: 5%;
+    margin-top: 2%;
     padding: 3% 5% 2% 5%;
     background-color: #eee;
 
@@ -34,7 +34,7 @@
         max-width: 36%;
     }
     input , select{
-        width: 50%;
+        width: 35%;
     }
     .react-datepicker__input-container input {
         width: 100%;
@@ -43,6 +43,9 @@
         display: flex;
         margin-right: 8%;
     }
+}
+.game-interval-div{
+    display: none;
 }
 .late-entry-div{
         width:30%;
@@ -64,6 +67,17 @@
     padding: 3px;
     height: 29px;
     cursor: pointer;
-    margin-top: 9%;
+    margin-top: 3%;
     margin-left: 53%;
+    margin-bottom: 1%;
+}
+
+.refresh-interval-div{
+    text-align: right;
+    margin-bottom: 0;
+    margin-right: 8%;
+    margin-top: 2%;
+    label{
+        margin-right: 1%;
+    }
 }

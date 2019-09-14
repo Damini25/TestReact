@@ -19,20 +19,20 @@ class Logincomponent extends React.Component {
             username: this.props.loginFormValues['name'],
             password: this.props.loginFormValues['password']
         }
-        this.props.history.push("/mainNav");
+        this.props.history.push("/mainNav/manageGame");
         this.props.onLogin(payload)
         e.preventDefault();
     }
 
-    // componentDidUpdate(prevProps) {
-    //     if (prevProps.loginFormValues['traderId'] !== this.props.loginFormValues['traderId'] && getLocalStorage('userTypeId')) {
-    //         if( parseInt(getLocalStorage('userTypeId')) === 0){
-    //             this.props.history.push("/mainNav/manageGame");
-    //         }else{
-    //             this.props.history.push("/mainNav/joinGame");
-    //         }
-    //     }
-    // }
+    componentDidUpdate(prevProps) {
+        if (prevProps.loginFormValues['traderId'] !== this.props.loginFormValues['traderId'] && getLocalStorage('userTypeId')) {
+            if( parseInt(getLocalStorage('userTypeId')) === 0){
+                this.props.history.push("/mainNav/manageGame");
+            }else{
+                this.props.history.push("/mainNav/joinGame");
+            }
+        }
+    }
 
     handleChange = (event) => {
         if (!validateField(event.target.name, event.target.value)) {

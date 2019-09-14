@@ -8,12 +8,15 @@ const initialState = {
         startingCash: '',
         volume: '',
         transaction: '',
-        gameInterval: '',
+        gameInterval:60,
+        playbackFrequency: '',
+        playbackStartTime: '',
+        playbackEndTime: '',
         file: ''
     },
+  //  fetchOrderInterval: '',
     listGames: [],
     gameStarted: {
-
     }
 }
 
@@ -32,7 +35,9 @@ const GameManagementReducer = (state = initialState, action) => {
             clearData['startingCash'] = '';
             clearData['volume'] = '';
             clearData['transaction'] = '';
-            clearData['gameInterval'] = '';
+            clearData['playbackStartTime'] = '';
+            clearData['playbackEndTime'] = '';
+            clearData['playbackFrequency'] = '';
             clearData['file'] = '';
 
             return {
@@ -40,13 +45,13 @@ const GameManagementReducer = (state = initialState, action) => {
             }
         }
         case ActionTypes.Fetch_All_Games:
-           // console.log('Fetch_All_Games', [...action.data])
+            // console.log('Fetch_All_Games', [...action.data])
             return {
                 ...state,
                 listGames: [...action.data]
             }
         case ActionTypes.Game_Started_ByAdmin:
-          //  console.log('Game_Started_ByAdmin', { ...action.data })
+            //  console.log('Game_Started_ByAdmin', { ...action.data })
             return {
                 ...state,
                 gameStarted: { ...action.data }

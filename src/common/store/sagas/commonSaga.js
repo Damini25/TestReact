@@ -1,6 +1,6 @@
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { getProducts, getNewsList} from '../../../orderEntry/services/orderEntry.service';
+import { getProducts, getNewsList, getPortfolioList} from '../../../orderEntry/services/orderEntry.service';
 
 export function* fetchStockSymbol() {
   const response = yield call(getProducts);
@@ -19,6 +19,17 @@ export function* loadNewsList() {
   yield takeLatest(ActionTypes.Load_News_List, fetchNewsList);
 }
 
+export function* fetchPortfolioList(action) {
+  const { payload } = action
+  const response = yield call(getPortfolioList);
+  yield put({ type: ActionTypes.Recieve_Portfolio_List, data: response.data['data'] });
+}
+
+export function* loadPortfolioList() {
+  yield takeLatest(ActionTypes.Load_Portfolio_List, fetchPortfolioList);
+}
+
+
 export default function* commonFetchSaga() {
-  yield all([loadStockSymbol(),loadNewsList()]);
+  yield all([loadStockSymbol(),loadNewsList(),loadPortfolioList()]);
 }
