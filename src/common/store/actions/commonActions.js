@@ -65,3 +65,10 @@ export const LoadPortfolioList=(payload)=>{
         payload:payload
     }
 }
+
+export const ShowNewsSnackBar=(msg)=>{
+    return {
+        type:Actiontypes.Show_SnackBar,
+        msg:msg
+    }
+}

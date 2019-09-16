@@ -10,16 +10,15 @@ class NewsFeed extends React.Component {
         this.props.loadNewsList();
     }
 
+
+
     render() {
-      //  console.log('newsList', this.props.newsList, this.props.newsList.join(' '));
-        const news1 = <h5>hello</h5>
         const news = this.props.newsList && this.props.newsList.length ?
             this.props.newsList.map((elem, index) => {
-                return (<h5>{elem}</h5>);
-            }) : <h5></h5>;
+                return this.props.showNewsSnackBar(elem);
+            }) : '';
         return (
             <div>
-               {/* <p className="news-list">{this.props.newsList.join('  ~  ')}</p> */}
                 <Ticker>{
                     () => (
                         this.props.newsList && this.props.newsList.length ?
@@ -50,6 +49,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadNewsList: () => {
             dispatch(actiontypes.LoadNewsList());
+        },
+        showNewsSnackBar: (msg) => {
+            dispatch(actiontypes.ShowNewsSnackBar(msg));
         }
     }
 }

@@ -3,7 +3,7 @@ import './listGameComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../common/store/actions/actionIndex';
 import EditGameDialog from '../editGame/editGameComponent';
-import {convertToDateTime} from '../../common/utilities';
+import { convertToDateTime } from '../../common/utilities';
 
 // import * as actiontypes from '../common/store/actions/actionIndex';
 import { getLocalStorage } from '../../common/localStorageService';
@@ -27,7 +27,7 @@ class ListGames extends React.Component {
     editGame(elem) {
 
         this.props.onUpdateCreateGameFormValue({
-            gameId:elem['gameId'],
+            gameId: elem['gameId'],
             gameName: elem['gameCode'],
             gameMode: elem['gameMode'],
             startingCash: elem['startingBalance'],
@@ -59,14 +59,14 @@ class ListGames extends React.Component {
     }
 
     deleteGame(elem) {
-         this.props.onDeleteGame(elem);
+        this.props.onDeleteGame(elem);
     }
 
     playPauseDataFlow(elem) {
-      //  elem['playbackFlag'] = !elem['playbackFlag'];
+        //  elem['playbackFlag'] = !elem['playbackFlag'];
 
         const payload = {
-            'gameId':elem['gameId'],
+            'gameId': elem['gameId'],
             'gameName': elem['gameCode'],
             'gameMode': elem['gameMode'],
             'transaction': elem['transaction'],
@@ -76,17 +76,17 @@ class ListGames extends React.Component {
             'playbackStartTime': elem['playbackStartTime'],
             'playbackEndTime': elem['playbackEndTime'],
             'playbackFrequency': elem['playbackFrequency'],
-            'playbackFlag':!elem['playbackFlag'],
+            'playbackFlag': !elem['playbackFlag'],
             'isGameActive': elem['isGameActive']
-          }
-        console.log('pause',elem)
+        }
+        console.log('pause', elem)
         this.props.onPostCreateGameData(payload);
     }
     render() {
         let row = [];
         if (this.props.gameList && this.props.gameList.length) {
             row = this.props.gameList.map((elem, i) => {
-                
+
                 return (
                     <tr key={i} >
                         <td>{elem['gameCode']}</td>
@@ -94,8 +94,6 @@ class ListGames extends React.Component {
                         <td>{elem['startingBalance']}</td>
                         <td>{elem['startingVolume'] ? elem['startingVolume'] : '-'}</td>
                         <td>{elem['bidAsk'] ? elem['bidAsk'] : '-'}</td>
-                        <td>{convertToDateTime(elem['playbackStartTime'])}</td>
-                        <td>{convertToDateTime(elem['playbackEndTime'])}</td>
                         <td>{elem['isGameActive'] ? 'Active' : 'Inactive'}</td>
                         <td>
                             <label >
@@ -107,6 +105,8 @@ class ListGames extends React.Component {
                             }
 
                         </td>
+                        <td>{convertToDateTime(elem['playbackStartTime'])}</td>
+                        <td>{convertToDateTime(elem['playbackEndTime'])}</td>
                         <td>
                             {!elem['playbackFlag'] ? <button disabled={!elem['isGameActive']} title="Play" onClick={() => this.playPauseDataFlow(elem)}><i className="fa fa-play start-game-icon" ></i></button> :
                                 <button title="Pause" onClick={() => this.playPauseDataFlow(elem)}><i className="fa fa-pause start-game-icon"></i></button>
@@ -123,16 +123,20 @@ class ListGames extends React.Component {
                 <div className="table-div">
                     <table>
                         <thead>
+                            {/* <tr>
+                                <th colSpan="6">Basic game rules</th>
+                                <th colSpan="3">Playback rules</th>
+                            </tr> */}
                             <tr>
                                 <th>Game Name</th>
                                 <th>Game Mode</th>
                                 <th>Starting Cash</th>
                                 <th>Volume</th>
                                 <th>Buy/Sell</th>
-                                <th>Playback Start Time</th>
-                                <th>Playback End Time</th>
                                 <th>Status</th>
                                 <th>Action</th>
+                                <th>Playback Start Time</th>
+                                <th>Playback End Time</th>
                                 <th>Play/Pause</th>
                             </tr>
                         </thead>
@@ -140,10 +144,10 @@ class ListGames extends React.Component {
                             {row}
                         </tbody>
                     </table>
-                </div>
+                </div >
                 <EditGameDialog editDialogopen={this.state.editModalOpen}
                     editDialogClose={this.handleEditDialogClose}></EditGameDialog>
-            </div>
+            </div >
         );
     }
 }

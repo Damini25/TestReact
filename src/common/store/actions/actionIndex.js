@@ -6,7 +6,7 @@ export {
 } from './chartActions';
 export {
     SetUserDetails, SetLoginFormValidity, LoadBookedOrders, LoadPortfolioList,
-    LoadExecutedOrders, LoadNewsList, CallLoginApi, ShowSnackbar, CloseSnackbar
+    LoadExecutedOrders, LoadNewsList, CallLoginApi, ShowSnackbar, CloseSnackbar,ShowNewsSnackBar
 } from './commonActions';
 export { UpdateCreateGameFormValues, PostCreateGameData, LoadGameData, GameStartedByAdmin, GameStoppedByAdmin, GameDeletedByAdmin } from './admin/gameManagementActions';
 export { LoadTraderGameList, JoinGame } from './joinGameAction';
