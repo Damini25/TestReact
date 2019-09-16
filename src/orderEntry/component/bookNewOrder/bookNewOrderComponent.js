@@ -43,7 +43,7 @@ class BookNewOrder extends React.Component {
             "bidOffer": formvalues['transaction'],
             "currencyId": null,
             "price": parseFloat(formvalues['price']),
-            "orderTypeId": null,
+            "orderTypeId": parseInt(formvalues['orderType']),
             "orderTime": Date.now(),
             "orderStatusId": null
         }
@@ -135,16 +135,16 @@ class BookNewOrder extends React.Component {
 
                                 <option disabled value="">Select order type</option>
 
-                                <option value='market'>
+                                <option value='1'>
                                     Market
                                 </option>
 
-                                <option value='limit'>
+                                <option value='2'>
                                     Limit
                                 </option>
                             </select>
                         </div>
-                        {this.props.formValues['orderType']==='limit' ? <div>
+                        {this.props.formValues['orderType']==='2' ? <div>
                             <label>Price</label>
                             <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['price']} name="price" />

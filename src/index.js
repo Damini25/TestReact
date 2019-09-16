@@ -14,32 +14,36 @@ import FetchDataReducer from './common/store/reducers/commonFetchDataReducer';
 import GameManagementReducer from './common/store/reducers/admin/gameManagementReducer';
 import TraderGameManagementReducer from './common/store/reducers/joinGameReducer';
 import './common/httpInterceptor';
-import { routerMiddleware } from 'react-router-redux'
+// mport { routerMiddleware } from 'react-router-redux'
+import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './common/store/sagas/sagaIndex';
 import { createBrowserHistory } from 'history'
 
-
+const history = createBrowserHistory();
 const rootReducers = combineReducers({
     orderListReducer: OrderListReducer,
     chartReducer: ChartReducer,
     orderBookReducer: OrderBookReducer,
     fetchDataReducer: FetchDataReducer,
-    gameManagementReducer:GameManagementReducer,
-    requestStatusReducer:RequestStatusReducer,
-    traderGameManagementReducer:TraderGameManagementReducer
+    gameManagementReducer: GameManagementReducer,
+    requestStatusReducer: RequestStatusReducer,
+    traderGameManagementReducer: TraderGameManagementReducer,
+    router: connectRouter(history)
 });
-const history=createBrowserHistory();
+
 const routeMiddleware = routerMiddleware(history);
 const sagaMiddleware = createSagaMiddleware();
-const middleWares=[routeMiddleware,sagaMiddleware]
+const middleWares = [routeMiddleware, sagaMiddleware]
 const store = createStore(rootReducers, applyMiddleware(...middleWares));
 //const store = createStore(rootReducers,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App></App>
+        <ConnectedRouter history={history}>
+            <App />
+        </ConnectedRouter>
     </Provider>,
     document.getElementById('root'));
 
