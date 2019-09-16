@@ -1,7 +1,7 @@
 import React from 'react';
 import AppRoutes from './appRouting';
 import './App.scss';
-import {MessageContainer} from './common/component/toastMessages/toastcomponent'
+import ShowLoader from './common/component/showLoader/loaderComponent';
 import SnackBar from './common/component/showSnackbar/showSnackBarComponent';
 
 class App extends React.Component {
@@ -10,7 +10,9 @@ class App extends React.Component {
       <div className="main">
         <div className="switch-routes">
           {/* <MessageContainer></MessageContainer> */}
+          {/* <ShowLoader></ShowLoader> */}
           <SnackBar></SnackBar>
+          {/* {<img src={process.env.PUBLIC_URL +'/assets/images/loaderGif.gif'} alt="loading..." />} */}
           <AppRoutes />
         </div>
       </div>

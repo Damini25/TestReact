@@ -21,7 +21,15 @@ export const createNewGame = (formvalues) => {
     'playbackEndTime': formvalues['playbackEndTime'],
     'playbackFrequency': formvalues['playbackFrequency']
   }
-
+  if (formvalues['gameId']) {
+    payload['gameId'] = formvalues['gameId']
+  }
+  if (formvalues['playbackFlag']!== undefined || formvalues['playbackFlag']!== null) {
+    payload['playbackFlag'] = formvalues['playbackFlag']
+  }
+  if (formvalues['isGameActive']!== undefined || formvalues['isGameActive']!== null) {
+    payload['isGameActive'] = formvalues['isGameActive']
+  }
   return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/creategame`, payload);
 }
 
@@ -49,5 +57,5 @@ export const callStopGame = (payload) => {
   return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/stopgame?gameId=${payload['gameId']}`, {});
 }
 export const callDeleteGame = (payload) => {
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/deletegame`, payload);
+  return axios.delete(`${env.apiUrl}/trading/gamemgmt-service/game/deletegame?gameId=${payload['gameId']}`);
 }

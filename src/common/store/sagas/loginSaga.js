@@ -22,11 +22,11 @@ export function* loginUser(action) {
       yield put({ type: ActionTypes.Set_User_Details, element: { 'traderId': response.data['data'][0]['userId'] } });
       //  yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successfull' })
   
-      if (parseInt(response.data['data'][0]['userTypeId']) === 0) {
+    /*  if (parseInt(response.data['data'][0]['userTypeId']) === 0) {
         yield put(push('/mainNav/manageGame'))
       } else {
         yield put(push('/mainNav/joinGame'))
-      }
+      }*/
     }
   } catch (e) {
 

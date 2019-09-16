@@ -123,7 +123,13 @@ class CreateGame extends React.Component {
                     <div>
                         <div className="label-input-div">
                             <label>Playback start time</label>
-                            <DatePicker selected={this.props.formValues['playbackStartTime']} name="playbackStartTime"
+                            <DatePicker autoComplete="off"
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="MMMM d, yyyy h:mm aa"
+                                selected={this.props.formValues['playbackStartTime']} name="playbackStartTime"
                                 placeholderText="Click to select a date"
                                 onChange={(date) => this.handleDateChange('playbackStartTime', date)}
                             />
@@ -131,19 +137,25 @@ class CreateGame extends React.Component {
 
                         <div className="label-input-div">
                             <label>Playback end time</label>
-                            <DatePicker selected={this.props.formValues['playbackEndTime']} name="playbackEndTime"
+                            <DatePicker autoComplete="off"
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="MMMM d, yyyy h:mm aa"
+                                selected={this.props.formValues['playbackEndTime']} name="playbackEndTime"
                                 placeholderText="Click to select a date"
                                 onChange={(date) => this.handleDateChange('playbackEndTime', date)}
                             />
                         </div>
 
                         <div className="label-input-div game-interval-div">
-                        <label title="Set game interval (in minutes)">Set game interval</label>
-                        <input name="gameInterval"
-                            value={this.props.formValues['gameInterval']}
-                            onChange={(e) => { this.handleChange(e) }}
-                            placeholder="Set game interval" type="number" />
-                    </div>
+                            <label title="Set game interval (in minutes)">Set game interval</label>
+                            <input name="gameInterval"
+                                value={this.props.formValues['gameInterval']}
+                                onChange={(e) => { this.handleChange(e) }}
+                                placeholder="Set game interval" type="number" />
+                        </div>
 
                         <div className="label-input-div">
                             <label title="Choose file">Upload file</label>
@@ -166,7 +178,14 @@ class CreateGame extends React.Component {
                                 <option value={3000}> 3</option>
                             </select>
                         </div>
-                        <button className="create-game-btn" type="submit" >Update</button>
+                        {/* <div className="label-input-div">
+                            <label title="Play or Pause">Play/Pause</label>
+                            {
+                                true ? <label title="Play" onClick={() => this.playPauseDataFlow('play')}><i className="fa fa-play start-game-icon" ></i></label> :
+                                    <label title="Pause" onClick={() => this.playPauseDataFlow('pause')}><i className="fa fa-pause end-game-icon"></i></label>
+                            }
+                        </div> */}
+                        <button className="create-game-btn" type="submit" >{this.props.gameActionBtnLabelc ? 'Create' : 'Create/Update'}</button>
                     </div>
                 </div>
             </div>
@@ -196,7 +215,8 @@ const mapStateToProps = (state) => {
     return {
         formValues: state.gameManagementReducer.createGameFormValue,
         gameCreatedSuccessfully: state.gameManagementReducer.gameCreatedSucess,
-        isFetchingData: state.requestStatusReducer.isFetching
+        isFetchingData: state.requestStatusReducer.isFetching,
+        gameActionBtnLabel: state.gameManagementReducer.createGameBtnLabel
     }
 }
 
@@ -211,9 +231,9 @@ const mapDispatchToProps = (dispatch) => {
         onResetCreateGameFormValues: () => {
             //dispatch(actiontypes.ResetGameFormValues())
         },
-       /* onSettingFetchOrderInterval: (val) => {
-            dispatch(actiontypes.SetFetchOrderInterval(val))
-        }*/
+        /* onSettingFetchOrderInterval: (val) => {
+             dispatch(actiontypes.SetFetchOrderInterval(val))
+         }*/
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CreateGame);

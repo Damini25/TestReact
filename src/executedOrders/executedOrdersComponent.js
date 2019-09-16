@@ -3,7 +3,7 @@ import './executedOrdersComponent.scss';
 import { getBookedOrderList, getExecutedOrderList } from '../orderEntry/services/orderEntry.service';
 import { connect } from 'react-redux';
 import * as actiontypes from '../common/store/actions/actionIndex';
-import {getLocalStorage} from '../common/localStorageService';
+import { getLocalStorage } from '../common/localStorageService';
 
 class ExecutedOrderList extends React.Component {
     state = {
@@ -22,16 +22,26 @@ class ExecutedOrderList extends React.Component {
     }
     componentDidUpdate(prevProps) {
         if (prevProps.bookedOrdersList !== this.props.bookedOrdersList) {
-         //   console.log('list',this.props.bookedOrdersList)
             this.setState({
                 orderTabActive: true,
                 tradeTabActive: false,
                 dataToShow: this.props.bookedOrdersList
             })
         }
-        //  console.log('execOrder',prevProps.bookOrderFormNewValue['stockSymbol'],this.props.bookOrderFormNewValue['stockSymbol'])
+
         if (this.props.bookOrderFormNewValue['stockSymbol'] &&
             prevProps.bookOrderFormNewValue['stockSymbol'] !== this.props.bookOrderFormNewValue['stockSymbol']) {
+            this.fetchBookedOrderList();
+        }
+
+        /**
+         * Play and Pause feature
+         */
+        if (this.fetchOrderListInterval && !this.props.playbackOrdersFlow) {
+            if (this.fetchOrderListInterval) {
+                clearInterval(this.fetchOrderListInterval);
+            }
+        } else if (this.props.playbackOrdersFlow && prevProps['playbackOrdersFlow'] !== this.props.playbackOrdersFlow) {
             this.fetchBookedOrderList();
         }
     }
@@ -71,28 +81,15 @@ class ExecutedOrderList extends React.Component {
         if (this.fetchOrderListInterval) {
             clearInterval(this.fetchOrderListInterval);
         }
-        this.fetchOrderListInterval = setInterval(this.fetchBookedOrderList, 10000);
+        console.log('val', this.state);
+        if (!this.props.playbackOrdersFlow) {
+            if (this.fetchOrderListInterval) {
+                clearInterval(this.fetchOrderListInterval);
+            }
+        }
+        this.fetchOrderListInterval = setInterval(this.fetchBookedOrderList, getLocalStorage('orderFetchInterval'));
     }
 
-    /**
-      * API call to fetch Executed Orders List data
-      */
-    fetchExecutedOrderList = () => {
-        const payload = {
-            "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
-            "gameId": "001",
-            "noOfRows": 20
-        }
-        this.props.onLoadExecutedOrders(payload);
-        /*  getExecutedOrderList(payload).then((res) => {
-              if (res.data.success) {
-                  if (res.data['data']) {
-                      console.log('executedorders', res.data['data']);
-                  }
-              }
-          }, (err) => {
-          })*/
-    }
     /**
         * Function call when component is destroyed
          */
@@ -106,10 +103,10 @@ class ExecutedOrderList extends React.Component {
         // this.state.dataToShow=this.props.bookedOrdersList;
         if (this.state.dataToShow && this.state.dataToShow.length) {
             row = this.state.dataToShow.map((elem, i) => {
-                const time= this.state.tradeTabActive ? elem['orderExecutionTime']:elem['orderTime']
+                const time = this.state.tradeTabActive ? elem['orderExecutionTime'] : elem['orderTime']
                 const d = new Date(time);
                 const date = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-               
+
                 return (
                     <tr key={i}>
                         <td>{date}</td>
@@ -118,13 +115,6 @@ class ExecutedOrderList extends React.Component {
                         <td>{elem['unfulfilledQuantity']}</td>
                         <td>{elem['orderStatusId']}</td>
                     </tr>
-                    // <tr key={i}>
-                    //     <td>158</td>
-                    //     <td>11:07:02</td>
-                    //     <td>NCG</td>
-                    //     <td>23.55</td>
-                    //     <td>BID</td>
-                    // </tr>
                 );
             })
         }
@@ -177,7 +167,8 @@ const mapStateToProps = (state) => {
         bookedOrdersList: state.fetchDataReducer['bookedOrders'],
         executedOrdersList: state.fetchDataReducer['executedOrders'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
-        traderId:state.fetchDataReducer['userDetails']['traderId']
+        traderId: state.fetchDataReducer['userDetails']['traderId'],
+        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
     }
 }
 export default connect(mapStateToProps, mapdispatchToProps)(ExecutedOrderList)

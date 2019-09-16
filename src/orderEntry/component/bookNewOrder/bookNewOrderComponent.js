@@ -155,7 +155,7 @@ class BookNewOrder extends React.Component {
                                 value={this.props.formValues['quantity']} name="quantity" />
                         </div>
                         <div>
-                            <button type="submit">EXECUTE</button>
+                            <button type="submit" disabled={!this.props.playbackOrdersFlow}>EXECUTE</button>
                         </div>
                     </div>
                 </div>
@@ -172,7 +172,8 @@ const mapStateToProps = (state) => {
         stockSymbol: state.fetchDataReducer.stockSymbols['data'],
         defaultStockSymbol: 'Select stock symbol',
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
-        traderId:state.fetchDataReducer['userDetails']['traderId']
+        traderId:state.fetchDataReducer['userDetails']['traderId'],
+        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
     }
 }
 

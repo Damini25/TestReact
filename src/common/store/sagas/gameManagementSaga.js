@@ -16,8 +16,9 @@ export function* callCreateGameAPI(action) {
                 'userId': parseInt(getLocalStorage('traderId'))
             }
         });
-        const gameId = response['data']['data']['gameId'];
-        yield call(uploadHistoricalDataFile, payload, gameId);
+        if(response['data']['data']['gameId']){
+            yield call(uploadHistoricalDataFile, payload, response['data']['data']['gameId']);
+        }
         //   console.log('create new game api response', response);
 
         yield put({ type: ActionTypes.Recieve_Posts });

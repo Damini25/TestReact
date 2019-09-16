@@ -53,3 +53,7 @@ export const generateOrders = () => {
 export const getPortfolioList = () => {
   // return axios.get(`${env.apiUrl}`+'/userdashb/orderscreen/book');
 } 
+
+export const getGamePlayPauseStatus = (gameId) => {
+   return axios.get(`${env.apiUrl}/trading/gamemgmt-service/game/checkPlaybackFlag?gameId=${gameId}`);
+} 

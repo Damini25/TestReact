@@ -49,3 +49,5 @@ export const Set_Fetch_Order_Interval="Set_Fetch_Order_Interval";
 //export const On_Get_Order_Fetch_Interval="On_Get_Order_Fetch_Interval";
 export const Load_Portfolio_List="Load_Portfolio_List";
 export const Recieve_Portfolio_List="Recieve_Portfolio_List";
+export const Check_Game_PlayPause="Check_Game_PlayPause";
+export const Set_Game_PlayPause_Status="Set_Game_PlayPause_Status";

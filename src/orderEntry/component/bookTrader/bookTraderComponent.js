@@ -26,7 +26,7 @@ class BookTrader extends React.Component {
     fetchOrderList = () => {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
-            "gameId": 1,
+            "gameId": parseInt(getLocalStorage('gameId')),
             "traderId": parseInt(getLocalStorage('traderId')),
             "noOfRows": 20
         }
@@ -35,9 +35,40 @@ class BookTrader extends React.Component {
         if (this.orderListInterval) {
             clearInterval(this.orderListInterval);
         }
-        
-        this.orderListInterval = setInterval(this.fetchOrderList, getLocalStorage('orderFetchInterval'));
+
+        /**
+         * Play and Pause feature
+         */
+        if(this.props.playbackOrdersFlow){
+            if (this.gameCheckInterval) {
+                clearInterval(this.gameCheckInterval);
+            }
+            this.orderListInterval = setInterval(this.fetchOrderList, getLocalStorage('orderFetchInterval'));
+        }else{
+            if (this.orderListInterval) {
+                clearInterval(this.orderListInterval);
+            }
+            this.checkGameStatus();
+        }
     }
+
+    /**
+     * API call to check game pause/play status
+     */
+    checkGameStatus = () => {
+        const payload = {
+            "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
+            "gameId": parseInt(getLocalStorage('gameId')),
+            "traderId": parseInt(getLocalStorage('traderId')),
+            "noOfRows": 20
+        }
+        this.props.onCheckGamePlayPaused(payload);
+        if (this.gameCheckInterval) {
+            clearInterval(this.gameCheckInterval);
+        }
+        this.gameCheckInterval = setInterval(this.checkGameStatus, 3000);
+    }
+
 
     /**
     * function call to set state on basis of bid/ask data from api
@@ -116,6 +147,18 @@ class BookTrader extends React.Component {
             this.props.onClearBidAskOrders();
             this.fetchOrderList();
         }
+
+        if(this.gameCheckInterval && this.props.playbackOrdersFlow && prevstate['playbackOrdersFlow']!== this.props.playbackOrdersFlow){
+            if(this.gameCheckInterval){
+                clearInterval(this.gameCheckInterval);
+            }
+            this.fetchOrderList();
+        }else if(this.orderListInterval && !this.props.playbackOrdersFlow){
+            if (this.orderListInterval) {
+                clearInterval(this.orderListInterval);
+            }
+            this.checkGameStatus();
+        }
        
         // if (!getLocalStorage('gameSessionId') || !this.props.gameSessionId) {
         //     this.props.history.push("/mainNav/joinGame");
@@ -191,6 +234,9 @@ const mapdispatchToProps = (dispatch) => {
         },
         onAddMinMaxTotalBidOrders: (data) => {
             dispatch(actiontypes.AddMinMaxTotalBidOrders(data));
+        },
+        onCheckGamePlayPaused:(payload) => {
+            dispatch(actiontypes.CheckGamePlayPaused(payload));
         }
     }
 }
@@ -205,7 +251,8 @@ const mapStateToProps = (state) => {
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
         stockSymbol: state.fetchDataReducer.stockSymbols['data'],
         traderId:state.fetchDataReducer['userDetails']['traderId'],
-        gameSessionId: state.traderGameManagementReducer['gameSessionId']
+        gameSessionId: state.traderGameManagementReducer['gameSessionId'],
+        playbackOrdersFlow:state.orderListReducer['playbackOrdersFlow']
     }
 }
 

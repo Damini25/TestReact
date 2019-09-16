@@ -29,3 +29,10 @@ export const ClearBidAskOrders = () => {
         type: Actiontypes.Clear_BidAsk_List_Orders,
     }
 }
+
+export const CheckGamePlayPaused = (payload) => {
+    return {
+        type: Actiontypes.Check_Game_PlayPause,
+        payload:payload
+    }
+}

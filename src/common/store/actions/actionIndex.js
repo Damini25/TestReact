@@ -1,4 +1,4 @@
-export { LoadBidAskList, UpdateRecentOrders, AddNewOrders, ClearBidAskOrders } from './orderListActions';
+export { LoadBidAskList, UpdateRecentOrders, AddNewOrders, ClearBidAskOrders,CheckGamePlayPaused } from './orderListActions';
 export { UpdateOrderFormValues, ResetOrderFormValues, LoadStockSymbol } from './updateNewOrderFormActions';
 export {
     AddTototalOrders, ClearTotalOrders, AddToTotalAskOrders,
