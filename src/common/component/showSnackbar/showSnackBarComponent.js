@@ -13,7 +13,7 @@ class ShowSnackbar extends React.Component {
  
       processQueue = () => {
         if (this.props.newsList.length > 0) {
-                this.props.showNewsSnackBar({msg:this.props.newsList.shift(),duration:3000})
+                this.props.showNewsSnackBar({msg:this.props.newsList.shift(),duration:8000})
         }
       };
 
@@ -22,7 +22,7 @@ class ShowSnackbar extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps['newsList'] !== this.props['newsList']) {
+        if (prevProps['newsList'] !== this.props['newsList'] && this.props.playbackOrdersFlow) {
             this.processQueue();
         }
     }
@@ -65,7 +65,8 @@ class ShowSnackbar extends React.Component {
 const mapStateToProps = (state) => {
     return {
         snackBarInfo: state.requestStatusReducer['snackBarInfo'],
-        newsList: state.fetchDataReducer.newsFeed
+        newsList: state.fetchDataReducer.newsFeed,
+        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
     }
 }
 const mapDispatchToProps = (dispatch) => {

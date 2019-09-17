@@ -16,11 +16,9 @@ class BookTrader extends React.Component {
         minMaxBidOrders: []
     }
     componentDidMount() {
-        if (this.props.playbackOrdersFlow){
-            this.props.loadNewsList();
-        }
         this.fetchOrderList();
         this.props.onLoadStockSymbols();
+          //  this.props.loadNewsList();
     }
 
     /**
