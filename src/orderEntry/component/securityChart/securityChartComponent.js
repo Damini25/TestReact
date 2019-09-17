@@ -734,7 +734,7 @@ class SecurityChart extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log('securitychart', this.props.minMaxBidOrders, this.props.minMaxAskOrders);
+      //  console.log('securitychart', this.props.minMaxBidOrders, this.props.minMaxAskOrders);
         if (prevProps.minMaxBidOrders !== this.props.minMaxBidOrders ||
             prevProps.minMaxAskOrders !== this.props.minMaxAskOrders) {
             const bidData = [];
@@ -765,7 +765,7 @@ class SecurityChart extends React.Component {
                 });
             }
 
-              console.log('askData, bidData', askData, bidData, this.convertTimeToDecimal('16:05:02'));
+           //   console.log('askData, bidData', askData, bidData, this.convertTimeToDecimal('16:05:02'));
             this.myChart = new Chart(this.canvasRef.current, {
                 type: 'line',
                 data: {

@@ -81,7 +81,7 @@ class ExecutedOrderList extends React.Component {
         if (this.fetchOrderListInterval) {
             clearInterval(this.fetchOrderListInterval);
         }
-        console.log('val', this.state);
+      //  console.log('val', this.state);
         if (!this.props.playbackOrdersFlow) {
             if (this.fetchOrderListInterval) {
                 clearInterval(this.fetchOrderListInterval);

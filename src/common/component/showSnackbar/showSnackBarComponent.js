@@ -8,16 +8,35 @@ import { connect } from 'react-redux';
 import * as actiontypes from '../../store/actions/actionIndex';
 import './showSnackBarComponent.scss';
 
-class ShowSnackbar extends React.Component{
+
+class ShowSnackbar extends React.Component {
+ 
+      processQueue = () => {
+        if (this.props.newsList.length > 0) {
+                this.props.showNewsSnackBar({msg:this.props.newsList.shift(),duration:3000})
+        }
+      };
+
     closeSnackBar = () => {
         this.props.onCloseSnackBar();
     }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps['newsList'] !== this.props['newsList']) {
+            this.processQueue();
+        }
+    }
+
+     handleExited = () => {
+        this.processQueue();
+      };
 
     render() {
         return (
             <div>
                 <Snackbar
-                
+                key={this.props.snackBarInfo['msg']}
+                    onExited={this.handleExited}
                     anchorOrigin={{
                         vertical: 'top',
                         horizontal: 'center',
@@ -26,8 +45,8 @@ class ShowSnackbar extends React.Component{
                     autoHideDuration={this.props.snackBarInfo['duration']}
                     onClose={this.closeSnackBar}
                     ContentProps={{
-                        classes:{
-                            root:'msg-span'
+                        classes: {
+                            root: 'msg-span'
                         },
                         'aria-describedby': 'message-id',
                     }}
@@ -45,13 +64,17 @@ class ShowSnackbar extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        snackBarInfo: state.requestStatusReducer['snackBarInfo']
+        snackBarInfo: state.requestStatusReducer['snackBarInfo'],
+        newsList: state.fetchDataReducer.newsFeed
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
         onCloseSnackBar: () => {
             dispatch(actiontypes.CloseSnackbar());
+        },
+        showNewsSnackBar: (data) => {
+            dispatch(actiontypes.ShowSnackbar(data));
         }
     }
 }

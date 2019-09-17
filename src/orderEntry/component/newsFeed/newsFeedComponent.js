@@ -11,12 +11,12 @@ class NewsFeed extends React.Component {
     }
 
 
-
     render() {
-        const news = this.props.newsList && this.props.newsList.length ?
+       /* const news = this.props.newsList && this.props.newsList.length ?
             this.props.newsList.map((elem, index) => {
-                return this.props.showNewsSnackBar(elem);
-            }) : '';
+                //  this.props.showNewsSnackBar({msg:elem,open:true,duration:3000})
+            }
+            ) : '';*/
         return (
             <div>
                 <Ticker>{
@@ -27,38 +27,18 @@ class NewsFeed extends React.Component {
                 }</Ticker>
             </div>
         );
-
-
-
-
-        // return (<div className="news-feed-div">
-        //     <h3>News Feed</h3>
-        //     <div>
-        //         <ul>
-        //             <li>1. An increase in wind energy and a record low PV tariff have reduced electricity prices </li>
-        //             <li className="tempColor">2. The European Energy Exchange (EEX) will expand its product range ... peak load products with weekly, monthly, quarterly </li>
-        //             <li>3. Global warming will hit solar panel performance</li>
-        //         </ul>
-        //         <a href="#">Click here for more news..</a>
-        //     </div>
-        // </div>);
-
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
         loadNewsList: () => {
             dispatch(actiontypes.LoadNewsList());
-        },
-        showNewsSnackBar: (msg) => {
-            dispatch(actiontypes.ShowNewsSnackBar(msg));
         }
     }
 }
 const mapStateToProps = (state) => {
-    //  console.log('chart',state.chartReducer)
     return {
-        newsList: state.fetchDataReducer.newsFeed
+        newsList: state.fetchDataReducer.newsFeed,
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);

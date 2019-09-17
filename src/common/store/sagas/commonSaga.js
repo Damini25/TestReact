@@ -1,10 +1,10 @@
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { getProducts, getNewsList, getPortfolioList} from '../../../orderEntry/services/orderEntry.service';
+import { getProducts, getNewsList, getPortfolioList } from '../../../orderEntry/services/orderEntry.service';
 
 export function* fetchStockSymbol() {
   const response = yield call(getProducts);
-//  console.log('products',response)
+  //  console.log('products',response)
   yield put({ type: ActionTypes.Fetch_Stock_Symbols, data: response.data });
 }
 export function* loadStockSymbol() {
@@ -31,5 +31,5 @@ export function* loadPortfolioList() {
 
 
 export default function* commonFetchSaga() {
-  yield all([loadStockSymbol(),loadNewsList(),loadPortfolioList()]);
+  yield all([loadStockSymbol(), loadNewsList(), loadPortfolioList()]);
 }

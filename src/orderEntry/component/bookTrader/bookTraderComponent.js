@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as actiontypes from '../../../common/store/actions/actionIndex';
 import AskComponent from './askComponent/askComponent';
 import BidComponent from './bidComponent/bidComponent';
-import {getLocalStorage} from '../../../common/localStorageService';
+import { getLocalStorage } from '../../../common/localStorageService';
 import _ from 'lodash';
 
 class BookTrader extends React.Component {
@@ -16,6 +16,9 @@ class BookTrader extends React.Component {
         minMaxBidOrders: []
     }
     componentDidMount() {
+        if (this.props.playbackOrdersFlow){
+            this.props.loadNewsList();
+        }
         this.fetchOrderList();
         this.props.onLoadStockSymbols();
     }
@@ -39,12 +42,12 @@ class BookTrader extends React.Component {
         /**
          * Play and Pause feature
          */
-        if(this.props.playbackOrdersFlow){
+        if (this.props.playbackOrdersFlow) {
             if (this.gameCheckInterval) {
                 clearInterval(this.gameCheckInterval);
             }
             this.orderListInterval = setInterval(this.fetchOrderList, getLocalStorage('orderFetchInterval'));
-        }else{
+        } else {
             if (this.orderListInterval) {
                 clearInterval(this.orderListInterval);
             }
@@ -148,18 +151,18 @@ class BookTrader extends React.Component {
             this.fetchOrderList();
         }
 
-        if(this.gameCheckInterval && this.props.playbackOrdersFlow && prevstate['playbackOrdersFlow']!== this.props.playbackOrdersFlow){
-            if(this.gameCheckInterval){
+        if (this.gameCheckInterval && this.props.playbackOrdersFlow && prevstate['playbackOrdersFlow'] !== this.props.playbackOrdersFlow) {
+            if (this.gameCheckInterval) {
                 clearInterval(this.gameCheckInterval);
             }
             this.fetchOrderList();
-        }else if(this.orderListInterval && !this.props.playbackOrdersFlow){
+        } else if (this.orderListInterval && !this.props.playbackOrdersFlow) {
             if (this.orderListInterval) {
                 clearInterval(this.orderListInterval);
             }
             this.checkGameStatus();
         }
-       
+
         // if (!getLocalStorage('gameSessionId') || !this.props.gameSessionId) {
         //     this.props.history.push("/mainNav/joinGame");
         // }
@@ -169,7 +172,7 @@ class BookTrader extends React.Component {
      *Function call hyperlink-price click in bid/ask list
      */
     onClickPrice = (elem) => {
-      //  console.log('elem', elem);
+        //  console.log('elem', elem);
         this.props.onUpdateOrderFormValue({ 'transaction': elem['bidOffer'] === 'Ask' ? 'Bid' : 'Ask' })
         this.props.onUpdateOrderFormValue({ 'price': elem['price'] })
         this.props.onUpdateOrderFormValue({ 'quantity': elem['unfulfilledQuantity'] })
@@ -235,8 +238,11 @@ const mapdispatchToProps = (dispatch) => {
         onAddMinMaxTotalBidOrders: (data) => {
             dispatch(actiontypes.AddMinMaxTotalBidOrders(data));
         },
-        onCheckGamePlayPaused:(payload) => {
+        onCheckGamePlayPaused: (payload) => {
             dispatch(actiontypes.CheckGamePlayPaused(payload));
+        },
+        loadNewsList: () => {
+            dispatch(actiontypes.LoadNewsList());
         }
     }
 }
@@ -250,9 +256,9 @@ const mapStateToProps = (state) => {
         totalOrdersToBeShown: state.orderListReducer['totalOrdersToBeShown'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
         stockSymbol: state.fetchDataReducer.stockSymbols['data'],
-        traderId:state.fetchDataReducer['userDetails']['traderId'],
+        traderId: state.fetchDataReducer['userDetails']['traderId'],
         gameSessionId: state.traderGameManagementReducer['gameSessionId'],
-        playbackOrdersFlow:state.orderListReducer['playbackOrdersFlow']
+        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
     }
 }
 

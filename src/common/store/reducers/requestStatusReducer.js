@@ -6,7 +6,8 @@ const initialState = {
     snackBarInfo: {
         open: false,
         msg: '',
-        duration: 4000
+        duration: 4000,
+        msgQueue: []
     }
 }
 
@@ -30,7 +31,8 @@ const RequestStatusReducer = (state = initialState, action) => {
         case ActionTypes.Show_SnackBar: {
             const info = { ...state.snackBarInfo }
             info['open'] = true;
-            info['msg'] = action.msg;
+            info['msg'] = action['msg'];
+            info['duration'] = action['duration'];
             return {
                 ...state, snackBarInfo: { ...info }
             }
