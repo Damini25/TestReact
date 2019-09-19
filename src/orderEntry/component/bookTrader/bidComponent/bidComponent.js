@@ -1,8 +1,7 @@
 import React from 'react';
 import './bidComponent.scss';
 import _ from 'lodash';
-import { connect } from 'react-redux';
-import * as actiontypes from '../../../../common/store/actions/actionIndex';
+import {getLocalStorage} from '../../../../common/localStorageService';
 
 class BidComponent extends React.Component {
 
@@ -25,7 +24,7 @@ class BidComponent extends React.Component {
         const row = _.sortBy(this.props.orders, ['price','timestamp'],['asc', 'desc']).reverse().map((elem, i) => {
             const random = this.randomNumber(0, 1);
             return (
-                <tr key={i} className={random === 1 ? 'backgroundBlue' : ''}>
+                <tr key={i} className={elem['traderId'] === parseInt(getLocalStorage('traderId')) ? 'backgroundBlue' : ''}>
                     <td>{elem['unfulfilledQuantity']}</td>
                     <td ><a  href="#" onClick={() => { this.props.bidPriceClicked(elem) }}>{elem['price']}</a></td>
                 </tr>

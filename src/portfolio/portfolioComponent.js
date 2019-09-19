@@ -5,9 +5,22 @@ import * as actiontypes from '../common/store/actions/actionIndex';
 import { getLocalStorage } from '../common/localStorageService';
 
 class PortfolioComponent extends React.Component {
-  
+
     componentDidMount() {
-      //  this.fetchPortfolioList();
+        this.fetchPortfolioList();
+    }
+
+    componentDidUpdate(prevProps){
+         /**
+         * Play and Pause feature
+         */
+        if (this.fetchPortfolioListInterval && !this.props.playbackOrdersFlow) {
+            if (this.fetchPortfolioListInterval) {
+                clearInterval(this.fetchPortfolioListInterval);
+            }
+        } else if (this.props.playbackOrdersFlow && prevProps['playbackOrdersFlow'] !== this.props.playbackOrdersFlow) {
+            this.fetchPortfolioList();
+        }
     }
 
     /**
@@ -19,37 +32,54 @@ class PortfolioComponent extends React.Component {
             "noOfRows": 20
         }
         this.props.onLoadPortfolioList(payload);
+        if (this.fetchPortfolioListInterval) {
+            clearInterval(this.fetchPortfolioListInterval);
+        }
+        if (!this.props.playbackOrdersFlow) {
+            if (this.fetchPortfolioListInterval) {
+                clearInterval(this.fetchPortfolioListInterval);
+            }
+        }
+        this.fetchPortfolioListInterval = setInterval(this.fetchPortfolioList, getLocalStorage('orderFetchInterval'));
     }
 
     render() {
-
-        /*let row = [];
-        if (this.state.dataToShow && this.state.dataToShow.length) {
-            row = this.state.dataToShow.map((elem, i) => {
-                const time= this.state.tradeTabActive ? elem['orderExecutionTime']:elem['orderTime']
-                const d = new Date(time);
-                const date = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-               
+        let row = [];
+        if (this.props.portFolioList && this.props.portFolioList.length) {
+            row = this.props.portFolioList.map((elem, i) => {
+                let statusColorCode;
+                if (elem['colorCoding'] === 1) {
+                    statusColorCode = 'show-green';
+                } else if (elem['colorCoding'] === -1) {
+                    statusColorCode = 'show-red';
+                } else {
+                    statusColorCode = 'show-white';
+                }
                 return (
                     <tr key={i}>
-                        <td>{date}</td>
-                        <td>{elem['bidOffer']}</td>
-                        <td>{elem['price']}</td>
-                        <td>{elem['unfulfilledQuantity']}</td>
-                        <td>{elem['orderStatusId']}</td>
+                        <td>{elem['ticker']}</td>
+                        <td>{elem['productType']}</td>
+                        <td>{elem['contractSize']}</td>
+                        <td>{elem['position']}</td>
+                        <td>{elem['cost']}</td>
+                        <td className={statusColorCode}>{elem['last']}</td>
+                        <td className={statusColorCode}>{elem['bid']}</td>
+                        <td className={statusColorCode}>{elem['ask']}</td>
+                        <td>{elem['realizedPnl']}</td>
+                        <td>{elem['unrealizedPnl']}</td>
                     </tr>
                 );
             })
-        }*/
+        }
 
         return (
             <div className="portfolio-list-div">
-                {/* <h3>Executed Orders</h3> */}
+                <h3>Portfolio/Position</h3>
                 <div className="table-div">
                     <table>
                         <thead>
                             <tr>
-                                <th>Product</th>
+                                <th>Ticker</th>
                                 <th>Type</th>
                                 <th>Contract Size</th>
                                 <th>Position</th>
@@ -62,18 +92,7 @@ class PortfolioComponent extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            </tr>
+                            {row}
                         </tbody>
                     </table>
                 </div>
@@ -97,7 +116,9 @@ const mapStateToProps = (state) => {
         bookedOrdersList: state.fetchDataReducer['bookedOrders'],
         executedOrdersList: state.fetchDataReducer['executedOrders'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
-        traderId: state.fetchDataReducer['userDetails']['traderId']
+        traderId: state.fetchDataReducer['userDetails']['traderId'],
+        portFolioList: state.fetchDataReducer['portFolioList'],
+        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
     }
 }
 export default connect(mapStateToProps, mapdispatchToProps)(PortfolioComponent)

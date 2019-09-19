@@ -14,6 +14,7 @@ const initialState = {
     bookedOrders: [],
     executedOrders: [],
     newsFeed: [],
+    portFolioList:[]
    // orderFetchInterval: []
 }
 
@@ -70,6 +71,12 @@ const FetchDataReducer = (state = initialState, action) => {
                 ...state,
                 orderFetchInterval: action.data
             }*/
+            case ActionTypes.Recieve_Portfolio_List:
+                // console.log('fetchredexecutd',action)
+                return {
+                    ...state,
+                    portFolioList: [...action.data]
+                }
         default:
             return state;
     }

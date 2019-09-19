@@ -23,9 +23,9 @@ class ExecutedOrderList extends React.Component {
     componentDidUpdate(prevProps) {
         if (prevProps.bookedOrdersList !== this.props.bookedOrdersList) {
             this.setState({
-                orderTabActive: true,
-                tradeTabActive: false,
-                dataToShow: this.props.bookedOrdersList
+                // orderTabActive: this.state.orderTabActive ? this.state.orderTabActive : true,
+                // tradeTabActive: this.state.tradeTabActive ? this.state.tradeTabActive : false,
+                dataToShow: this.state.tradeTabActive ? [...this.props.executedOrdersList] : [...this.props.bookedOrdersList]
             })
         }
 
@@ -81,7 +81,7 @@ class ExecutedOrderList extends React.Component {
         if (this.fetchOrderListInterval) {
             clearInterval(this.fetchOrderListInterval);
         }
-      //  console.log('val', this.state);
+        //  console.log('val', this.state);
         if (!this.props.playbackOrdersFlow) {
             if (this.fetchOrderListInterval) {
                 clearInterval(this.fetchOrderListInterval);
@@ -110,7 +110,10 @@ class ExecutedOrderList extends React.Component {
                 return (
                     <tr key={i}>
                         <td>{date}</td>
-                        <td>{elem['bidOffer']}</td>
+                        {this.state.tradeTabActive ?
+                            <td>{elem['isSelling'] ? 'Sell' : 'Buy'}</td> :
+                            <td>{elem['bidOffer']}</td>
+                        }
                         <td>{elem['price']}</td>
                         <td>{elem['unfulfilledQuantity']}</td>
                         <td>{elem['orderStatusId']}</td>
@@ -133,7 +136,7 @@ class ExecutedOrderList extends React.Component {
                         <thead>
                             <tr>
                                 <th>Time</th>
-                                <th>Bid/Ask</th>
+                                <th>{this.state.orderTabActive ? 'Bid/Ask' : 'Buy/Sell'}</th>
                                 <th>Price</th>
                                 <th>Volume</th>
                                 <th>Status</th>

@@ -7,25 +7,46 @@ import * as actiontypes from '../../../common/store/actions/actionIndex';
 class NewsFeed extends React.Component {
 
     componentDidMount() {
-        this.props.loadNewsList();
+       // this.props.loadNewsList();
     }
 
+    showNews(list) {
+        this.props.showNewsSnackBar({
+            msg: list.join('  ~  '),
+            open: true,
+            duration: 3000,
+            direction: {
+                vertical: 'top',
+                horizontal: 'right',
+            }
+        })
+    }
 
     render() {
-       /* const news = this.props.newsList && this.props.newsList.length ?
-            this.props.newsList.map((elem, index) => {
-                //  this.props.showNewsSnackBar({msg:elem,open:true,duration:3000})
-            }
-            ) : '';*/
+        if(this.props.newsFeed && this.props.newsFeed.length){
+           
+            console.log('news',this.props.newsFeed);
+        }
+        
+        /* const news = this.props.newsList && this.props.newsList.length ?
+             this.props.newsList.map((elem, index) => {
+                 //  this.props.showNewsSnackBar({msg:elem,open:true,duration:3000})
+             }
+             ) : '';*/
         return (
-            <div>
-                <Ticker>{
-                    () => (
-                        this.props.newsList && this.props.newsList.length ?
-                            <p className="news-list">{this.props.newsList.join('  ~  ')}</p> :
-                            <h5 className="news-else-placeholder">Not forun</h5>)
-                }</Ticker>
+            <div className="show-news-div">
+                <button onClick={() => this.showNews(this.props.newsFeed)}>show</button>
             </div>
+
+
+            // <div>
+            //     <Ticker>{
+            //         () => (
+            //             this.props.newsList && this.props.newsList.length ?
+            //                 <p className="news-list">{this.props.newsList.join('  ~  ')}</p> :
+            //                 <h5 className="news-else-placeholder">Not forun</h5>)
+            //     }</Ticker>
+            // </div>
         );
     }
 }
@@ -33,12 +54,15 @@ const mapDispatchToProps = (dispatch) => {
     return {
         loadNewsList: () => {
             dispatch(actiontypes.LoadNewsList());
+        },
+        showNewsSnackBar: (data) => {
+            dispatch(actiontypes.ShowSnackbar(data));
         }
     }
 }
 const mapStateToProps = (state) => {
     return {
-        newsList: state.fetchDataReducer.newsFeed,
+        newsFeed: state.fetchDataReducer.newsFeed
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);

@@ -22,9 +22,9 @@ class EnterOrder extends React.Component {
                     {/* <NewsFeed></NewsFeed> */}
                 </div>
                 <div className="parent-div">
-                    <TraderInfo></TraderInfo>
-                    {/* <PortfolioList></PortfolioList> */}
-                    <PLChart className="sub-div"></PLChart>
+                    {/* <TraderInfo></TraderInfo> */}
+                    <PortfolioList></PortfolioList>
+                    {/* <PLChart className="sub-div"></PLChart> */}
                     {/* <NewsFeed></NewsFeed> */}
                     <ExecutedOrders></ExecutedOrders>
                 </div>

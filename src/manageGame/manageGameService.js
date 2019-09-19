@@ -47,7 +47,8 @@ export const getGameList = (payload) => {
 }
 
 export const callJoinGame = (payload) => {
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/joingame?gameId=${payload['gameId']}`, {});
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/joingame?gameId=${payload['gameId']}`, {}).then(response => ({ response }))
+  .catch(error => ({ error }));;
 }
 
 export const callStartGame = (payload) => {

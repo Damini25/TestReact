@@ -12,17 +12,25 @@ export function* loadStockSymbol() {
 }
 
 export function* fetchNewsList() {
-  const response = yield call(getNewsList);
-  yield put({ type: ActionTypes.Fetch_News_List, data: response.data['data'] });
+  const { response, error } = yield call(getNewsList);
+  if (response.data['success']) {
+    yield put({ type: ActionTypes.Fetch_News_List, data: response.data['data'] });
+  }else{
+    console.log(error);
+  }
 }
 export function* loadNewsList() {
   yield takeLatest(ActionTypes.Load_News_List, fetchNewsList);
 }
 
 export function* fetchPortfolioList(action) {
-  const { payload } = action
-  const response = yield call(getPortfolioList);
-  yield put({ type: ActionTypes.Recieve_Portfolio_List, data: response.data['data'] });
+  const { payload } = action;
+  const { response, error } = yield call(getPortfolioList);
+  if (response.data['success']) {
+    yield put({ type: ActionTypes.Recieve_Portfolio_List, data: response.data['data'] });
+  } else {
+    console.log('portfolio error', response.data['error']);
+  }
 }
 
 export function* loadPortfolioList() {

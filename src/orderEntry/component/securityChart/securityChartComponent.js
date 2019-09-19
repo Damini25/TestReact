@@ -741,31 +741,31 @@ class SecurityChart extends React.Component {
             const askData = [];
             if (this.props.minMaxBidOrders.length) {
                 this.props.minMaxBidOrders.map((elem) => {
-                    console.log('vvvvvvvvvv',elem)
+                    
                     if (elem.maxBid) {
                         bidData.push({
                             x: this.convertTimeToDecimal(elem.time),
                             y: elem.maxBid.price
                         })
                     }
-                    console.log('bid',bidData)
+                  //  console.log('bid',bidData)
                 });
             }
             if (this.props.minMaxAskOrders.length) {
                 this.props.minMaxAskOrders.map((elem) => {
-                    console.log('vvvvvvvvvv',elem)
+                 
                     if (elem.minAsk) {
                         askData.push({
                             // x: this.convertTimeToDecimal(elem.order.timestamp),
                             x: this.convertTimeToDecimal(elem.time),
                             y: elem.minAsk.price
                         })
-                        console.log('ask',askData)
+                      //  console.log('ask',askData)
                     }
                 });
             }
 
-           //   console.log('askData, bidData', askData, bidData, this.convertTimeToDecimal('16:05:02'));
+              console.log('askData, bidData', askData, bidData, this.convertTimeToDecimal('16:05:02'));
             this.myChart = new Chart(this.canvasRef.current, {
                 type: 'line',
                 data: {
@@ -871,7 +871,9 @@ class SecurityChart extends React.Component {
                             },
                             ticks: {
                                 padding: 15,
-                               // stepSize:0.1
+                            //     min:20,
+                            //     max:23,
+                            //    stepSize:0.5
                             }
                         }]
                     },

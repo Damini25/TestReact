@@ -16,7 +16,7 @@ export function* callCreateGameAPI(action) {
                 'userId': parseInt(getLocalStorage('traderId'))
             }
         });
-        if(response['data']['data']['gameId']){
+        if (response['data']['data']['gameId']) {
             yield call(uploadHistoricalDataFile, payload, response['data']['data']['gameId']);
         }
         //   console.log('create new game api response', response);
@@ -53,23 +53,28 @@ export function* loadTraderGameList() {
 
 export function* callJoinGameAPI(action) {
     const { payload } = action;
-    const response = yield call(callJoinGame, payload);
+    const { response, error } = yield call(callJoinGame, payload);
     //  console.log('gamejoin',response.data['data']['gameSessionId'])
-    setLocalStorage({
-        name: 'gameSessionId',
-        value: response.data['data']['gameSessionId']
-    });
-    setLocalStorage({
-        name: 'gameId',
-        value: response.data['data']['gameId']
-    });
-    setLocalStorage({
-        name: 'orderFetchInterval',
-        value: response.data['data']['playbackFrequency']
-    });
+    if (response['data'].success) {
+        setLocalStorage({
+            name: 'gameSessionId',
+            value: response.data['data']['gameSessionId']
+        });
+        setLocalStorage({
+            name: 'gameId',
+            value: response.data['data']['gameId']
+        });
+        setLocalStorage({
+            name: 'orderFetchInterval',
+            value: response.data['data']['playbackFrequency']
+        });
 
-    yield put(push('/mainNav/orderEntry'));
-    yield put({ type: ActionTypes.On_Join_Game_Success, data: response.data['data'] });
+        yield put(push('/mainNav/orderEntry'));
+        yield put({ type: ActionTypes.Set_GameSession_Id, data: response.data['data'] });
+    } else {
+
+    }
+
 }
 export function* joinGame() {
     yield takeLatest(ActionTypes.Join_Game, callJoinGameAPI);

@@ -13,7 +13,7 @@ const TraderGameManagementReducer = (state = initialState, action) => {
                 ...state,
                 listTraderGames: [...action.data]
             }
-            case ActionTypes.On_Join_Game_Success:
+            case ActionTypes.Set_GameSession_Id:
              //   console.log('Call_Join_Game', action.data)
                 return {
                     ...state,

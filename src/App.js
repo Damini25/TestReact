@@ -1,5 +1,5 @@
 import React from 'react';
-import AppRoutes from './appRouting';
+import appRoutes from './appRouting';
 import './App.scss';
 import ShowLoader from './common/component/showLoader/loaderComponent';
 import SnackBar from './common/component/showSnackbar/showSnackBarComponent';
@@ -13,7 +13,7 @@ class App extends React.Component {
           {/* <ShowLoader></ShowLoader> */}
           <SnackBar></SnackBar>
           {/* {<img src={process.env.PUBLIC_URL +'/assets/images/loaderGif.gif'} alt="loading..." />} */}
-          <AppRoutes />
+         {appRoutes}
         </div>
       </div>
     );

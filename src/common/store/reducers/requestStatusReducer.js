@@ -7,6 +7,10 @@ const initialState = {
         open: false,
         msg: '',
         duration: 4000,
+        direction:{
+            vertical: 'top',
+            horizontal: 'center',
+        },
         msgQueue: []
     }
 }
@@ -33,6 +37,7 @@ const RequestStatusReducer = (state = initialState, action) => {
             info['open'] = true;
             info['msg'] = action['msg'];
             info['duration'] = action['duration'];
+            info['direction'] = {...action['direction']};
             return {
                 ...state, snackBarInfo: { ...info }
             }

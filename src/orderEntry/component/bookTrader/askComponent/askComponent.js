@@ -1,6 +1,7 @@
 import React from 'react';
 import './askComponent.scss';
 import _ from 'lodash';
+import {getLocalStorage} from '../../../../common/localStorageService';
 
 class AskComponent extends React.Component {
     constructor(props){
@@ -18,7 +19,7 @@ class AskComponent extends React.Component {
         const row = _.sortBy(this.props.orders, ['price','timestamp'],['asc','desc']).map((elem,i) => {
             const random = this.randomNumber(0, 1);
             return (
-                <tr key={i} className={random === 1 ? 'backgroundBlue' : ''}>
+                <tr key={i} className={elem['traderId'] === parseInt(getLocalStorage('traderId')) ? 'backgroundBlue' : ''}>
                     <td><a href="#" onClick={() => { this.props.askPriceClicked(elem) }}>{elem['price']}</a></td>
                     <td>{elem['unfulfilledQuantity']}</td>
                 </tr>

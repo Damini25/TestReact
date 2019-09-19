@@ -18,7 +18,7 @@ class BookTrader extends React.Component {
     componentDidMount() {
         this.fetchOrderList();
         this.props.onLoadStockSymbols();
-          //  this.props.loadNewsList();
+        this.props.loadNewsList();
     }
 
     /**
@@ -132,7 +132,8 @@ class BookTrader extends React.Component {
      *Function call on product symbol change
      */
     productChange(event) {
-        this.props.onUpdateProductValue({ 'stockSymbol': parseInt(event.target.value) })
+        this.props.onUpdateProductValue({ 'stockSymbol': parseInt(event.target.value) });
+        this.props.onClearMinMaxChartData();
     }
 
     /**
@@ -160,10 +161,9 @@ class BookTrader extends React.Component {
             }
             this.checkGameStatus();
         }
-
-        // if (!getLocalStorage('gameSessionId') || !this.props.gameSessionId) {
-        //     this.props.history.push("/mainNav/joinGame");
-        // }
+        if (!getLocalStorage('gameSessionId') && !getLocalStorage('gameId') && !this.props['gameSessionId']) {
+            this.props.history.push("/mainNav/joinGame");
+        }
     }
 
     /**
@@ -188,6 +188,21 @@ class BookTrader extends React.Component {
         return (
             <div className="trader-div">
                 <h3>Bid/Ask</h3>
+                <div className="product-drop">
+                    <select onChange={(e) => { this.productChange(e) }}
+                        value={this.props.bookOrderFormNewValue['stockSymbol']}
+                        name="stockSymbol">
+                        <option disabled value="">Select product name</option>
+                        {this.props.stockSymbol && this.props.stockSymbol.length ?
+                            this.props.stockSymbol.map((elem) => {
+                                return (
+                                    <option key={elem['productId']} value={elem['productId']}>
+                                        {elem['productCode'] + '-' + elem['productName']}
+                                    </option>
+                                )
+                            }) : ''}
+                    </select>
+                </div>
                 {askBid}
             </div>
         );
@@ -241,13 +256,16 @@ const mapdispatchToProps = (dispatch) => {
         },
         loadNewsList: () => {
             dispatch(actiontypes.LoadNewsList());
+        },
+        onClearMinMaxChartData: () => {
+            dispatch(actiontypes.ClearTotalMinMaxOrders())
         }
     }
 }
 
 const mapStateToProps = (state) => {
     // console.log('statebooktrader', state);
-    // console.log('statebooktrader', state.orderBookReducer.bookOrderFormValue);
+  //   console.log('statebooktrader', state.fetchDataReducer.stockSymbols['data']);
     return {
         bidOrderList: state.orderListReducer['ordersToShow']['bidOrders'],
         askOrderList: state.orderListReducer['ordersToShow']['askOrders'],
@@ -256,7 +274,7 @@ const mapStateToProps = (state) => {
         stockSymbol: state.fetchDataReducer.stockSymbols['data'],
         traderId: state.fetchDataReducer['userDetails']['traderId'],
         gameSessionId: state.traderGameManagementReducer['gameSessionId'],
-        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
+        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow'],
     }
 }
 

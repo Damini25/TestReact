@@ -1,4 +1,11 @@
 .parent-div .portfolio-list-div{
+    h3{
+    background-color: #BCD6EE;
+    font-weight: 500;
+    margin: 0;
+    border-bottom: 2px solid #bab7b6;
+    text-align: center;
+    }
     border:1px solid #eee;
     // width: 60%;
     min-width: 70%;
@@ -18,7 +25,8 @@
     overflow: auto;
     thead{
         tr{
-            background-color: #BCD6EE;
+           // background-color: #BCD6EE;
+           background-color: aliceblue;
             th{
                 width: 10%;
             }
@@ -28,6 +36,15 @@
         td{
             text-align: center;
             width: 10%;
+            }
+            .show-green{
+                background-color: #11e011;
+            }
+            .show-red{
+                background-color: red;
+            }
+            .show-white{
+                background-color: white;
             }
         }
     tr{

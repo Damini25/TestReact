@@ -56,11 +56,15 @@ export const LoadPortfolioList = (payload) => {
 }
 
 export const ShowSnackbar = (data) => {
-    console.log('show',data)
+   // console.log('show',data)
     return {
         type: Actiontypes.Show_SnackBar,
         msg: data['msg'],
-        duration: data['duration'] ? data['duration'] : 4000
+        duration: data['duration'] ? data['duration'] : 4000,
+        direction:data['direction']? data['direction']:{
+            vertical: 'top',
+            horizontal: 'middle',
+        }
     }
 }
 
