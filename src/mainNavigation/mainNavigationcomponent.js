@@ -10,6 +10,7 @@ import ExecOrderList from '../executedOrders/executedOrdersComponent';
 import JoinGame from '../joinGame/joinGameComponent';
 import PrivateRoute from '../common/component/privateRouteComponent';
 import NewsFeed from '../orderEntry/component/newsFeed/newsFeedComponent';
+import DataUpload from '../uploadDataAdmin/dataUploadComponent';
 
 class MainNavigation extends React.Component {
 
@@ -40,6 +41,7 @@ class MainNavigation extends React.Component {
                     <PrivateRoute exact strict path="/mainNav/orderEntry" component={OrderEntry}></PrivateRoute>
                     <PrivateRoute exact strict path="/mainNav/manageGame" component={ManageGame}></PrivateRoute>
                     <PrivateRoute exact strict path="/mainNav/joinGame" component={JoinGame}></PrivateRoute>
+                    <PrivateRoute exact strict path="/mainNav/uploadDataAdmin" component={DataUpload}></PrivateRoute>
                 </Switch>
 
             </div>

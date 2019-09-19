@@ -13,7 +13,7 @@ class MenuLinks extends React.Component {
             showGameMenu: false
         }
     }
-  
+
     handleMenuStateChange(state) {
         this.setState({ menuOpen: state.isOpen })
     }
@@ -55,6 +55,12 @@ class MenuLinks extends React.Component {
                         <div>
                             <div>
                                 <NavLink className="bm-item" activeClassName='is-active' >Home</NavLink>
+                            </div>
+                            <div>
+                                <NavLink className="bm-item" activeClassName='is-active' to={{
+                                    pathname: this.props.match.url + "/uploadDataAdmin"
+                                }}>Data Upload
+                                </NavLink>
                             </div>
                             <div>
                                 <NavLink className="bm-item" activeClassName='is-active' to={{

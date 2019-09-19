@@ -6,7 +6,9 @@ const initialState = {
         askOrders: [],
         bidOrders: [],
         minAskOrders: [],
-        maxBidOrders: []
+        maxBidOrders: [],
+        minPriceYAxis: null,
+        maxPriceYAxis: null
     },
     playbackOrdersFlow: true,
     totalOrdersToBeShown: 20
@@ -18,28 +20,40 @@ const OrderListReducer = (state = initialState, action) => {
 
         case ActionTypes.OnRecieve_BidAsk_Data: {
 
-             console.log('bid/as', action)
+            console.log('bid/as', action)
             const newOrderToShow = { ...state.ordersToShow };
 
             newOrderToShow.askOrders = [...action['data']['allAskOrders']];
             newOrderToShow.bidOrders = [...action['data']['allBidOrders']];
             const time = new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
-
+            let minAskPrice; let maxBidPrice;
             if (action['data']['allAskOrders'].length) {
-                const minAskPrice = _.minBy(action['data']['allAskOrders'], (o) => {
+                minAskPrice = _.minBy(action['data']['allAskOrders'], (o) => {
                     return o.price;
                 });
                 newOrderToShow.minAskOrders = [...state.ordersToShow.minAskOrders,
                 { minAsk: minAskPrice, time: time }];
             }
             if (action['data']['allBidOrders'].length) {
-                const maxBidPrice = _.maxBy(action['data']['allBidOrders'], (o) => {
+                maxBidPrice = _.maxBy(action['data']['allBidOrders'], (o) => {
                     return o.price;
                 });
                 newOrderToShow.maxBidOrders = [...state.ordersToShow.maxBidOrders,
                 { maxBid: maxBidPrice, time: time }];
             }
-            // console.log('minAskPrice', action['data']['allAskOrders'])
+
+            let minPrice = maxBidPrice['price'];
+            let maxPrice = minAskPrice['price'];
+            if (state.ordersToShow['minPriceYAxis']) {
+                minPrice = minPrice < state.ordersToShow['minPriceYAxis'] ? minPrice : state.ordersToShow['minPriceYAxis'];
+            }else{
+                state.ordersToShow['minPriceYAxis']=minPrice;
+            }
+
+            maxPrice = maxPrice > state.ordersToShow['maxPriceYAxis'] ? maxPrice : state.ordersToShow['maxPriceYAxis'];
+            newOrderToShow['minPriceYAxis'] = minPrice;
+            newOrderToShow['maxPriceYAxis'] = maxPrice;
+
             return {
                 ...state, ordersToShow: newOrderToShow, playbackOrdersFlow: action['data']['playbackFlag']
             }

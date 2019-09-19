@@ -871,9 +871,9 @@ class SecurityChart extends React.Component {
                             },
                             ticks: {
                                 padding: 15,
-                            //     min:20,
-                            //     max:23,
-                            //    stepSize:0.5
+                                 min:this.props['minPrice'] - 2,
+                                 max:this.props['maxPrice'] + 2
+                              //  stepSize:((this.props['maxPrice'] + 2) - (this.props['minPrice'] - 2))/5
                             }
                         }]
                     },
@@ -923,16 +923,16 @@ class SecurityChart extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    // console.log('chart', state.chartReducer['totalOrderTillNow'])
+     console.log('minPrice,maxPrice', state.orderListReducer['ordersToShow']['minPriceYAxis'],state.orderListReducer['ordersToShow']['maxPriceYAxis'])
     return {
         bidOrderList: state.chartReducer['totalOrderTillNow']['bidOrders'],
         askOrderList: state.chartReducer['totalOrderTillNow']['askOrders'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
         stockSymbolData: state.fetchDataReducer.stockSymbols['data'],
-        // minMaxAskOrders: state.chartReducer['totalOrderTillNow']['minMaxAskOrders'],
-        // minMaxBidOrders: state.chartReducer['totalOrderTillNow']['minMaxBidOrders']
         minMaxAskOrders: state.orderListReducer['ordersToShow']['minAskOrders'],
-        minMaxBidOrders: state.orderListReducer['ordersToShow']['maxBidOrders']
+        minMaxBidOrders: state.orderListReducer['ordersToShow']['maxBidOrders'],
+        minPrice:state.orderListReducer['ordersToShow']['minPriceYAxis'],
+        maxPrice:state.orderListReducer['ordersToShow']['maxPriceYAxis']
     }
 }
 
