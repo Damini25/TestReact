@@ -2,14 +2,9 @@ import axios from 'axios';
 import { env } from '../common/environment';
 
 export const createNewGame = (formvalues) => {
-  /*const formData=new FormData()
-  formData.append('file', payload['file']);
-  formData.append('gameCode', payload['gameName']);
-  formData.append('gameMode', payload['gameMode']);
-  formData.append('buySell', payload['transaction']);
-  formData.append('gameInterval', payload['gameInterval']);
-  formData.append('startingBalance', payload['startingCash']);
-  formData.append('startingVolume', payload['volume']);*/
+  const playbackStartTime= new Date(formvalues['playbackStartTime']).getHours() + ":"+ new Date(formvalues['playbackStartTime']).getMinutes();
+  const playbackEndTime= new Date(formvalues['playbackEndTime']).getHours() + ":"+ new Date(formvalues['playbackEndTime']).getMinutes();
+ 
   const payload = {
     'gameCode': formvalues['gameName'],
     'gameMode': formvalues['gameMode'],
@@ -17,30 +12,40 @@ export const createNewGame = (formvalues) => {
     'gameInterval': formvalues['gameInterval'],
     'startingBalance': formvalues['startingCash'],
     'startingVolume': formvalues['volume'],
-    'playbackStartTime': formvalues['playbackStartTime'],
-    'playbackEndTime': formvalues['playbackEndTime'],
+    'playbackStartTime': new Date(formvalues['playbackDate'] +' ' + playbackStartTime),
+    'playbackEndTime': new Date(formvalues['playbackDate'] +' ' + playbackEndTime),
     'playbackFrequency': formvalues['playbackFrequency']
   }
   if (formvalues['gameId']) {
     payload['gameId'] = formvalues['gameId']
   }
-  if (formvalues['playbackFlag']!== undefined || formvalues['playbackFlag']!== null) {
+  if (formvalues['playbackFlag'] !== undefined || formvalues['playbackFlag'] !== null) {
     payload['playbackFlag'] = formvalues['playbackFlag']
   }
-  if (formvalues['isGameActive']!== undefined || formvalues['isGameActive']!== null) {
+  if (formvalues['isGameActive'] !== undefined || formvalues['isGameActive'] !== null) {
     payload['isGameActive'] = formvalues['isGameActive']
   }
   return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/creategame`, payload);
 }
 
 
-export const uploadHistoricalDataFile = (payload, gameId) => {
-  console.log('uploadHistoricalDataFile', payload, gameId);
+export const uploadHistoricalDataFile = (payload) => {
+  console.log('uploadHistoricalDataFile', payload);
   const formData = new FormData()
   formData.append('file', payload['file']);
-  formData.append('gameId', gameId);
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/uploadFile`, formData);
-}
+ // formData.append('gameId', gameId);
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/gamedata/uploadFile`, formData).then(response => ({ response }))
+  .catch(error => ({ error }));
+};
+
+export const uploadNewsDataFile = (payload) => {
+  console.log('uploadHistoricalDataFile', payload);
+  const formData = new FormData()
+  formData.append('file', payload['file']);
+ // formData.append('gameId', gameId);
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/gamedata/uploadnews`, formData).then(response => ({ response }))
+  .catch(error => ({ error }));
+};
 
 export const getGameList = (payload) => {
   return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/allgames`, {});
@@ -48,7 +53,7 @@ export const getGameList = (payload) => {
 
 export const callJoinGame = (payload) => {
   return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/joingame?gameId=${payload['gameId']}`, {}).then(response => ({ response }))
-  .catch(error => ({ error }));;
+    .catch(error => ({ error }));;
 }
 
 export const callStartGame = (payload) => {
@@ -59,4 +64,8 @@ export const callStopGame = (payload) => {
 }
 export const callDeleteGame = (payload) => {
   return axios.delete(`${env.apiUrl}/trading/gamemgmt-service/game/deletegame?gameId=${payload['gameId']}`);
+}
+
+export const getGameBasedDateList = () => {
+ return axios.get(`${env.apiUrl}/trading/gamemgmt-service/gamedata/datewisedata`);
 }

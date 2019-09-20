@@ -8,5 +8,6 @@ export {
     SetUserDetails, SetLoginFormValidity, LoadBookedOrders, LoadPortfolioList,
     LoadExecutedOrders, LoadNewsList, CallLoginApi, ShowSnackbar, CloseSnackbar
 } from './commonActions';
-export { UpdateCreateGameFormValues, PostCreateGameData, LoadGameData, GameStartedByAdmin, GameStoppedByAdmin, GameDeletedByAdmin } from './admin/gameManagementActions';
+export { UpdateCreateGameFormValues, PostCreateGameData, LoadGameData, GameStartedByAdmin, 
+    GameStoppedByAdmin, GameDeletedByAdmin,FetchGameBasedDates,UploadGameBasedDataFile } from './admin/gameManagementActions';
 export { LoadTraderGameList, JoinGame } from './joinGameAction';

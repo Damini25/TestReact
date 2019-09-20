@@ -1,6 +1,9 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { createNewGame, getGameList, uploadHistoricalDataFile, callJoinGame, callStartGame, callStopGame, callDeleteGame } from '../../../manageGame/manageGameService';
+import {
+    createNewGame, getGameList, uploadHistoricalDataFile, callJoinGame, callStartGame, callStopGame,
+    callDeleteGame, getGameBasedDateList, uploadNewsDataFile
+} from '../../../manageGame/manageGameService';
 import { setLocalStorage, getLocalStorage } from '../../../common/localStorageService';
 import { push } from 'react-router-redux';
 
@@ -16,9 +19,9 @@ export function* callCreateGameAPI(action) {
                 'userId': parseInt(getLocalStorage('traderId'))
             }
         });
-        if (response['data']['data']['gameId']) {
-            yield call(uploadHistoricalDataFile, payload, response['data']['data']['gameId']);
-        }
+        // if (response['data']['data']['gameId']) {
+        //     yield call(uploadHistoricalDataFile, payload, response['data']['data']['gameId']);
+        // }
         //   console.log('create new game api response', response);
 
         yield put({ type: ActionTypes.Recieve_Posts });
@@ -131,7 +134,39 @@ export function* gameDeleteByAdmin() {
     yield takeLatest(ActionTypes.Game_Deleted_ByAdmin, callDeleteGameAPI);
 }
 
+
+export function* fetchBasedDateList() {
+    const response = yield call(getGameBasedDateList);
+    yield put({ type: ActionTypes.OnFetch_GameBased_Dates, data: response.data['data'] });
+}
+
+export function* getGameBasedData() {
+    yield takeLatest(ActionTypes.Get_GameBased_Dates, fetchBasedDateList);
+}
+
+export function* callUploadFile(action) {
+    const type = action['data']['type'];
+    const payload = action['data']['payload'];
+    if (type === 'gameData') {
+        const {response,error} = yield call(uploadHistoricalDataFile, payload);
+        if(response['data'].success){
+            yield put({ type: ActionTypes.Show_SnackBar, msg: 'File uploaded successfully' })
+        }
+
+    } else {
+        const {response,error} = yield call(uploadNewsDataFile, payload);
+        if(response['data'].success){
+            yield put({ type: ActionTypes.Show_SnackBar, msg: 'File uploaded successfully' })
+        }
+    }
+}
+
+export function* uploadGameBasedData() {
+    yield takeLatest(ActionTypes.Upload_Game_data, callUploadFile);
+}
+
 export default function* GameManagementSaga() {
     yield all([postGameFormValues(), loadGameList(), loadTraderGameList(),
-    joinGame(), startGameAdmin(), stopGameAdmin(), gameDeleteByAdmin()]);
+    joinGame(), startGameAdmin(), stopGameAdmin(), gameDeleteByAdmin(), getGameBasedData(), uploadGameBasedData()
+    ]);
 }

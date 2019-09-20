@@ -3,7 +3,7 @@ import * as Actiontypes from '../actionTypes';
 export const LoadGameData = (payload) => {
     return {
         type: Actiontypes.Load_ALL_Games,
-        payload:payload
+        payload: payload
     }
 }
 
@@ -24,27 +24,27 @@ export const PostCreateGameData = (payload) => {
 
 export const ResetGameFormValues = () => {
     return {
-      //  type: Actiontypes.Clear_BookOrderForm_Values
+        //  type: Actiontypes.Clear_BookOrderForm_Values
     }
 }
 
 export const GameStartedByAdmin = (payload) => {
     return {
         type: Actiontypes.Game_Started_ByAdmin,
-        payload:payload
+        payload: payload
     }
 }
 export const GameStoppedByAdmin = (payload) => {
     return {
         type: Actiontypes.Game_Stopped_ByAdmin,
-        payload:payload
+        payload: payload
     }
 }
 
 export const GameDeletedByAdmin = (payload) => {
     return {
         type: Actiontypes.Game_Deleted_ByAdmin,
-        payload:payload
+        payload: payload
     }
 }
 
@@ -54,3 +54,19 @@ export const GameDeletedByAdmin = (payload) => {
         data:data
     }
 }*/
+
+export const FetchGameBasedDates = () => {
+    return {
+        type: Actiontypes.Get_GameBased_Dates
+    }
+}
+
+export const UploadGameBasedDataFile=(data)=>{
+    return{
+        type:Actiontypes.Upload_Game_data,
+        data:{
+            type:data['type'],
+            payload:data['payload']
+        }
+    }
+}

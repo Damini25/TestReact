@@ -10,15 +10,17 @@ import './showSnackBarComponent.scss';
 
 
 class ShowSnackbar extends React.Component {
- 
-      processQueue = () => {
+
+    processQueue = () => {
         if (this.props.newsList.length > 0) {
-                this.props.showNewsSnackBar({msg:this.props.newsList.shift(),duration:8000,direction:{
+            this.props.showNewsSnackBar({
+                msg: this.props.newsList.shift(), duration: 8000, direction: {
                     vertical: 'top',
                     horizontal: 'center',
-                }})
+                }
+            })
         }
-      };
+    };
 
     closeSnackBar = () => {
         this.props.onCloseSnackBar();
@@ -30,17 +32,17 @@ class ShowSnackbar extends React.Component {
         }
     }
 
-     handleExited = () => {
+    handleExited = () => {
         this.processQueue();
-      };
+    };
 
     render() {
         return (
             <div>
                 <Snackbar
-                key={this.props.snackBarInfo['msg']}
+                    key={this.props.snackBarInfo['msg']}
                     onExited={this.handleExited}
-                    anchorOrigin={{...this.props.snackBarInfo['direction']}}
+                    anchorOrigin={{ ...this.props.snackBarInfo['direction'] }}
                     open={this.props.snackBarInfo['open']}
                     autoHideDuration={this.props.snackBarInfo['duration']}
                     onClose={this.closeSnackBar}

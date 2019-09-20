@@ -5,14 +5,19 @@ import { connect } from 'react-redux';
 import * as actiontypes from '../../common/store/actions/actionIndex';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Link } from 'react-router-dom';
 
 class CreateGame extends React.Component {
     fileRef = React.createRef();
 
     handleDateChange = (name, date) => {
+        //   console.log('nnn',name,date);
         this.props.onUpdateCreateGameFormValue({ [name]: date })
     };
 
+    componentDidMount() {
+        this.props.onFetchGameBasedDates();
+    }
 
     handleChange = (event) => {
         // console.log('value', event.target.name, event.target.value);
@@ -25,11 +30,11 @@ class CreateGame extends React.Component {
         this.postCreateGameData(this.props.formValues);
     }
 
-    componentDidUpdate(prev) {
-        if (this.props.gameCreatedSuccessfully) {
-            this.fileRef.value = null;
-        }
-    }
+    // componentDidUpdate(prev) {
+    //     if (this.props.gameCreatedSuccessfully) {
+    //         this.fileRef.value = null;
+    //     }
+    // }
 
     postCreateGameData(formvalues) {
         console.log('vv', this.fileRef)
@@ -44,7 +49,9 @@ class CreateGame extends React.Component {
 
     render() {
         const form = <form onSubmit={(e) => { this.executeOrder(e) }}>
+            <p className="note-p">Note: To create a game please first Orders data. </p>
             <div className="create-game">
+                
                 <div className="sub-div">
                     <h3>Game Name & Basic Trading Rules</h3>
                     <p>*These settings cannot be changed once the game is created.</p>
@@ -122,6 +129,43 @@ class CreateGame extends React.Component {
                     <p>Basic game rules can be modified.</p>
                     <div>
                         <div className="label-input-div">
+                            <label title="Set playback time">Playback time</label>
+                            <select name="playbackDate"
+                                value={this.props.formValues['playbackDate']}
+                                onChange={(e) => { this.handleChange(e) }}>
+                                <option disabled value="">Select playback time</option>
+                                {this.props.gameBasedDates && this.props.gameBasedDates.length ?
+                                    this.props.gameBasedDates.map((elem) => {
+                                        return (
+                                            <option key={elem} value={elem}>
+                                                {elem}
+                                            </option>
+                                        )
+                                    }) : ''}
+                            </select>
+                            <DatePicker
+                                placeholderText="Start time"
+                                selected={this.props.formValues['playbackStartTime']}
+                                onChange={date => this.handleDateChange('playbackStartTime', date)}
+                                showTimeSelect
+                                showTimeSelectOnly
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="h:mm aa"
+                            />
+                            <DatePicker
+                                placeholderText="End time"
+                                selected={this.props.formValues['playbackEndTime']}
+                                onChange={date => this.handleDateChange('playbackEndTime', date)}
+                                showTimeSelect
+                                showTimeSelectOnly
+                                timeIntervals={15}
+                                timeCaption="Time"
+                                dateFormat="h:mm aa"
+                            />
+                        </div>
+
+                        {/* <div className="label-input-div">
                             <label>Playback start time</label>
                             <DatePicker autoComplete="off"
                                 showTimeSelect
@@ -147,7 +191,7 @@ class CreateGame extends React.Component {
                                 placeholderText="Click to select a date"
                                 onChange={(date) => this.handleDateChange('playbackEndTime', date)}
                             />
-                        </div>
+                        </div> */}
 
                         <div className="label-input-div game-interval-div">
                             <label title="Set game interval (in minutes)">Set game interval</label>
@@ -157,16 +201,16 @@ class CreateGame extends React.Component {
                                 placeholder="Set game interval" type="number" />
                         </div>
 
-                        <div className="label-input-div">
+                        {/* <div className="label-input-div">
                             <label title="Choose file">Upload file</label>
                             <input
                                 ref={(input) => { this.fileRef = input; }}
                                 name="file" type="file" onChange={(e) => this.handleChange(e)}
                                 placeholder="Set game interval" />
-                        </div>
+                        </div> */}
                     </div>
                     <div>
-                        <div className="label-input-div">
+                        <div className="label-input-div playback-freq-div">
                             <label title="Set playback frequency (in seconds)">Playback frequency</label>
                             <select name="playbackFrequency"
                                 value={this.props.formValues['playbackFrequency']}
@@ -178,13 +222,6 @@ class CreateGame extends React.Component {
                                 <option value={3000}> 3</option>
                             </select>
                         </div>
-                        {/* <div className="label-input-div">
-                            <label title="Play or Pause">Play/Pause</label>
-                            {
-                                true ? <label title="Play" onClick={() => this.playPauseDataFlow('play')}><i className="fa fa-play start-game-icon" ></i></label> :
-                                    <label title="Pause" onClick={() => this.playPauseDataFlow('pause')}><i className="fa fa-pause end-game-icon"></i></label>
-                            }
-                        </div> */}
                         <button className="create-game-btn" type="submit" >{this.props.gameActionBtnLabelc ? 'Create' : 'Create/Update'}</button>
                     </div>
                 </div>
@@ -216,7 +253,8 @@ const mapStateToProps = (state) => {
         formValues: state.gameManagementReducer.createGameFormValue,
         gameCreatedSuccessfully: state.gameManagementReducer.gameCreatedSucess,
         isFetchingData: state.requestStatusReducer.isFetching,
-        gameActionBtnLabel: state.gameManagementReducer.createGameBtnLabel
+        gameActionBtnLabel: state.gameManagementReducer.createGameBtnLabel,
+        gameBasedDates: state.gameManagementReducer.gameBasedDates
     }
 }
 
@@ -231,6 +269,9 @@ const mapDispatchToProps = (dispatch) => {
         onResetCreateGameFormValues: () => {
             //dispatch(actiontypes.ResetGameFormValues())
         },
+        onFetchGameBasedDates: () => {
+            dispatch(actiontypes.FetchGameBasedDates())
+        }
         /* onSettingFetchOrderInterval: (val) => {
              dispatch(actiontypes.SetFetchOrderInterval(val))
          }*/

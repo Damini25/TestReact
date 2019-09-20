@@ -10,6 +10,7 @@ const initialState = {
         transaction: '',
         gameInterval:60,
         playbackFrequency: '',
+        playbackDate:'',
         playbackStartTime: '',
         playbackEndTime: '',
         file: ''
@@ -17,8 +18,11 @@ const initialState = {
     createGameBtnLabel:true,
   //  fetchOrderInterval: '',
     listGames: [],
+    gameBasedDates:[],
     gameStarted: {
-    }
+    },
+    ordersFile:'',
+    newsFile:''
 }
 
 const GameManagementReducer = (state = initialState, action) => {
@@ -39,6 +43,7 @@ const GameManagementReducer = (state = initialState, action) => {
             clearData['transaction'] = '';
             clearData['playbackStartTime'] = '';
             clearData['playbackEndTime'] = '';
+            clearData['playbackDate'] ='';
             clearData['playbackFrequency'] = '';
             clearData['file'] = '';
 
@@ -58,6 +63,13 @@ const GameManagementReducer = (state = initialState, action) => {
                 ...state,
                 gameStarted: { ...action.data }
             }
+
+        case ActionTypes.OnFetch_GameBased_Dates:{
+            return {
+                ...state,
+                gameBasedDates: [ ...action.data ]
+            }
+        }
         default:
             return state;
     }

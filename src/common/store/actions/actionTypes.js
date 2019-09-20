@@ -51,3 +51,6 @@ export const Load_Portfolio_List = "Load_Portfolio_List";
 export const Recieve_Portfolio_List = "Recieve_Portfolio_List";
 export const Check_Game_PlayPause = "Check_Game_PlayPause";
 export const Set_Game_PlayPause_Status = "Set_Game_PlayPause_Status";
+export const Get_GameBased_Dates = "Get_GameBased_Dates";
+export const OnFetch_GameBased_Dates="OnFetch_GameBased_Dates";
+export const Upload_Game_data="Upload_Game_data";

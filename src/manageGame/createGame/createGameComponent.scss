@@ -44,6 +44,9 @@
         margin-right: 8%;
     }
 }
+.playback-freq-div{
+    display: none;
+}
 .game-interval-div{
     display: none;
 }
@@ -81,4 +84,18 @@
     label{
         margin-right: 1%;
     }
+}
+.react-datepicker__input-container{
+   // width: 50% !important;
+   width: 65px !important;
+    margin-right: 9px !important;
+    height: 20px !important;
+    margin-left: 3% !important;
+}
+.note-p{
+    text-align: center;
+    font-size: 14px;
+    width: 50%;
+    margin-left: 50%;
+    font-style: italic;
 }

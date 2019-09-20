@@ -57,6 +57,7 @@ export const LoadPortfolioList = (payload) => {
 
 export const ShowSnackbar = (data) => {
    // console.log('show',data)
+   debugger
     return {
         type: Actiontypes.Show_SnackBar,
         msg: data['msg'],
