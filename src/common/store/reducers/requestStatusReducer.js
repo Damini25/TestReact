@@ -6,7 +6,7 @@ const initialState = {
     snackBarInfo: {
         open: false,
         msg: '',
-        duration: 40000,
+        duration: 3000,
         direction: {
             vertical: 'top',
             horizontal: 'center',

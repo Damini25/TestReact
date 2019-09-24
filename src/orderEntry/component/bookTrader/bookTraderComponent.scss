@@ -5,7 +5,7 @@
 }
 
 .trader-div h3{
-    background-color: #BCD6EE;
+   // background-color: #BCD6EE;
     font-weight: 500;
     margin: 0;
     border-bottom: 1px solid #eee;
@@ -27,7 +27,7 @@
 
 .trader-div .sub-div h3{
   background-color: white;
-  height: 9%;
+  height: 12%;
 }
 .trader-div .product-drop{
     height: 10%;
@@ -40,14 +40,14 @@
 .trader-div .sub-div table{
     width: 100%;
     border-spacing: 0;
-    height: 81%;
+    height: 88%;
     display: flex;
     overflow: auto; 
     flex-direction: column
 }
 
 .trader-div .sub-div table thead {
-    background-color: #bab7b6;
+    background-color: aliceblue;
     margin: 0;
 }
 .trader-div .sub-div table thead th{

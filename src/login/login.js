@@ -75,7 +75,7 @@ class Logincomponent extends React.Component {
                             <input type="checkbox" id="remember_me_check" />
                             <label htmlFor="remember_me_check">Remember Me</label>
                         </div>
-                        <button className="signin-btn" type="submit">Sign in</button>
+                        <button className="signin-btn primary-color button" type="submit">Sign in</button>
                         <div className="link-div">
                             <Link to="/signup">Create new account</Link> <span>|</span>
                             <Link to="/forgotPassword">Forgot your password?</Link>

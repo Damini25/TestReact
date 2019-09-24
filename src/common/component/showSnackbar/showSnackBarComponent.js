@@ -7,14 +7,22 @@ import CloseIcon from '@material-ui/icons/Close';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../store/actions/actionIndex';
 import './showSnackBarComponent.scss';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import { red } from '@material-ui/core/colors';
 
-
+const useStyles = makeStyles(theme => ({
+    root: {
+        backgroundColor:'red'
+    },
+    snackbar: {
+      margin: theme.spacing(1),
+    },
+  }));
 class ShowSnackbar extends React.Component {
-
     processQueue = () => {
-        if (this.props.newsList.length > 0) {
+        if (this.props.latestNewsList.length > 0) {
             this.props.showNewsSnackBar({
-                msg: this.props.newsList.shift(), duration: 8000, direction: {
+                msg: this.props.latestNewsList.shift(), duration: 10000, direction: {
                     vertical: 'top',
                     horizontal: 'center',
                 }
@@ -27,7 +35,7 @@ class ShowSnackbar extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps['newsList'] !== this.props['newsList'] && this.props.playbackOrdersFlow) {
+        if (prevProps['latestNewsList'] !== this.props['latestNewsList']) {
             this.processQueue();
         }
     }
@@ -39,7 +47,7 @@ class ShowSnackbar extends React.Component {
     render() {
         return (
             <div>
-                <Snackbar
+                <Snackbar className='Snackbar'
                     key={this.props.snackBarInfo['msg']}
                     onExited={this.handleExited}
                     anchorOrigin={{ ...this.props.snackBarInfo['direction'] }}
@@ -52,13 +60,18 @@ class ShowSnackbar extends React.Component {
                         },
                         'aria-describedby': 'message-id',
                     }}
-                    message={<span id="message-id" >{this.props.snackBarInfo['msg']}</span>}
-                    action={[
-                        <IconButton key="close" aria-label="close" color="inherit" onClick={this.closeSnackBar} >
-                            <CloseIcon />
-                        </IconButton>,
-                    ]}
-                />
+                >
+                    <SnackbarContent 
+                        message={<span id="message-id" >{this.props.snackBarInfo['msg']}</span>}
+                        // action={[
+                        //     <IconButton key="close" aria-label="close" color="inherit" onClick={this.closeSnackBar} >
+                        //         <CloseIcon />
+                        //     </IconButton>,
+                        // ]}
+                        >
+                       
+                    </SnackbarContent>
+                </Snackbar>
             </div>
         );
     }
@@ -68,7 +81,8 @@ const mapStateToProps = (state) => {
     return {
         snackBarInfo: state.requestStatusReducer['snackBarInfo'],
         newsList: state.fetchDataReducer.newsFeed,
-        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
+        latestNewsList: state.orderListReducer['ordersToShow']['latestNewsFeed'],
+        playbackOrdersFlow: state.orderListReducer['ordersToShow']['playbackOrdersFlow']
     }
 }
 const mapDispatchToProps = (dispatch) => {

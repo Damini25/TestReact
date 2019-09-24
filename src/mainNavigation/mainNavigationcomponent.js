@@ -34,8 +34,9 @@ class MainNavigation extends React.Component {
             <div className="outer-container">
                 <div className="header-div" >
                     <SideBar pageWrapId={"page-wrap"} {...this.props} />
+                    {/* <NewsFeed></NewsFeed> */}
                 </div>
-               {/* <NewsFeed></NewsFeed> */}
+              
                 <Switch>
                     <PrivateRoute exact  path="/mainNav" component={OrderEntry}></PrivateRoute>
                     <PrivateRoute exact strict path="/mainNav/orderEntry" component={OrderEntry}></PrivateRoute>

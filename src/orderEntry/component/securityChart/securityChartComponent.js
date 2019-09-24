@@ -734,38 +734,38 @@ class SecurityChart extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-      //  console.log('securitychart', this.props.minMaxBidOrders, this.props.minMaxAskOrders);
+        //  console.log('securitychart', this.props.minMaxBidOrders, this.props.minMaxAskOrders);
         if (prevProps.minMaxBidOrders !== this.props.minMaxBidOrders ||
             prevProps.minMaxAskOrders !== this.props.minMaxAskOrders) {
             const bidData = [];
             const askData = [];
             if (this.props.minMaxBidOrders.length) {
                 this.props.minMaxBidOrders.map((elem) => {
-                    
+
                     if (elem.maxBid) {
                         bidData.push({
                             x: this.convertTimeToDecimal(elem.time),
                             y: elem.maxBid.price
                         })
                     }
-                  //  console.log('bid',bidData)
+                    //  console.log('bid',bidData)
                 });
             }
             if (this.props.minMaxAskOrders.length) {
                 this.props.minMaxAskOrders.map((elem) => {
-                 
+
                     if (elem.minAsk) {
                         askData.push({
                             // x: this.convertTimeToDecimal(elem.order.timestamp),
                             x: this.convertTimeToDecimal(elem.time),
                             y: elem.minAsk.price
                         })
-                      //  console.log('ask',askData)
+                        //  console.log('ask',askData)
                     }
                 });
             }
 
-              console.log('askData, bidData', askData, bidData, this.convertTimeToDecimal('16:05:02'));
+            //   console.log('askData, bidData', askData, bidData, this.convertTimeToDecimal('16:05:02'));
             this.myChart = new Chart(this.canvasRef.current, {
                 type: 'line',
                 data: {
@@ -870,10 +870,10 @@ class SecurityChart extends React.Component {
                                 drawBorder: false,
                             },
                             ticks: {
-                                padding: 15,
-                                 min:this.props['minPrice'] - 2,
-                                 max:this.props['maxPrice'] + 2
-                              //  stepSize:((this.props['maxPrice'] + 2) - (this.props['minPrice'] - 2))/5
+                                // padding: 15,
+                                suggestedMin: this.props['minPrice'] - 1,
+                                suggestedMax: this.props['maxPrice'] + 2,
+                                stepSize: ((this.props['maxPrice'] + 2) - (this.props['minPrice'] - 1)) / 8
                             }
                         }]
                     },
@@ -923,7 +923,7 @@ class SecurityChart extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-     console.log('minPrice,maxPrice', state.orderListReducer['ordersToShow']['minPriceYAxis'],state.orderListReducer['ordersToShow']['maxPriceYAxis'])
+    console.log('minPrice,maxPrice', state.orderListReducer['ordersToShow']['minPriceYAxis'], state.orderListReducer['ordersToShow']['maxPriceYAxis'])
     return {
         bidOrderList: state.chartReducer['totalOrderTillNow']['bidOrders'],
         askOrderList: state.chartReducer['totalOrderTillNow']['askOrders'],
@@ -931,8 +931,8 @@ const mapStateToProps = (state) => {
         stockSymbolData: state.fetchDataReducer.stockSymbols['data'],
         minMaxAskOrders: state.orderListReducer['ordersToShow']['minAskOrders'],
         minMaxBidOrders: state.orderListReducer['ordersToShow']['maxBidOrders'],
-        minPrice:state.orderListReducer['ordersToShow']['minPriceYAxis'],
-        maxPrice:state.orderListReducer['ordersToShow']['maxPriceYAxis']
+        minPrice: state.orderListReducer['ordersToShow']['minPriceYAxis'],
+        maxPrice: state.orderListReducer['ordersToShow']['maxPriceYAxis']
     }
 }
 

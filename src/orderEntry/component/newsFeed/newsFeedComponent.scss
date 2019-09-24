@@ -1,14 +1,27 @@
-.news-list{
-white-space: nowrap;
-color:blue;
-}
-.news-else-placeholder{
-visibility: hidden;
-}
-.ticker{
-    height:45px !important;
-}
+// .news-list{
+// white-space: nowrap;
+// color:blue;
+// }
+// .news-else-placeholder{
+// visibility: hidden;
+// }
+// .ticker{
+//     height:45px !important;
+// }
 
+.show-news-div{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2%;
+    label{
+        margin-right: 7px;
+    }
+    i{
+        color:white;
+    }
+}
 
 
 /*.parent-div .news-feed-div{

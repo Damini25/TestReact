@@ -3,7 +3,7 @@ import './listGameComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../common/store/actions/actionIndex';
 import EditGameDialog from '../editGame/editGameComponent';
-import { convertToDateTime } from '../../common/utilities';
+import { convertToDateTime } from '../../common/utilities/utilities';
 
 // import * as actiontypes from '../common/store/actions/actionIndex';
 import { getLocalStorage } from '../../common/localStorageService';
@@ -127,7 +127,7 @@ class ListGames extends React.Component {
                                 <th colSpan="6">Basic game rules</th>
                                 <th colSpan="3">Playback rules</th>
                             </tr> */}
-                            <tr>
+                            <tr className="secondary-color">
                                 <th>Game Name</th>
                                 <th>Game Mode</th>
                                 <th>Starting Cash</th>

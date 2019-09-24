@@ -18,7 +18,7 @@ class BookTrader extends React.Component {
     componentDidMount() {
         this.fetchOrderList();
         this.props.onLoadStockSymbols();
-        this.props.loadNewsList();
+       // this.props.loadNewsList();
     }
 
     /**

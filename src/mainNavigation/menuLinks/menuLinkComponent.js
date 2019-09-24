@@ -95,6 +95,12 @@ class MenuLinks extends React.Component {
                                 <NavLink className="bm-item" activeClassName='is-active'>Portfolio</NavLink>
                             </div>
                             <div>
+                                <NavLink className="bm-item" activeClassName='is-active' to={{
+                                    pathname: this.props.match.url + "/joinGame"
+                                }} onClick={() => { this.closeMenuOnNavClick() }}>Join Game
+                                        </NavLink>
+                            </div>
+                            {/* <div>
                                 <label onClick={() => this.showNestedMenu('game')}>
                                     Game
                                     {
@@ -112,7 +118,7 @@ class MenuLinks extends React.Component {
                                         </NavLink>
                                         </div> : ''
                                 }
-                            </div>
+                            </div> */}
                             <div>
                                 <NavLink className="bm-item" activeClassName='is-active' to={{
                                     pathname: this.props.match.url + "/orderEntry"

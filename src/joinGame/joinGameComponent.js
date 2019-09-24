@@ -2,11 +2,13 @@ import React from 'react';
 import './joinGameComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../common/store/actions/actionIndex';
-import { getLocalStorage } from '../common/localStorageService';
+import { getLocalStorage,clearLocalStorageKey } from '../common/localStorageService';
 
 class ListTraderGames extends React.Component {
 
     componentDidMount() {
+        clearLocalStorageKey('gameSessionId');
+        clearLocalStorageKey('gameId');
         this.props.onLoadTraderGameData({ 'userId': parseInt(getLocalStorage('traderId')) });
     }
 
@@ -14,6 +16,8 @@ class ListTraderGames extends React.Component {
        // console.log('joingame',getLocalStorage('gameSessionId'), prevProps, this.props)
         if (getLocalStorage('gameSessionId') && this.props.gameSessionId !== prevProps.gameSessionId) {
             this.props.history.push("/mainNav/orderEntry");
+        }else if(!getLocalStorage('gameSessionId')&& this.props.gameSessionId !== prevProps.gameSessionId){
+            this.props.history.push("/mainNav/joinGame");
         }
     }
 

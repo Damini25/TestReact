@@ -148,15 +148,25 @@ export function* callUploadFile(action) {
     const type = action['data']['type'];
     const payload = action['data']['payload'];
     if (type === 'gameData') {
+        yield put({ type: ActionTypes.Request_Posts });
         const {response,error} = yield call(uploadHistoricalDataFile, payload);
+       
         if(response['data'].success){
             yield put({ type: ActionTypes.Show_SnackBar, msg: 'File uploaded successfully' })
+            yield put({ type: ActionTypes.Recieve_Posts });
+        }else{
+            yield put({ type: ActionTypes.RecieveError_Posts});
         }
 
     } else {
+        yield put({ type: ActionTypes.Request_Posts });
         const {response,error} = yield call(uploadNewsDataFile, payload);
+        yield put({ type: ActionTypes.Recieve_Posts });
         if(response['data'].success){
             yield put({ type: ActionTypes.Show_SnackBar, msg: 'File uploaded successfully' })
+            yield put({ type: ActionTypes.Recieve_Posts });
+        }else{
+            yield put({ type: ActionTypes.RecieveError_Posts});
         }
     }
 }

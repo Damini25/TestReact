@@ -10,10 +10,10 @@ class PortfolioComponent extends React.Component {
         this.fetchPortfolioList();
     }
 
-    componentDidUpdate(prevProps){
-         /**
-         * Play and Pause feature
-         */
+    componentDidUpdate(prevProps) {
+        /**
+        * Play and Pause feature
+        */
         if (this.fetchPortfolioListInterval && !this.props.playbackOrdersFlow) {
             if (this.fetchPortfolioListInterval) {
                 clearInterval(this.fetchPortfolioListInterval);
@@ -59,7 +59,6 @@ class PortfolioComponent extends React.Component {
                     <tr key={i}>
                         <td>{elem['ticker']}</td>
                         <td>{elem['productType']}</td>
-                        <td>{elem['contractSize']}</td>
                         <td>{elem['position']}</td>
                         <td>{elem['cost']}</td>
                         <td className={statusColorCode}>{elem['last']}</td>
@@ -75,13 +74,22 @@ class PortfolioComponent extends React.Component {
         return (
             <div className="portfolio-list-div">
                 <h3>Portfolio/Position</h3>
+                <div className="user-info-div">
+                    <div>
+                        <label>Total Balance:</label>
+                        <span>$10,000</span>
+                    </div>
+                    <div>
+                        <label>Available Balance:</label>
+                        <span>$10,000</span>
+                    </div>
+                </div>
                 <div className="table-div">
                     <table>
                         <thead>
                             <tr>
                                 <th>Ticker</th>
                                 <th>Type</th>
-                                <th>Contract Size</th>
                                 <th>Position</th>
                                 <th>Cost</th>
                                 <th>Last</th>
@@ -118,6 +126,7 @@ const mapStateToProps = (state) => {
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
         traderId: state.fetchDataReducer['userDetails']['traderId'],
         portFolioList: state.fetchDataReducer['portFolioList'],
+       // userBalanceDetails:state.fetchDataReducer['portFolioList'],
         playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
     }
 }

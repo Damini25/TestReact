@@ -7,7 +7,9 @@ import { push } from 'connected-react-router';
 
 
 export function* loginUser(action) {
+  yield put({ type: ActionTypes.Request_Posts });
   const { response, error } = yield call(login, action.payload);
+  yield put({ type: ActionTypes.Recieve_Posts });
   if (response) {
     setLocalStorage({
       name: 'traderId',
@@ -18,14 +20,15 @@ export function* loginUser(action) {
       value: response.data['data'][0]['userTypeId']
     });
     yield put({ type: ActionTypes.Set_User_Details, element: { 'traderId': response.data['data'][0]['userId'] } });
-    //  yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successfull' })
-
+    yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successfull' })
     if (parseInt(response.data['data'][0]['userTypeId']) === 0) {
       yield put(push('/mainNav/manageGame'))
     } else {
       yield put(push('/mainNav/joinGame'))
     }
   } else {
+    yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
+    yield put({ type: ActionTypes.RecieveError_Posts});
     console.log('loginerror',error);
   }
 }

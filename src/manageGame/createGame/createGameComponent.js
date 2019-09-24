@@ -222,7 +222,7 @@ class CreateGame extends React.Component {
                                 <option value={3000}> 3</option>
                             </select>
                         </div>
-                        <button className="create-game-btn" type="submit" >{this.props.gameActionBtnLabelc ? 'Create' : 'Create/Update'}</button>
+                        <button className="create-game-btn  primary-color button" type="submit" >{this.props.gameActionBtnLabelc ? 'Create' : 'Create/Update'}</button>
                     </div>
                 </div>
             </div>

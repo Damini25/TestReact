@@ -42,8 +42,9 @@ export const uploadNewsDataFile = (payload) => {
   console.log('uploadHistoricalDataFile', payload);
   const formData = new FormData()
   formData.append('file', payload['file']);
- // formData.append('gameId', gameId);
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/gamedata/uploadnews`, formData).then(response => ({ response }))
+  formData.append('gameId', payload['gameId']);
+
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/gamedata/uploadNews`, formData).then(response => ({ response }))
   .catch(error => ({ error }));
 };
 

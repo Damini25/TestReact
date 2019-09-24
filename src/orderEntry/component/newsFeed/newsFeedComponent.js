@@ -7,7 +7,7 @@ import * as actiontypes from '../../../common/store/actions/actionIndex';
 class NewsFeed extends React.Component {
 
     componentDidMount() {
-       // this.props.loadNewsList();
+        // this.props.loadNewsList();
     }
 
     showNews(list) {
@@ -23,11 +23,11 @@ class NewsFeed extends React.Component {
     }
 
     render() {
-        if(this.props.newsFeed && this.props.newsFeed.length){
-           
-            console.log('news',this.props.newsFeed);
+        if (this.props.newsFeed && this.props.newsFeed.length) {
+
+            console.log('news', this.props.newsFeed);
         }
-        
+
         /* const news = this.props.newsList && this.props.newsList.length ?
              this.props.newsList.map((elem, index) => {
                  //  this.props.showNewsSnackBar({msg:elem,open:true,duration:3000})
@@ -35,7 +35,9 @@ class NewsFeed extends React.Component {
              ) : '';*/
         return (
             <div className="show-news-div">
-                <button onClick={() => this.showNews(this.props.newsFeed)}>show</button>
+                <label onClick={() => this.showNews(this.props.newsFeed)}>
+                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                </label>
             </div>
 
 

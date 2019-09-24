@@ -14,10 +14,19 @@
         margin-right: 6%;
        }
    }
+   .game-id-div{
+       margin-bottom: 3%;
+       select{
+           width: 50%;
+       }
+       label{
+        font-weight: 500;
+       }
+   }
 }
 .upload-div-btn{
     max-width: 32%;
-    background-color: #A62436;
+    // background-color: #A62436;
     color: white;
     border: none;
     padding: 3px;

@@ -3,7 +3,7 @@ import { env } from '../../common/environment';
 
 export const getInitialOrderList = (payload) => {
   // console.log('servie', payload)
-  //  return axios.get(process.env.PUBLIC_URL + '/mockData/orderList.json');
+  //  return axios.get(process.env.PUBLIC_URL + '/mockData/fetch.json');
   return axios.post(`${env.apiUrl}` + '/trading/ordermgmt-service/userdashb/bidaskscreen/fetch', payload).then(response => ({ response }))
     .catch(error => ({ error }));
 
@@ -33,7 +33,7 @@ export const getExecutedOrderList = (payload) => {
 
 export const getNewsList = (payload) => {
   return axios.get(process.env.PUBLIC_URL + '/mockData/news.json').then(response => ({ response }))
-  .catch(error => ({ error }));;
+    .catch(error => ({ error }));;
   // return axios.post(`${env.apiUrl}`+'/userdashb/orderscreen/book',payload,null);
 }
 
@@ -43,7 +43,7 @@ export const generateOrders = () => {
 
 export const getPortfolioList = () => {
   return axios.post(`${env.apiUrl}` + '/trading/ordermgmt-service/userdashb/portfolio', {}).then(response => ({ response }))
-  .catch(error => ({ error }));
+    .catch(error => ({ error }));
 }
 
 export const getGamePlayPauseStatus = (gameId) => {
