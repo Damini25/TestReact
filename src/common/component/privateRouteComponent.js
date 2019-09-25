@@ -7,7 +7,7 @@ const PrivateRouteComponent = ({ component: Component, ...rest }) => {
     return <Route {...rest} exact strict render={
         (props) => {
            // console.log('privateRoute2 props', props,getLocalStorage('traderId'));
-           return true || getLocalStorage('traderId') ? <Component {...props} /> : <Redirect
+           return getLocalStorage('traderId') ? <Component {...props} /> : <Redirect
                 to={{
                     pathname: '/login',
                     state: { from: props.location }

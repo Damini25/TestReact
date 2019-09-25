@@ -9,10 +9,10 @@ export const validateField = (fieldName, value) => {
             return value.length > 4 ? true : false;
         }
         case 'quantity': {
-            return value.match('^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$') ? true : false
+            return value.match(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/) ? true : false
         }
         case 'price': {
-            return value.match('^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$') ? true : false
+            return value.match(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/) ? true : false
         }
         default:
             return true;

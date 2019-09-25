@@ -20,7 +20,7 @@ const BookNewOrderReducer = (state = initialState, action) => {
         case ActionTypes.Update_BookOrderForm_Values:
             const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };
             return {
-                bookOrderFormValue: updatedOrderFormValue
+                ...state, bookOrderFormValue: updatedOrderFormValue
             }
 
         case ActionTypes.Clear_BookOrderForm_Values:

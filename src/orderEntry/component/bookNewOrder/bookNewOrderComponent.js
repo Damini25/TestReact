@@ -67,6 +67,7 @@ class BookNewOrder extends React.Component {
     }
 
     render() {
+        console.log('vv', this.props)
         const div2 =
             <form className="book-trade-div2" onSubmit={(e) => { this.executeOrder(e) }}>
                 <div >
@@ -148,9 +149,9 @@ class BookNewOrder extends React.Component {
                             <label>Quantity</label>
                             <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['quantity']} name="quantity" />
-                            {/* {this.props.bookOrderFormError['quantityInvalid'] ?
-                                <span className="error-span">Quantity incorrect</span> : ''} */}
                         </div>
+                        {/* {this.props.bookOrderFormError['quantityInvalid'] ?
+                            <div className="error-span">Quantity incorrect</div> : ''} */}
                         <div>
                             <button type="submit" disabled={!this.props.playbackOrdersFlow}>EXECUTE</button>
                         </div>
