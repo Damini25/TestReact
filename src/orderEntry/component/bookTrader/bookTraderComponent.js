@@ -161,9 +161,9 @@ class BookTrader extends React.Component {
             }
             this.checkGameStatus();
         }
-        if (!getLocalStorage('gameSessionId') && !getLocalStorage('gameId') && !this.props['gameSessionId']) {
-            this.props.history.push("/mainNav/joinGame");
-        }
+        // if (!getLocalStorage('gameSessionId') && !getLocalStorage('gameId') && !this.props['gameSessionId']) {
+        //     this.props.history.push("/mainNav/joinGame");
+        // }
     }
 
     /**

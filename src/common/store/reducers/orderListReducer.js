@@ -26,10 +26,10 @@ const OrderListReducer = (state = initialState, action) => {
             
             newOrderToShow.askOrders = [...action['data']['allAskOrders']];
             newOrderToShow.bidOrders = [...action['data']['allBidOrders']];
+            
             if(action['data']['latestNews'].length){
                 newOrderToShow.latestNewsFeed=[...action['data']['latestNews']];
             }
-            
 
             const time = new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
             let minAskPrice; let maxBidPrice;
@@ -48,8 +48,8 @@ const OrderListReducer = (state = initialState, action) => {
                 { maxBid: maxBidPrice, time: time }];
             }
 
-            let minPrice = maxBidPrice['price']? maxBidPrice['price']:'';
-            let maxPrice = minAskPrice['price']? minAskPrice['price']:'';
+            let minPrice = maxBidPrice && maxBidPrice['price']? maxBidPrice['price']:'';
+            let maxPrice = minAskPrice && minAskPrice['price']? minAskPrice['price']:'';
             if (state.ordersToShow['minPriceYAxis']) {
                 minPrice = minPrice < state.ordersToShow['minPriceYAxis'] ? minPrice : state.ordersToShow['minPriceYAxis'];
             }else{

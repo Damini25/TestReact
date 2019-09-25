@@ -5,7 +5,7 @@ import * as actiontypes from '../../common/store/actions/actionIndex';
 import EditGameDialog from '../editGame/editGameComponent';
 import { convertToDateTime } from '../../common/utilities/utilities';
 
-// import * as actiontypes from '../common/store/actions/actionIndex';
+// import * as actiontypes from '../common/store/actions/actionIndex'; 
 import { getLocalStorage } from '../../common/localStorageService';
 
 class ListGames extends React.Component {

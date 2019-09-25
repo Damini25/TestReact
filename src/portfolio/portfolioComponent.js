@@ -2,31 +2,24 @@ import React from 'react';
 import './portfolioComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../common/store/actions/actionIndex';
+import PLChart from './P&L/PLComponent';
+import PortfolioList from './portfolioList/portfolioListComponent';
 import { getLocalStorage } from '../common/localStorageService';
 
 class PortfolioComponent extends React.Component {
+    state = {
+        portfolioListActive: true,
+        pLActive: false
+    }
 
     componentDidMount() {
         this.fetchPortfolioList();
     }
 
-    componentDidUpdate(prevProps) {
-        /**
-        * Play and Pause feature
-        */
-        if (this.fetchPortfolioListInterval && !this.props.playbackOrdersFlow) {
-            if (this.fetchPortfolioListInterval) {
-                clearInterval(this.fetchPortfolioListInterval);
-            }
-        } else if (this.props.playbackOrdersFlow && prevProps['playbackOrdersFlow'] !== this.props.playbackOrdersFlow) {
-            this.fetchPortfolioList();
-        }
-    }
-
     /**
       * API call to fetch Portfolios List data
       */
-    fetchPortfolioList = () => {
+     fetchPortfolioList = () => {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
             "noOfRows": 20
@@ -43,67 +36,49 @@ class PortfolioComponent extends React.Component {
         this.fetchPortfolioListInterval = setInterval(this.fetchPortfolioList, getLocalStorage('orderFetchInterval'));
     }
 
-    render() {
-        let row = [];
-        if (this.props.portFolioList && this.props.portFolioList.length) {
-            row = this.props.portFolioList.map((elem, i) => {
-                let statusColorCode;
-                if (elem['colorCoding'] === 1) {
-                    statusColorCode = 'show-green';
-                } else if (elem['colorCoding'] === -1) {
-                    statusColorCode = 'show-red';
-                } else {
-                    statusColorCode = 'show-white';
-                }
-                return (
-                    <tr key={i}>
-                        <td>{elem['ticker']}</td>
-                        <td>{elem['productType']}</td>
-                        <td>{elem['position']}</td>
-                        <td>{elem['cost']}</td>
-                        <td className={statusColorCode}>{elem['last']}</td>
-                        <td className={statusColorCode}>{elem['bid']}</td>
-                        <td className={statusColorCode}>{elem['ask']}</td>
-                        <td>{elem['realizedPnl']}</td>
-                        <td>{elem['unrealizedPnl']}</td>
-                    </tr>
-                );
-            })
-        }
+    portfolioTabSwitch(type) {
+        this.setState({
+            portfolioListActive: !this.state.portfolioListActive,
+            pLActive: !this.state.pLActive,
+        })
+    }
 
+    render() {
         return (
             <div className="portfolio-list-div">
-                <h3>Portfolio/Position</h3>
+                {/* <h3>Portfolio/Position</h3> */}
+                <div className="tab-div">
+                    <label className={this.state.portfolioListActive ? 'lbl-active' : ''}
+                        onClick={() => { this.portfolioTabSwitch('positionList') }}>Portfolio/Position</label>
+                    <label className={this.state.pLActive ? 'lbl-active' : ''}
+                        onClick={() => { this.portfolioTabSwitch('PL') }}>P&L</label>
+                </div>
                 <div className="user-info-div">
                     <div>
-                        <label>Total Balance:</label>
-                        <span>$10,000</span>
+                        <label>Starting Balance:</label>
+                        <span>{this.props.startingBalance}</span>
                     </div>
                     <div>
                         <label>Available Balance:</label>
-                        <span>$10,000</span>
+                        <span>{this.props.availableBalance}</span>
                     </div>
                 </div>
-                <div className="table-div">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Ticker</th>
-                                <th>Type</th>
-                                <th>Position</th>
-                                <th>Cost</th>
-                                <th>Last</th>
-                                <th>Bid</th>
-                                <th>Ask</th>
-                                <th>Realized P&L</th>
-                                <th>Unrealized P&L</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {row}
-                        </tbody>
-                    </table>
-                </div>
+                {this.props.availableVolume ?
+                    <div className="user-info-div">
+                        <div>
+                            <label>Starting Volume:</label>
+                            <span>{this.props.startingVolume}</span>
+                        </div>
+                        <div>
+                            <label>Available Volume:</label>
+                            <span>{this.props.availableVolume}</span>
+                        </div>
+                    </div> : ''
+                }
+
+                {
+                    this.state.portfolioListActive ? <PortfolioList></PortfolioList> : <PLChart></PLChart>
+                }
             </div>
         );
     }
@@ -118,16 +93,12 @@ const mapdispatchToProps = (dispatch) => {
     }
 }
 const mapStateToProps = (state) => {
-    // console.log('stateExecutedOrderList', state.fetchDataReducer['bookedOrders'],
-    // state.fetchDataReducer['executedOrders']);
     return {
-        bookedOrdersList: state.fetchDataReducer['bookedOrders'],
-        executedOrdersList: state.fetchDataReducer['executedOrders'],
+        availableBalance: state.fetchDataReducer['portfolio']['availableBalance'],
+        startingBalance: state.fetchDataReducer['portfolio']['startingBalance'],
+        startingVolume: state.fetchDataReducer['portfolio']['startingVolume'],
+        availableVolume: state.fetchDataReducer['portfolio']['availableVolume'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
-        traderId: state.fetchDataReducer['userDetails']['traderId'],
-        portFolioList: state.fetchDataReducer['portFolioList'],
-       // userBalanceDetails:state.fetchDataReducer['portFolioList'],
-        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
     }
 }
 export default connect(mapStateToProps, mapdispatchToProps)(PortfolioComponent)

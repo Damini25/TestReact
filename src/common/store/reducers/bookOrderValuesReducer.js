@@ -4,10 +4,14 @@ const initialState = {
     bookOrderFormValue: {
         stockSymbol: 1,
         transaction: 'Bid',
-        orderType:'',
+        orderType: '',
         price: '',
         quantity: ''
-    }
+    },
+    bookOrderFormError: {
+        priceInvalid: false,
+        quantityInvalid: false
+    },
 }
 
 const BookNewOrderReducer = (state = initialState, action) => {
@@ -25,13 +29,19 @@ const BookNewOrderReducer = (state = initialState, action) => {
             clearData['orderType'] = ''
             clearData['price'] = '';
             clearData['quantity'] = ''
-            // const clearData={
-            //     transaction: 'Bid',
-            //     price: '',
-            //     quantity: ''
-            // }
             return {
                 ...state, bookOrderFormValue: clearData
+            }
+        case ActionTypes.Set_BookOrder_ValidityState:
+            const bookOrderFormValidity = { ...state.bookOrderFormError }
+            if (action.fieldName === 'price') {
+                bookOrderFormValidity.priceInvalid = action.value;
+            } else if (action.fieldName === 'quantity') {
+                bookOrderFormValidity.quantityInvalid = action.value;
+            }
+            return {
+                ...state,
+                bookOrderFormError: { ...state.bookOrderFormError, ...bookOrderFormValidity }
             }
         default:
             return state;

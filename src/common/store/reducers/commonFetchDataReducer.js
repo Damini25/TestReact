@@ -1,4 +1,5 @@
 import * as ActionTypes from '../actions/actionTypes';
+import _ from 'lodash';
 
 const initialState = {
     stockSymbols: [],
@@ -14,8 +15,18 @@ const initialState = {
     bookedOrders: [],
     executedOrders: [],
     newsFeed: [],
-    portFolioList:[]
-   // orderFetchInterval: []
+    portfolio: {
+        portFolioList: [],
+        availableBalance: '',
+        startingBalance: '',
+        startingVolume: '',
+        availableVolume: '',
+        pLData: {
+            pLList: [],
+            minY: null,
+            maxY: null
+        }
+    }
 }
 
 const FetchDataReducer = (state = initialState, action) => {
@@ -66,17 +77,42 @@ const FetchDataReducer = (state = initialState, action) => {
                 ...state,
                 newsFeed: action.data
             }
-       /* case ActionTypes.On_Get_Order_Fetch_Interval:
+        /* case ActionTypes.On_Get_Order_Fetch_Interval:
+             return {
+                 ...state,
+                 orderFetchInterval: action.data
+             }*/
+        case ActionTypes.Recieve_Portfolio_List:
+            let pLDataList = [...state.portfolio.pLData.pLList];
+            const time = new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
+            if (action.data['pnlValue']) {
+                pLDataList.push({ plValue: action.data['pnlValue'], time: time });
+              //  console.log('plData', pLDataList, action.data['pnlValue'], time);
+            }
+
+            const maxValue = _.maxBy(pLDataList, (o) => {
+                return o.plValue;
+            });
+            const minValue = _.minBy(pLDataList, (o) => {
+                return o.plValue;
+            });
+
             return {
-                ...state,
-                orderFetchInterval: action.data
-            }*/
-            case ActionTypes.Recieve_Portfolio_List:
-                // console.log('fetchredexecutd',action)
-                return {
-                    ...state,
-                    portFolioList: [...action.data]
+                ...state, portfolio: {
+                    ...state.portfolio,
+                    portFolioList: [...action.data['portfolioDtos']],
+                    availableBalance: action.data['availableBalance'],
+                    startingBalance: action.data['startingBalance'],
+                    startingVolume: action.data['startingVolume'],
+                    availableVolume: action.data['availableVolume'],
+                    pLData: {
+                        ...state.portfolio.pLData,
+                        pLList: [...pLDataList],
+                        minY: minValue,
+                        maxY: maxValue
+                    }
                 }
+            }
         default:
             return state;
     }

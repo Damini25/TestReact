@@ -116,7 +116,6 @@ class ExecutedOrderList extends React.Component {
                         }
                         <td>{elem['price']}</td>
                         <td>{elem['unfulfilledQuantity']}</td>
-                        <td>{elem['orderStatusId']}</td>
                     </tr>
                 );
             })
@@ -139,7 +138,6 @@ class ExecutedOrderList extends React.Component {
                                 <th>{this.state.orderTabActive ? 'Bid/Ask' : 'Buy/Sell'}</th>
                                 <th>Price</th>
                                 <th>Volume</th>
-                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>

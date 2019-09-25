@@ -54,3 +54,4 @@ export const Set_Game_PlayPause_Status = "Set_Game_PlayPause_Status";
 export const Get_GameBased_Dates = "Get_GameBased_Dates";
 export const OnFetch_GameBased_Dates="OnFetch_GameBased_Dates";
 export const Upload_Game_data="Upload_Game_data";
+export const Set_BookOrder_ValidityState="Set_BookOrder_ValidityState";

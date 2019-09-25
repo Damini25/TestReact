@@ -18,3 +18,11 @@ export const LoadStockSymbol=()=>{
         type:Actiontypes.Load_Stock_Symbols
     }
 }
+
+export const SetBookOrderFormValidity = (data) => {
+    return {
+        type: Actiontypes.Set_BookOrder_ValidityState,
+        fieldName: data['fieldName'],
+        value: data['formError']
+    }
+}

@@ -2,9 +2,10 @@ import React from 'react';
 import './bookNewOrderComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../../common/store/actions/actionIndex';
-//import { showToast } from '../../../common/component/toastMessages/toastcomponent';
 import { bookNewOrder } from '../../services/orderEntry.service';
-import {getLocalStorage} from '../../../common/localStorageService';
+import { getLocalStorage } from '../../../common/localStorageService';
+import { onlyPositiveNumber } from '../../../common/utilities/utilities';
+import { validateField } from '../../../common/component/validation/validationComponent';
 
 class BookNewOrder extends React.Component {
     state = {
@@ -12,23 +13,25 @@ class BookNewOrder extends React.Component {
     }
 
     handleChange = (event) => {
-        //  console.log('value', event.target.name, event.target.value);
-        const val=event.target.name ==='stockSymbol' ? parseInt(event.target.value):event.target.value;
+        if (!validateField(event.target.name, event.target.value)) {
+            this.props.onValidatingFormValues({
+                fieldName: event.target.name,
+                formError: true
+            })
+        } else {
+            this.props.onValidatingFormValues({
+                fieldName: event.target.name,
+                formError: false
+            })
+        }
+
+        const val = event.target.name === 'stockSymbol' ? parseInt(event.target.value) : event.target.value;
         this.props.onUpdateOrderFormValue({ [event.target.name]: val })
     }
 
     executeOrder = (event) => {
         event.preventDefault();
         console.log('formValurs', this.props.formValues);
-        // this.setState({
-        //     showSuccessMessage: true
-        // })
-        // setTimeout(() => {
-        //     this.setState({
-        //         showSuccessMessage: false
-        //     })
-        // }, 5000);
-        // this.props.onResetOrderFormValues();
         this.postBookOrderData(this.props.formValues);
     }
 
@@ -36,7 +39,7 @@ class BookNewOrder extends React.Component {
     postBookOrderData(formvalues) {
         const payload = {
             "gameId": parseInt("001"),
-            "traderId":  getLocalStorage('traderId'),
+            "traderId": getLocalStorage('traderId'),
             "productId": parseInt(formvalues['stockSymbol']),
             "unfulfilledQuantity": null,
             "totalQty": parseFloat(formvalues['quantity']),
@@ -58,14 +61,6 @@ class BookNewOrder extends React.Component {
                 })
             }, 2000);
             this.props.onResetOrderFormValues();
-            // const payload2 = {
-            //     "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
-            //     "gameId": 1,
-            //     "traderId": parseInt(this.props.traderId),
-            //     "noOfRows": 20
-            // }
-            // this.props.onLoadBookedOrders(payload2);
-            //   }
         }, (err) => {
             // showToast('error', err);
         })
@@ -144,7 +139,7 @@ class BookNewOrder extends React.Component {
                                 </option>
                             </select>
                         </div>
-                        {this.props.formValues['orderType']==='2' ? <div>
+                        {this.props.formValues['orderType'] === '2' ? <div>
                             <label>Price</label>
                             <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['price']} name="price" />
@@ -153,6 +148,8 @@ class BookNewOrder extends React.Component {
                             <label>Quantity</label>
                             <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['quantity']} name="quantity" />
+                            {/* {this.props.bookOrderFormError['quantityInvalid'] ?
+                                <span className="error-span">Quantity incorrect</span> : ''} */}
                         </div>
                         <div>
                             <button type="submit" disabled={!this.props.playbackOrdersFlow}>EXECUTE</button>
@@ -172,8 +169,9 @@ const mapStateToProps = (state) => {
         stockSymbol: state.fetchDataReducer.stockSymbols['data'],
         defaultStockSymbol: 'Select stock symbol',
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
-        traderId:state.fetchDataReducer['userDetails']['traderId'],
-        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
+        traderId: state.fetchDataReducer['userDetails']['traderId'],
+        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow'],
+        bookOrderFormError: state.orderBookReducer.bookOrderFormError
     }
 }
 
@@ -187,7 +185,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         onLoadBookedOrders: (payload) => {
             dispatch(actiontypes.LoadBookedOrders(payload));
-        }
+        },
+        onValidatingFormValues: (data) => {
+            dispatch(actiontypes.SetBookOrderFormValidity(data))
+        },
     }
 }
 
