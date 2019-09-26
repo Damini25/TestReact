@@ -25,7 +25,8 @@ export const createNewGame = (formvalues) => {
   if (formvalues['isGameActive'] !== undefined || formvalues['isGameActive'] !== null) {
     payload['isGameActive'] = formvalues['isGameActive']
   }
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/creategame`, payload);
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/creategame`, payload).then(response => ({ response }))
+  .catch(error => ({ error }));;
 }
 
 
@@ -33,7 +34,6 @@ export const uploadHistoricalDataFile = (payload) => {
   console.log('uploadHistoricalDataFile', payload);
   const formData = new FormData()
   formData.append('file', payload['file']);
- // formData.append('gameId', gameId);
   return axios.post(`${env.apiUrl}/trading/gamemgmt-service/gamedata/uploadFile`, formData).then(response => ({ response }))
   .catch(error => ({ error }));
 };
@@ -49,7 +49,8 @@ export const uploadNewsDataFile = (payload) => {
 };
 
 export const getGameList = (payload) => {
-  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/allgames`, {});
+  return axios.post(`${env.apiUrl}/trading/gamemgmt-service/game/allgames`, {}).then(response => ({ response }))
+  .catch(error => ({ error }));;
 }
 
 export const callJoinGame = (payload) => {
@@ -68,5 +69,6 @@ export const callDeleteGame = (payload) => {
 }
 
 export const getGameBasedDateList = () => {
- return axios.get(`${env.apiUrl}/trading/gamemgmt-service/gamedata/datewisedata`);
+ return axios.get(`${env.apiUrl}/trading/gamemgmt-service/gamedata/datewisedata`).then(response => ({ response }))
+  .catch(error => ({ error }));
 }

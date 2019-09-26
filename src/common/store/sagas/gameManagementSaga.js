@@ -12,19 +12,21 @@ export function* callCreateGameAPI(action) {
     try {
         // console.log('create new game api response', 1);
         yield put({ type: ActionTypes.Request_Posts });
-        const response = yield call(createNewGame, payload);
-        yield put({ type: ActionTypes.Game_Created_Success });
-        yield put({
-            type: ActionTypes.Load_ALL_Games, payload: {
-                'userId': parseInt(getLocalStorage('traderId'))
-            }
-        });
-        // if (response['data']['data']['gameId']) {
-        //     yield call(uploadHistoricalDataFile, payload, response['data']['data']['gameId']);
-        // }
-        //   console.log('create new game api response', response);
+        const { response, error } = yield call(createNewGame, payload);
 
-        yield put({ type: ActionTypes.Recieve_Posts });
+        if (response && response['data']['success']) {
+            yield put({ type: ActionTypes.Game_Created_Success });
+            yield put({
+                type: ActionTypes.Load_ALL_Games, payload: {
+                    'userId': parseInt(getLocalStorage('traderId'))
+                }
+            });
+            //yield put({ type: ActionTypes.Show_SnackBar, msg: 'Game created successfully' })
+            yield put({ type: ActionTypes.Recieve_Posts });
+        } else {
+            yield put({ type: ActionTypes.RecieveError_Posts });
+            yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
+        }
     }
     catch (e) {
         yield put({ type: ActionTypes.RecieveError_Posts });
@@ -37,8 +39,12 @@ export function* postGameFormValues() {
 
 export function* fetchGameList(action) {
     const { payload } = action
-    const response = yield call(getGameList, payload);
-    yield put({ type: ActionTypes.Fetch_All_Games, data: response.data['data'] });
+    const {response,error} = yield call(getGameList, payload);
+    if(response && response.data['success']){
+        yield put({ type: ActionTypes.Fetch_All_Games, data: response.data['data'] });
+    }else{
+        yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
+    }
 }
 export function* loadGameList() {
     yield takeLatest(ActionTypes.Load_ALL_Games, fetchGameList);
@@ -47,8 +53,12 @@ export function* loadGameList() {
 
 export function* fetchTraderGameList(action) {
     const { payload } = action
-    const response = yield call(getGameList, payload);
-    yield put({ type: ActionTypes.Fetch_All_TraderGames, data: response.data['data'] });
+    const {response,error} = yield call(getGameList, payload);
+    if(response && response.data['success']){
+        yield put({ type: ActionTypes.Fetch_All_TraderGames, data: response.data['data'] });
+    }else{
+        yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
+    }
 }
 export function* loadTraderGameList() {
     yield takeLatest(ActionTypes.Load_Trader_Games, fetchTraderGameList);
@@ -57,8 +67,7 @@ export function* loadTraderGameList() {
 export function* callJoinGameAPI(action) {
     const { payload } = action;
     const { response, error } = yield call(callJoinGame, payload);
-    //  console.log('gamejoin',response.data['data']['gameSessionId'])
-    if (response['data'].success) {
+    if (response && response['data'].success) {
         setLocalStorage({
             name: 'gameSessionId',
             value: response.data['data']['gameSessionId']
@@ -75,9 +84,9 @@ export function* callJoinGameAPI(action) {
         yield put(push('/mainNav/orderEntry'));
         yield put({ type: ActionTypes.Set_GameSession_Id, data: response.data['data'] });
     } else {
-
+        yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
+        yield put({ type: ActionTypes.RecieveError_Posts });
     }
-
 }
 export function* joinGame() {
     yield takeLatest(ActionTypes.Join_Game, callJoinGameAPI);
@@ -92,10 +101,7 @@ export function* callStartGameAPI(action) {
             'userId': parseInt(getLocalStorage('traderId'))
         }
     });
-    //const games = yield call(getGameList);
-    //yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
     yield put({ type: ActionTypes.Game_Started_Success, data: response.data['data'] });
-    // yield put({ type: ActionTypes.Generate_Orders});
 }
 
 export function* startGameAdmin() {
@@ -110,8 +116,6 @@ export function* callStopGameAPI(action) {
             'userId': parseInt(getLocalStorage('traderId'))
         }
     });
-    // const games = yield call(getGameList);
-    // yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
 }
 
 export function* stopGameAdmin() {
@@ -126,8 +130,6 @@ export function* callDeleteGameAPI(action) {
             'userId': parseInt(getLocalStorage('traderId'))
         }
     });
-    //  const games = yield call(getGameList);
-    //  yield put({ type: ActionTypes.Fetch_All_Games, data: games.data['data'] });
 }
 
 export function* gameDeleteByAdmin() {
@@ -136,8 +138,12 @@ export function* gameDeleteByAdmin() {
 
 
 export function* fetchBasedDateList() {
-    const response = yield call(getGameBasedDateList);
-    yield put({ type: ActionTypes.OnFetch_GameBased_Dates, data: response.data['data'] });
+    const {response,error} = yield call(getGameBasedDateList);
+    if(response && response.data['success']){
+        yield put({ type: ActionTypes.OnFetch_GameBased_Dates, data: response.data['data'] });
+    }else{
+        yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
+    }
 }
 
 export function* getGameBasedData() {
@@ -149,24 +155,26 @@ export function* callUploadFile(action) {
     const payload = action['data']['payload'];
     if (type === 'gameData') {
         yield put({ type: ActionTypes.Request_Posts });
-        const {response,error} = yield call(uploadHistoricalDataFile, payload);
-       
-        if(response['data'].success){
+        const { response, error } = yield call(uploadHistoricalDataFile, payload);
+
+        if (response && response['data'].success) {
             yield put({ type: ActionTypes.Show_SnackBar, msg: 'File uploaded successfully' })
             yield put({ type: ActionTypes.Recieve_Posts });
-        }else{
-            yield put({ type: ActionTypes.RecieveError_Posts});
+        } else {
+            yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
+            yield put({ type: ActionTypes.RecieveError_Posts });
         }
 
     } else {
         yield put({ type: ActionTypes.Request_Posts });
-        const {response,error} = yield call(uploadNewsDataFile, payload);
+        const { response, error } = yield call(uploadNewsDataFile, payload);
         yield put({ type: ActionTypes.Recieve_Posts });
-        if(response['data'].success){
+        if (response && response['data'].success) {
             yield put({ type: ActionTypes.Show_SnackBar, msg: 'File uploaded successfully' })
             yield put({ type: ActionTypes.Recieve_Posts });
-        }else{
-            yield put({ type: ActionTypes.RecieveError_Posts});
+        } else {
+            yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
+            yield put({ type: ActionTypes.RecieveError_Posts });
         }
     }
 }

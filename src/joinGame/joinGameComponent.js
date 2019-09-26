@@ -42,7 +42,7 @@ class ListTraderGames extends React.Component {
                         <td>{elem['bidAsk'] ? elem['bidAsk'] : '-'}</td>
                         <td>{elem['gameInterval']}</td>
                         <td>
-                            <button className="join-game-btn" onClick={() => this.joinGame(elem)}>Join</button>
+                            <button className="join-game-btn primary-color button" onClick={() => this.joinGame(elem)}>Join</button>
                         </td>
                     </tr>
                 );

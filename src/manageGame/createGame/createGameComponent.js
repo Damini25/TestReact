@@ -5,13 +5,11 @@ import { connect } from 'react-redux';
 import * as actiontypes from '../../common/store/actions/actionIndex';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Link } from 'react-router-dom';
 
 class CreateGame extends React.Component {
     fileRef = React.createRef();
 
     handleDateChange = (name, date) => {
-        //   console.log('nnn',name,date);
         this.props.onUpdateCreateGameFormValue({ [name]: date })
     };
 
@@ -20,7 +18,6 @@ class CreateGame extends React.Component {
     }
 
     handleChange = (event) => {
-        // console.log('value', event.target.name, event.target.value);
         const value = event.target.name === 'file' ? event.target.files[0] : event.target.value;
         this.props.onUpdateCreateGameFormValue({ [event.target.name]: value })
     }
@@ -30,12 +27,6 @@ class CreateGame extends React.Component {
         this.postCreateGameData(this.props.formValues);
     }
 
-    // componentDidUpdate(prev) {
-    //     if (this.props.gameCreatedSuccessfully) {
-    //         this.fileRef.value = null;
-    //     }
-    // }
-
     postCreateGameData(formvalues) {
         console.log('vv', this.fileRef)
         const payload = { ...formvalues }
@@ -43,15 +34,11 @@ class CreateGame extends React.Component {
         this.props.onPostCreateGameData(formvalues);
     }
 
-    /*setFetchOrderInterval(e) {
-        this.props.onSettingFetchOrderInterval(e.target.value);
-    }*/
-
     render() {
         const form = <form onSubmit={(e) => { this.executeOrder(e) }}>
-            <p className="note-p">Note: To create a game please first Orders data. </p>
+            <p className="note-p">Note: Before creating a game please upload Orders data. </p>
             <div className="create-game">
-                
+
                 <div className="sub-div">
                     <h3>Game Name & Basic Trading Rules</h3>
                     <p>*These settings cannot be changed once the game is created.</p>
@@ -222,7 +209,11 @@ class CreateGame extends React.Component {
                                 <option value={3000}> 3</option>
                             </select>
                         </div>
-                        <button className="create-game-btn  primary-color button" type="submit" >{this.props.gameActionBtnLabelc ? 'Create' : 'Create/Update'}</button>
+                        <button className="create-game-btn  primary-color button"
+                            // disabled={!this.props.formValues['gameName'] ||
+                            //     this.props.formValues['playbackStartTime'] || this.props.formValues['playbackEndTime']
+                            //     || this.props.formValues['playbackDate'] || this.props.formValues['startingCash']}
+                            type="submit" >{this.props.gameActionBtnLabelc ? 'Create' : 'Create/Update'}</button>
                     </div>
                 </div>
             </div>
@@ -248,7 +239,6 @@ class CreateGame extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    //  console.log('isFetchingData', state.showLoaderReducer.isFetching);
     return {
         formValues: state.gameManagementReducer.createGameFormValue,
         gameCreatedSuccessfully: state.gameManagementReducer.gameCreatedSucess,

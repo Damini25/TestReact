@@ -56,12 +56,12 @@ export const LoadPortfolioList = (payload) => {
 }
 
 export const ShowSnackbar = (data) => {
-   // console.log('show',data)
+    // console.log('show',data)
     return {
         type: Actiontypes.Show_SnackBar,
         msg: data['msg'],
         duration: data['duration'] ? data['duration'] : 4000,
-        direction:data['direction']? data['direction']:{
+        direction: data['direction'] ? data['direction'] : {
             vertical: 'top',
             horizontal: 'middle',
         }
@@ -71,5 +71,11 @@ export const ShowSnackbar = (data) => {
 export const CloseSnackbar = () => {
     return {
         type: Actiontypes.Close_SnackBar,
+    }
+}
+
+export const Logout = () => {
+    return {
+        type: Actiontypes.On_Logout,
     }
 }

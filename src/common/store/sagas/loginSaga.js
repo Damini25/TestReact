@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { login } from '../../../login/loginService';
+import { login,logout } from '../../../login/loginService';
 import { setLocalStorage } from '../../../common/localStorageService';
 import { push } from 'connected-react-router';
 
@@ -20,7 +20,7 @@ export function* loginUser(action) {
       value: response.data['data'][0]['userTypeId']
     });
     yield put({ type: ActionTypes.Set_User_Details, element: { 'traderId': response.data['data'][0]['userId'] } });
-    yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successfull' })
+    yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successful' })
     if (parseInt(response.data['data'][0]['userTypeId']) === 0) {
       yield put(push('/mainNav/manageGame'))
     } else {
@@ -37,6 +37,13 @@ export function* callLoginApi() {
   yield takeLatest(ActionTypes.Call_Login_Api, loginUser);
 }
 
+export function* logoutUser(action) { 
+  const  response  = yield call(logout, action.payload);
+}
+
+export function* callLogoutApi() {
+  yield takeLatest(ActionTypes.Call_Logout, logoutUser);
+}
 export default function* loginSaga() {
-  yield all([callLoginApi()]);
+  yield all([callLoginApi(),callLogoutApi()]);
 }

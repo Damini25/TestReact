@@ -13,9 +13,9 @@ class App extends React.Component {
           {/* <MessageContainer></MessageContainer> */}
           {/* <ShowLoader></ShowLoader> */}
           <SnackBar></SnackBar>
-          {/* {this.props.showLoader ? <div class="full-page-loader" >
+          {this.props.showLoader ? <div class="full-page-loader" >
             <img src={process.env.PUBLIC_URL + '/assets/images/loader6.gif'} alt=""></img>
-          </div>:''} */}
+          </div>:''}
           {appRoutes}
         </div>
       </div>

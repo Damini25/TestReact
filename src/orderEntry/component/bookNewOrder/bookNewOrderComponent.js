@@ -9,10 +9,14 @@ import { validateField } from '../../../common/component/validation/validationCo
 
 class BookNewOrder extends React.Component {
     state = {
-        showSuccessMessage: false
+        showSuccessMessage: false,
+        formTouched: false
     }
 
     handleChange = (event) => {
+        this.setState({
+            ...this.state, formTouched: true
+        })
         if (!validateField(event.target.name, event.target.value)) {
             this.props.onValidatingFormValues({
                 fieldName: event.target.name,
@@ -67,7 +71,6 @@ class BookNewOrder extends React.Component {
     }
 
     render() {
-        console.log('vv', this.props)
         const div2 =
             <form className="book-trade-div2" onSubmit={(e) => { this.executeOrder(e) }}>
                 <div >
@@ -114,14 +117,6 @@ class BookNewOrder extends React.Component {
                                 />
                                 <label htmlFor="ask">Sell</label>
                             </div>
-
-                            {/* <select onChange={(e) => { this.handleChange(e) }}
-                                value={this.props.formValues['transaction']}
-                                name="transaction">
-                                <option disabled value="">Select transaction type</option>
-                                <option value="bid">Bid</option>
-                                <option value="ask">Ask</option>
-                            </select> */}
                         </div>
                         <div>
                             <label>Order Type</label>
@@ -140,20 +135,36 @@ class BookNewOrder extends React.Component {
                                 </option>
                             </select>
                         </div>
-                        {this.props.formValues['orderType'] === '2' ? <div>
-                            <label>Price</label>
-                            <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
-                                value={this.props.formValues['price']} name="price" />
-                        </div> : ""}
+                        {this.props.formValues['orderType'] === '2' ?
+                            <div>
+                                <div>
+                                    <label>Price</label>
+                                    <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
+                                        value={this.props.formValues['price']} name="price" />
+                                </div>
+                            </div> : ""}
+                        {this.props.formValues['orderType'] === '2' &&
+                            this.props.bookOrderFormError['priceInvalid'] ?
+                            <div className="error-span">
+                                Cannot contain negative numbers.
+                                </div> : ''}
                         <div>
                             <label>Quantity</label>
                             <input type="number" autoComplete="off" onChange={(e) => { this.handleChange(e) }}
                                 value={this.props.formValues['quantity']} name="quantity" />
                         </div>
-                        {/* {this.props.bookOrderFormError['quantityInvalid'] ?
-                            <div className="error-span">Quantity incorrect</div> : ''} */}
+                        {this.props.bookOrderFormError['quantityInvalid'] ?
+                            <div className="error-span">
+                                Cannot contain negative numbers.
+                                </div> : ''}
                         <div>
-                            <button type="submit" disabled={!this.props.playbackOrdersFlow}>EXECUTE</button>
+                            <button type="submit" disabled={
+                                (!this.state.formTouched ||
+                                    !this.props.formValues['stockSymbol'] ||
+                                    !this.props.formValues['quantity'] ||
+                                    !this.props.formValues['orderType'] || !this.props.playbackOrdersFlow ||
+                                    (this.props.bookOrderFormError['quantityInvalid'] ||
+                                        this.props.bookOrderFormError['priceInvalid']))}>EXECUTE</button>
                         </div>
                     </div>
                 </div>

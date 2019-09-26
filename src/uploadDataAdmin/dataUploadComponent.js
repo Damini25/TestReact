@@ -17,7 +17,7 @@ class DataUpload extends React.Component {
     }
 
     componentDidMount() {
-        this.props.onLoadGameData({ 'userId': parseInt(getLocalStorage('traderId')) });
+      this.props.onLoadGameData({ 'userId': parseInt(getLocalStorage('traderId')) });
     }
     componentDidUpdate(prevProps) {
         if(prevProps.apiResolved !== this.props.apiResolved && this.props.apiResolved){
@@ -107,7 +107,9 @@ class DataUpload extends React.Component {
                             onChange={this.handleChange}
                             name="newsFile" type="file"
                         />
-                        <button className="upload-div-btn primary-color button" onClick={() => this.uploadFile('newsFile')}>Upload</button>
+                        <button className={!this.state.newsFile || !this.state.gameId ? 'upload-div-btn button': 'upload-div-btn primary-color button'}
+                        disabled={!this.state.newsFile || !this.state.gameId}
+                        onClick={() => this.uploadFile('newsFile')}>Upload</button>
                     </div>
                 </div>
 
@@ -123,7 +125,9 @@ class DataUpload extends React.Component {
                             ref={(input) => { this.fileRefData = input; }}
 
                         />
-                        <button className="upload-div-btn primary-color button" onClick={() => this.uploadFile('ordersFile')}>Upload</button>
+                        <button className={!this.state.ordersFile ? 'upload-div-btn button': 'upload-div-btn primary-color button'}
+                        disabled={!this.state.ordersFile}
+                        onClick={() => this.uploadFile('ordersFile')}>Upload</button>
                     </div>
                 </div>
 

@@ -3,12 +3,45 @@
   .show-news-div{
     float: right;
   }
+  .game-status-div{
+    width: 20%;
+    margin-left: 80%;
+    color: #216ba5;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    span{
+      margin-left: 13px;
+    }
+    .status-active{
+      color: #4dd04d;
+      margin-left: 4px;
+
+    }
+    .status-end{
+      color:#e04d15;
+      margin-left: 4px;
+
+    }
+  }
 }
 .outer-container .header-div{
-  background-color: #373a47;
+ // background-color: #373a47;
+ border-bottom: 2px solid beige;
   height: 45px;
   width: 100%;
   /* margin-bottom: 3%; */
+  .main-title{
+    height: 100%;
+    width: 97%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #b8b7ad;
+    font-size: 22px;
+  }
 }
 #page-wrap {
     text-align: center;
@@ -37,16 +70,16 @@
   
   /* Position and sizing of burger button */
   .bm-burger-button {
-    position: fixed;
+   position: fixed;
     width: 36px;
     height: 30px;
-    left: 36px;
-    top: 5px;
+    left: 24px;
+    top: 7px;
   }
   
   /* Color/shape of burger icon bars */
   .bm-burger-bars {
-    background:white;
+    background:#216ba5;
   }
   
   /* Position and sizing of clickable cross button */
@@ -85,7 +118,7 @@
   }
   .font-i-btn{
     font-size:31px;
-    color: white
+    color: #216ba5;
   }
   .user-img{
     width: 80px;
@@ -98,9 +131,7 @@
     padding-bottom: 4%;
     border-bottom: 1px solid white;
     margin-bottom: 12%;
-  }
-  .menu-userimg-div div{
-    margin-left:10%;
+    justify-content: center;
   }
   nav *:focus{
     outline: none;

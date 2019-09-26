@@ -1,7 +1,7 @@
 import React from 'react';
 import { slide as Menu } from "react-burger-menu";
 import { Link, NavLink } from 'react-router-dom';
-import { clearLocalStorage } from '../../common/localStorageService';
+
 import { getLocalStorage } from '../../common/localStorageService';
 
 class MenuLinks extends React.Component {
@@ -32,10 +32,10 @@ class MenuLinks extends React.Component {
         }))
     }
 
-    logout() {
-        clearLocalStorage();
-        this.props.history.push("/login");
-    }
+    // logout() {
+    //     clearLocalStorage();
+    //     this.props.history.push("/login");
+    // }
 
     render() {
         console.log('menulinl', getLocalStorage('userTypeId'));
@@ -46,16 +46,17 @@ class MenuLinks extends React.Component {
                 } customCrossIcon={<i className="fa fa-angle-double-left" ></i>}>
 
                 <div className="menu-userimg-div">
-                    <img alt="" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" className="user-img" />
-                    <div>Welcome! Damini</div>
+                    {/* <img alt="" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" className="user-img" /> */}
+                    <div>Interactive Trading Game</div>
+                    {/* <div>Welcome!</div> */}
                 </div>
                 {
                     parseInt(getLocalStorage('userTypeId')) === 0 ?
                         // admin menu
                         <div>
-                            <div>
+                            {/* <div>
                                 <NavLink className="bm-item" activeClassName='is-active' >Home</NavLink>
-                            </div>
+                            </div> */}
                             <div>
                                 <NavLink className="bm-item" activeClassName='is-active' to={{
                                     pathname: this.props.match.url + "/uploadDataAdmin"
@@ -69,63 +70,31 @@ class MenuLinks extends React.Component {
                                 </NavLink>
                             </div>
 
-                            {/* <div>
-                                <label onClick={() => this.showNestedMenu('game')}>Game
-                            {this.state.showGameMenu ? <i className="fa fa-caret-up font-i-nestedbtn"></i> :
-                                        <i className="fa fa-caret-down font-i-nestedbtn"></i>
-                                    }
-                                </label>
-                                {this.state.showGameMenu ? <div className="nested-menu-item-div">
-                                    <NavLink className="bm-item" activeClassName='is-active' to={{
-                                        pathname: this.props.match.url + "/manageGame"
-                                    }}>Manage Game
-                                    </NavLink>
-                                </div> : ''}
-                            </div> */}
                             <div>
-                                <NavLink className="bm-item" activeClassName='is-active' onClick={() => { this.logout() }}>Logout</NavLink>
+                                <NavLink className="bm-item" activeClassName='is-active' onClick={this.props.logoutClicked}>Logout</NavLink>
                             </div>
                         </div> :
                         //member menu
                         <div>
-                            <div >
+                            {/* <div >
                                 <NavLink className="bm-item" activeClassName='is-active' >Home</NavLink>
                             </div>
                             <div>
                                 <NavLink className="bm-item" activeClassName='is-active'>Portfolio</NavLink>
-                            </div>
+                            </div> */}
                             <div>
                                 <NavLink className="bm-item" activeClassName='is-active' to={{
                                     pathname: this.props.match.url + "/joinGame"
                                 }} onClick={() => { this.closeMenuOnNavClick() }}>Join Game
                                         </NavLink>
                             </div>
-                            {/* <div>
-                                <label onClick={() => this.showNestedMenu('game')}>
-                                    Game
-                                    {
-                                        this.state.showGameMenu ?
-                                            <i className="fa fa-caret-up font-i-nestedbtn"></i> :
-                                            <i className="fa fa-caret-down font-i-nestedbtn"></i>
-                                    }
-                                </label>
-                                {
-                                    this.state.showGameMenu ?
-                                        <div className="nested-menu-item-div">
-                                            <NavLink className="bm-item" activeClassName='is-active' to={{
-                                                pathname: this.props.match.url + "/joinGame"
-                                            }} onClick={() => { this.closeMenuOnNavClick() }}>Join Game
-                                        </NavLink>
-                                        </div> : ''
-                                }
-                            </div> */}
                             <div>
                                 <NavLink className="bm-item" activeClassName='is-active' to={{
                                     pathname: this.props.match.url + "/orderEntry"
                                 }} onClick={() => { this.closeMenuOnNavClick() }}>Trade</NavLink>
                             </div>
                             <div>
-                                <NavLink className="bm-item" activeClassName='is-active' onClick={() => { this.logout() }}>Logout</NavLink>
+                                <NavLink className="bm-item" activeClassName='is-active' onClick={this.props.logoutClicked}>Logout</NavLink>
                             </div>
                         </div>
                 }
