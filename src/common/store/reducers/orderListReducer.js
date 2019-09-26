@@ -16,12 +16,9 @@ const initialState = {
 }
 
 const OrderListReducer = (state = initialState, action) => {
-    //  console.log('OrderListReducer', state, action);
     switch (action.type) {
 
         case ActionTypes.OnRecieve_BidAsk_Data: {
-
-            console.log('bid/as', action)
             const newOrderToShow = { ...state.ordersToShow };
             
             newOrderToShow.askOrders = [...action['data']['allAskOrders']];

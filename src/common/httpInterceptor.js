@@ -27,13 +27,9 @@ axios.interceptors.request.use((req) => {
 });
 
 axios.interceptors.response.use((res) => {
-    if(res['error']==='gameSessionEnded'){
-        clearLocalStorageKey('gameSessionId');
-     //   console.log('toast',toast.isActive('gameSessionId'))
-        // if(!toast.isActive('gameSessionEnded')){
-        //     showToast('error', 'Game session has expired','gameSessionEnded');
-        // }
+  //  console.log('res',res);
+    // if(res['status']=== 500){
         
-    }
+    // }
     return res;
 });

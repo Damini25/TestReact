@@ -87,7 +87,6 @@ const mapdispatchToProps = (dispatch) => {
     }
 }
 const mapStateToProps = (state) => {
-    console.log('stateExecutedOrderList', state.traderGameManagementReducer['listTraderGames']);
     return {
         gameList: state.traderGameManagementReducer['listTraderGames'],
         gameSessionId: state.traderGameManagementReducer['gameSessionId']

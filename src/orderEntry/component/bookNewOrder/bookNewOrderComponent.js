@@ -35,7 +35,6 @@ class BookNewOrder extends React.Component {
 
     executeOrder = (event) => {
         event.preventDefault();
-        console.log('formValurs', this.props.formValues);
         this.postBookOrderData(this.props.formValues);
     }
 

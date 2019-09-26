@@ -2,27 +2,14 @@ import React from 'react';
 import './listGameComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../common/store/actions/actionIndex';
-import EditGameDialog from '../editGame/editGameComponent';
 import { convertToDateTime } from '../../common/utilities/utilities';
-
-// import * as actiontypes from '../common/store/actions/actionIndex'; 
 import { getLocalStorage } from '../../common/localStorageService';
 
 class ListGames extends React.Component {
-    state = {
-        editModalOpen: false
-    }
-
+   
     componentDidMount() {
         this.props.onLoadGameData({ 'userId': parseInt(getLocalStorage('traderId')) });
     }
-
-    /* openEditDialog(elem) {
-         console.log('editdialogelem', elem)
-         this.setState({
-             editModalOpen: true
-         })
-     }*/
 
     editGame(elem) {
 
@@ -41,12 +28,6 @@ class ListGames extends React.Component {
         //   this.props.onUpdateOrderFormValue({ 'quantity': elem['unfulfilledQuantity'] })
     }
 
-    handleEditDialogClose = (value) => {
-        this.setState({
-            editModalOpen: false
-        })
-    };
-
     startGame(elem) {
         this.props.onGameStart(elem);
     }
@@ -63,8 +44,6 @@ class ListGames extends React.Component {
     }
 
     playPauseDataFlow(elem) {
-        //  elem['playbackFlag'] = !elem['playbackFlag'];
-
         const payload = {
             'gameId': elem['gameId'],
             'gameName': elem['gameCode'],
@@ -79,7 +58,6 @@ class ListGames extends React.Component {
             'playbackFlag': !elem['playbackFlag'],
             'isGameActive': elem['isGameActive']
         }
-        console.log('pause', elem)
         this.props.onPostCreateGameData(payload);
     }
     render() {
@@ -119,14 +97,9 @@ class ListGames extends React.Component {
 
         return (
             <div className="list-games-div">
-                {/* <h3>games</h3> */}
                 <div className="table-div">
                     <table>
                         <thead>
-                            {/* <tr>
-                                <th colSpan="6">Basic game rules</th>
-                                <th colSpan="3">Playback rules</th>
-                            </tr> */}
                             <tr className="secondary-color">
                                 <th>Game Name</th>
                                 <th>Game Mode</th>
@@ -145,8 +118,6 @@ class ListGames extends React.Component {
                         </tbody>
                     </table>
                 </div >
-                <EditGameDialog editDialogopen={this.state.editModalOpen}
-                    editDialogClose={this.handleEditDialogClose}></EditGameDialog>
             </div >
         );
     }
@@ -176,7 +147,6 @@ const mapdispatchToProps = (dispatch) => {
     }
 }
 const mapStateToProps = (state) => {
-    // console.log('stateExecutedOrderList', state.gameManagementReducer['listGames']);
     return {
         gameList: state.gameManagementReducer['listGames']
     }

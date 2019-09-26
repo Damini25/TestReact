@@ -31,7 +31,6 @@ export const createNewGame = (formvalues) => {
 
 
 export const uploadHistoricalDataFile = (payload) => {
-  console.log('uploadHistoricalDataFile', payload);
   const formData = new FormData()
   formData.append('file', payload['file']);
   return axios.post(`${env.apiUrl}/trading/gamemgmt-service/gamedata/uploadFile`, formData).then(response => ({ response }))
@@ -39,7 +38,6 @@ export const uploadHistoricalDataFile = (payload) => {
 };
 
 export const uploadNewsDataFile = (payload) => {
-  console.log('uploadHistoricalDataFile', payload);
   const formData = new FormData()
   formData.append('file', payload['file']);
   formData.append('gameId', payload['gameId']);

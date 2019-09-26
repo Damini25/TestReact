@@ -28,7 +28,6 @@ class CreateGame extends React.Component {
     }
 
     postCreateGameData(formvalues) {
-        console.log('vv', this.fileRef)
         const payload = { ...formvalues }
         payload['isGameActive'] = false;
         this.props.onPostCreateGameData(formvalues);

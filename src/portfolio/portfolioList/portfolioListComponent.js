@@ -4,20 +4,7 @@ import { connect } from 'react-redux';
 import * as actiontypes from '../../common/store/actions/actionIndex';
 
 class PortfolioComponent extends React.Component {
-
-    componentDidUpdate(prevProps) {
-        /**
-        * Play and Pause feature
-        */
-        if (this.fetchPortfolioListInterval && !this.props.playbackOrdersFlow) {
-            if (this.fetchPortfolioListInterval) {
-                clearInterval(this.fetchPortfolioListInterval);
-            }
-        } else if (this.props.playbackOrdersFlow && prevProps['playbackOrdersFlow'] !== this.props.playbackOrdersFlow) {
-            this.fetchPortfolioList();
-        }
-    }
-   
+    
     render() {
         let row = [];
         if (this.props.portFolioList && this.props.portFolioList.length) {

@@ -178,8 +178,7 @@ class SecurityChart extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('minPrice,maxPrice', state.orderListReducer['ordersToShow']['minPriceYAxis'], state.orderListReducer['ordersToShow']['maxPriceYAxis'])
-    return {
+     return {
         bidOrderList: state.chartReducer['totalOrderTillNow']['bidOrders'],
         askOrderList: state.chartReducer['totalOrderTillNow']['askOrders'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,

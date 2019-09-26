@@ -1,12 +1,9 @@
 import React from 'react';
-//import Sidebar from "react-sidebar";
 import './mainNavigationComponent.scss'
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import {Switch } from 'react-router-dom';
 import SideBar from './menuLinks/menuLinkComponent'
 import OrderEntry from '../orderEntry/container/orderEntry';
 import ManageGame from '../manageGame/manageGameComponent';
-import ExecOrderList from '../executedOrders/executedOrdersComponent';
-// import CreateGame from '../manageGame/createGame/createGameComponent';
 import JoinGame from '../joinGame/joinGameComponent';
 import PrivateRoute from '../common/component/privateRouteComponent';
 import NewsFeed from '../orderEntry/component/newsFeed/newsFeedComponent';
@@ -22,9 +19,6 @@ class MainNavigation extends React.Component {
         this.props = props;
     }
 
-    componentDidMount() {
-        //   console.log('urlddcomponentDidMount', this.props.match.url)
-    }
     state = {
         sidebarOpen: false
     };
@@ -43,7 +37,6 @@ class MainNavigation extends React.Component {
     }
 
     render() {
-        console.log('vtestv', this.props)
         return (
             <div className="outer-container">
                 <div className="header-div">
@@ -54,13 +47,11 @@ class MainNavigation extends React.Component {
                         this.props.history.location.pathname.includes('/mainNav/orderEntry') ?
                             <div className="game-status-div"> {this.props.playbackOrdersFlow ?
                                 (<div>Status :<span className="status-active">Active</span></div>) :
-                                (<div>Status :<span className="status-end">End</span></div>)}
+                                (<div>Status :<span className="status-end">Paused</span></div>)}
                             </div> :
                             ''
                     }
-
                 </div>
-
                 <Switch>
                     <PrivateRoute exact path="/mainNav" component={OrderEntry}></PrivateRoute>
                     <PrivateRoute exact strict path="/mainNav/orderEntry" component={OrderEntry}></PrivateRoute>

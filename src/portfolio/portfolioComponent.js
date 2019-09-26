@@ -16,6 +16,19 @@ class PortfolioComponent extends React.Component {
         this.fetchPortfolioList();
     }
 
+    componentDidUpdate(prevProps) {
+        /**
+        * Play and Pause feature
+        */
+        if (this.fetchPortfolioListInterval && !this.props.playbackOrdersFlow) {
+            if (this.fetchPortfolioListInterval) {
+                clearInterval(this.fetchPortfolioListInterval);
+            }
+        } else if (this.props.playbackOrdersFlow && prevProps['playbackOrdersFlow'] !== this.props.playbackOrdersFlow) {
+            this.fetchPortfolioList();
+        }
+    }
+
     /**
       * API call to fetch Portfolios List data
       */
@@ -99,6 +112,7 @@ const mapStateToProps = (state) => {
         startingVolume: state.fetchDataReducer['portfolio']['startingVolume'],
         availableVolume: state.fetchDataReducer['portfolio']['availableVolume'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
+        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
     }
 }
 export default connect(mapStateToProps, mapdispatchToProps)(PortfolioComponent)

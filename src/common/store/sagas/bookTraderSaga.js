@@ -1,23 +1,21 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { clearLocalStorageKey } from '../../localStorageService'
+import { clearLocalStorageKey } from '../../localStorageService';
 import { getInitialOrderList, generateOrders, getGamePlayPauseStatus } from '../../../orderEntry/services/orderEntry.service';
 import { push } from 'connected-react-router';
 
 export function* fetchBidAskOrders(action) {
     const { payload } = action;
-    const { response, error } = yield call(getInitialOrderList, payload);
-    if (response['data'].success) {
+    const { response} = yield call(getInitialOrderList, payload);
+    if (response && response['data'].success) {
         yield put({ type: ActionTypes.OnRecieve_BidAsk_Data, data: response.data['data'] });
     } else if (response['data'].error) {
-        console.log('responseerror',response)
         if (response['data'].error['key'] === 'gameSessionEnded') {
             clearLocalStorageKey('gameSessionId');
             clearLocalStorageKey('gameId');
-            yield put(push('/mainNav/joinGame'))
+            //clearLocalStorageKey('orderFetchInterval');
+            yield put(push('/mainNav/joinGame'));
         }
-    } else {
-        console.log('bid/ask', error);
     }
 }
 

@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { login,logout } from '../../../login/loginService';
+import { login, logout } from '../../../login/loginService';
 import { setLocalStorage } from '../../../common/localStorageService';
 import { push } from 'connected-react-router';
 
@@ -10,7 +10,7 @@ export function* loginUser(action) {
   yield put({ type: ActionTypes.Request_Posts });
   const { response, error } = yield call(login, action.payload);
   yield put({ type: ActionTypes.Recieve_Posts });
-  if (response) {
+  if (response && response.data['data'][0]) {
     setLocalStorage({
       name: 'traderId',
       value: response.data['data'][0]['userId']
@@ -26,10 +26,10 @@ export function* loginUser(action) {
     } else {
       yield put(push('/mainNav/joinGame'))
     }
-  } else {
+  }
+  else {
     yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
-    yield put({ type: ActionTypes.RecieveError_Posts});
-    console.log('loginerror',error);
+    yield put({ type: ActionTypes.RecieveError_Posts });
   }
 }
 
@@ -37,13 +37,13 @@ export function* callLoginApi() {
   yield takeLatest(ActionTypes.Call_Login_Api, loginUser);
 }
 
-export function* logoutUser(action) { 
-  const  response  = yield call(logout, action.payload);
+export function* logoutUser(action) {
+  const response = yield call(logout, action.payload);
 }
 
 export function* callLogoutApi() {
   yield takeLatest(ActionTypes.Call_Logout, logoutUser);
 }
 export default function* loginSaga() {
-  yield all([callLoginApi(),callLogoutApi()]);
+  yield all([callLoginApi(), callLogoutApi()]);
 }

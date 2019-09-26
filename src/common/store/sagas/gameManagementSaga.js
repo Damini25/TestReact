@@ -9,8 +9,7 @@ import { push } from 'react-router-redux';
 
 export function* callCreateGameAPI(action) {
     const { payload } = action;
-    try {
-        // console.log('create new game api response', 1);
+    
         yield put({ type: ActionTypes.Request_Posts });
         const { response, error } = yield call(createNewGame, payload);
 
@@ -27,11 +26,8 @@ export function* callCreateGameAPI(action) {
             yield put({ type: ActionTypes.RecieveError_Posts });
             yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
         }
-    }
-    catch (e) {
-        yield put({ type: ActionTypes.RecieveError_Posts });
-    }
 }
+
 
 export function* postGameFormValues() {
     yield takeLatest(ActionTypes.Post_CreateGameForm_Values, callCreateGameAPI);
@@ -46,10 +42,10 @@ export function* fetchGameList(action) {
         yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
     }
 }
+
 export function* loadGameList() {
     yield takeLatest(ActionTypes.Load_ALL_Games, fetchGameList);
 }
-
 
 export function* fetchTraderGameList(action) {
     const { payload } = action

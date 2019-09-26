@@ -1,7 +1,6 @@
 import React from 'react';
 import { slide as Menu } from "react-burger-menu";
-import { Link, NavLink } from 'react-router-dom';
-
+import {NavLink } from 'react-router-dom';
 import { getLocalStorage } from '../../common/localStorageService';
 
 class MenuLinks extends React.Component {
@@ -32,13 +31,7 @@ class MenuLinks extends React.Component {
         }))
     }
 
-    // logout() {
-    //     clearLocalStorage();
-    //     this.props.history.push("/login");
-    // }
-
     render() {
-        console.log('menulinl', getLocalStorage('userTypeId'));
         return (
             <Menu isOpen={this.state.menuOpen} onStateChange={(state) => this.handleMenuStateChange(state)}
                 customBurgerIcon={
@@ -54,9 +47,6 @@ class MenuLinks extends React.Component {
                     parseInt(getLocalStorage('userTypeId')) === 0 ?
                         // admin menu
                         <div>
-                            {/* <div>
-                                <NavLink className="bm-item" activeClassName='is-active' >Home</NavLink>
-                            </div> */}
                             <div>
                                 <NavLink className="bm-item" activeClassName='is-active' to={{
                                     pathname: this.props.match.url + "/uploadDataAdmin"
@@ -71,17 +61,14 @@ class MenuLinks extends React.Component {
                             </div>
 
                             <div>
-                                <NavLink className="bm-item" activeClassName='is-active' onClick={this.props.logoutClicked}>Logout</NavLink>
+                                <NavLink to={{
+                                    pathname: ""
+                                }}
+                                className="bm-item" activeClassName='is-active' onClick={this.props.logoutClicked}>Logout</NavLink>
                             </div>
                         </div> :
                         //member menu
                         <div>
-                            {/* <div >
-                                <NavLink className="bm-item" activeClassName='is-active' >Home</NavLink>
-                            </div>
-                            <div>
-                                <NavLink className="bm-item" activeClassName='is-active'>Portfolio</NavLink>
-                            </div> */}
                             <div>
                                 <NavLink className="bm-item" activeClassName='is-active' to={{
                                     pathname: this.props.match.url + "/joinGame"
@@ -89,12 +76,10 @@ class MenuLinks extends React.Component {
                                         </NavLink>
                             </div>
                             <div>
-                                <NavLink className="bm-item" activeClassName='is-active' to={{
-                                    pathname: this.props.match.url + "/orderEntry"
-                                }} onClick={() => { this.closeMenuOnNavClick() }}>Trade</NavLink>
-                            </div>
-                            <div>
-                                <NavLink className="bm-item" activeClassName='is-active' onClick={this.props.logoutClicked}>Logout</NavLink>
+                                <NavLink to={{
+                                    pathname: ""
+                                }}
+                                 className="bm-item" activeClassName='is-active' onClick={this.props.logoutClicked}>Logout</NavLink>
                             </div>
                         </div>
                 }
