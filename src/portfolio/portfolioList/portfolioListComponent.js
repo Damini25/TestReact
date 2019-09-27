@@ -1,10 +1,8 @@
 import React from 'react';
 import './portfolioListComponent.scss';
 import { connect } from 'react-redux';
-import * as actiontypes from '../../common/store/actions/actionIndex';
 
 class PortfolioComponent extends React.Component {
-    
     render() {
         let row = [];
         if (this.props.portFolioList && this.props.portFolioList.length) {
@@ -59,19 +57,9 @@ class PortfolioComponent extends React.Component {
 }
 
 
-const mapdispatchToProps = (dispatch) => {
-    return {
-        onLoadPortfolioList: (payload) => {
-            dispatch(actiontypes.LoadPortfolioList(payload));
-        }
-    }
-}
 const mapStateToProps = (state) => {
     return {
-        bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
-        traderId: state.fetchDataReducer['userDetails']['traderId'],
         portFolioList: state.fetchDataReducer['portfolio']['portFolioList'],
-        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
     }
 }
-export default connect(mapStateToProps, mapdispatchToProps)(PortfolioComponent)
+export default connect(mapStateToProps, null)(PortfolioComponent)

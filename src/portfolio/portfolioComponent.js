@@ -11,7 +11,6 @@ class PortfolioComponent extends React.Component {
         portfolioListActive: true,
         pLActive: false
     }
-
     componentDidMount() {
         this.fetchPortfolioList();
     }
@@ -32,7 +31,7 @@ class PortfolioComponent extends React.Component {
     /**
       * API call to fetch Portfolios List data
       */
-     fetchPortfolioList = () => {
+    fetchPortfolioList = () => {
         const payload = {
             "productId": parseInt(this.props.bookOrderFormNewValue['stockSymbol']),
             "noOfRows": 20
@@ -47,6 +46,10 @@ class PortfolioComponent extends React.Component {
             }
         }
         this.fetchPortfolioListInterval = setInterval(this.fetchPortfolioList, getLocalStorage('orderFetchInterval'));
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.fetchPortfolioListInterval);
     }
 
     portfolioTabSwitch(type) {
@@ -88,9 +91,10 @@ class PortfolioComponent extends React.Component {
                         </div>
                     </div> : ''
                 }
-
                 {
-                    this.state.portfolioListActive ? <PortfolioList></PortfolioList> : <PLChart></PLChart>
+                    this.state.portfolioListActive ? <PortfolioList></PortfolioList> :
+                        <PLChart plList={this.props.plList} minY={this.props.minY} maxY={this.props.maxY}>
+                        </PLChart>
                 }
             </div>
         );
@@ -112,7 +116,10 @@ const mapStateToProps = (state) => {
         startingVolume: state.fetchDataReducer['portfolio']['startingVolume'],
         availableVolume: state.fetchDataReducer['portfolio']['availableVolume'],
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
-        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow']
+        playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow'],
+        plList: state.fetchDataReducer['portfolio']['pLData']['pLList'],
+        minY: state.fetchDataReducer['portfolio']['pLData']['minY'],
+        maxY: state.fetchDataReducer['portfolio']['pLData']['maxY']
     }
 }
 export default connect(mapStateToProps, mapdispatchToProps)(PortfolioComponent)

@@ -10,7 +10,8 @@ export function* loginUser(action) {
   yield put({ type: ActionTypes.Request_Posts });
   const { response, error } = yield call(login, action.payload);
   yield put({ type: ActionTypes.Recieve_Posts });
-  if (response && response.data['data'][0]) {
+
+  if (response && response.data.success && response.data['data'][0]) {
     setLocalStorage({
       name: 'traderId',
       value: response.data['data'][0]['userId']
@@ -20,12 +21,17 @@ export function* loginUser(action) {
       value: response.data['data'][0]['userTypeId']
     });
     yield put({ type: ActionTypes.Set_User_Details, element: { 'traderId': response.data['data'][0]['userId'] } });
-    yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successful' })
+    yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successful' });
+
     if (parseInt(response.data['data'][0]['userTypeId']) === 0) {
       yield put(push('/mainNav/manageGame'))
-    } else {
+    }
+    else {
       yield put(push('/mainNav/joinGame'))
     }
+  }
+  else if (response.data['error']['key'] === 'credentialsIncorrect') {
+    yield put({ type: ActionTypes.Show_SnackBar, msg: 'Either username or password is incorrect.Please try again.' });
   }
   else {
     yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
