@@ -8,7 +8,7 @@ import JoinGame from '../joinGame/joinGameComponent';
 import PrivateRoute from '../common/component/privateRouteComponent';
 import NewsFeed from '../orderEntry/component/newsFeed/newsFeedComponent';
 import DataUpload from '../uploadDataAdmin/dataUploadComponent';
-import { clearLocalStorage } from '../common/localStorageService';
+import { clearLocalStorage,getLocalStorage } from '../common/localStorageService';
 import { connect } from 'react-redux';
 import * as actiontypes from '../common/store/actions/actionIndex';
 
@@ -42,7 +42,9 @@ class MainNavigation extends React.Component {
                 <div className="header-div">
                     <SideBar pageWrapId={"page-wrap"} {...this.props} logoutClicked={() => this.logout()} />
                     {/* <NewsFeed></NewsFeed> */}
-                    <div className="main-title">INTERACTIVE TRADING GAME</div>
+                    <div className="main-title">INTERACTIVE TRADING GAME
+                    </div>
+                    <div className="username-div">Welcome!  {getLocalStorage('userName')}</div>
                     {
                         this.props.history.location.pathname.includes('/mainNav/orderEntry') ?
                             <div className="game-status-div"> {this.props.playbackOrdersFlow ?

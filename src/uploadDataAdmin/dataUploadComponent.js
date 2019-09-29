@@ -41,26 +41,12 @@ class DataUpload extends React.Component {
                 type: 'newsData',
                 payload: { gameId: this.state.gameId, file: this.fileRefNews.files[0] }
             })
-         /*   if (this.state.apiResolved) {
-                this.setState({
-                    ...this.state,
-                    newsFile: ''
-                })
-                this.fileRefNews.value = null;
-            }*/
 
         } else {
             this.props.onUploadData({
                 type: 'gameData',
                 payload: { file: this.fileRefData.files[0] }
             })
-           /* if (this.state.apiResolved) {
-                this.setState({
-                    ...this.state,
-                    ordersFile: ''
-                })
-                this.fileRefData.value = null;
-            }*/
         }
     }
 
@@ -75,7 +61,6 @@ class DataUpload extends React.Component {
 
 
     render() {
-       // console.log('render', this.state)
         return (
             <div className="main-upload-data-div">
 
@@ -100,7 +85,6 @@ class DataUpload extends React.Component {
                         </select>
                     </div>
                     <div >
-                        {/* <label title="Choose file">Upload file</label> */}
                         <input
                             title="Upload news file (in csv format)"
                             ref={(input) => { this.fileRefNews = input; }}
@@ -117,8 +101,7 @@ class DataUpload extends React.Component {
                     <h3>
                         Upload Data file
                     </h3>
-                    <div >
-                        {/* <label title="Choose file">Upload file</label> */}
+                    <div>
                         <input type="file"
                             name="ordersFile"
                             onChange={this.handleChange}

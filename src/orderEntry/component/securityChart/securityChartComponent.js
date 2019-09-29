@@ -13,7 +13,6 @@ class SecurityChart extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        //  console.log('securitychart', this.props.minMaxBidOrders, this.props.minMaxAskOrders);
         if (prevProps.minMaxBidOrders !== this.props.minMaxBidOrders ||
             prevProps.minMaxAskOrders !== this.props.minMaxAskOrders) {
             const bidData = [];
@@ -27,7 +26,6 @@ class SecurityChart extends React.Component {
                             y: elem.maxBid.price
                         })
                     }
-                    //  console.log('bid',bidData)
                 });
             }
             if (this.props.minMaxAskOrders.length) {
@@ -35,33 +33,24 @@ class SecurityChart extends React.Component {
 
                     if (elem.minAsk) {
                         askData.push({
-                            // x: this.convertTimeToDecimal(elem.order.timestamp),
                             x: this.convertTimeToDecimal(elem.time),
                             y: elem.minAsk.price
                         })
-                        //  console.log('ask',askData)
                     }
                 });
             }
 
-            //   console.log('askData, bidData', askData, bidData, this.convertTimeToDecimal('16:05:02'));
              this.myChart = new Chart(this.canvasRef.current, {
                 type: 'line',
                 data: {
-                    // labels: [],
                     datasets: [
                         {
                             label: '# Bid',
-                            // data: this.props.bidOrderList,
                             data: bidData,
                             borderWidth: 1,
                             fill: false,
                             backgroundColor: "#ed7d31",
                             borderColor: "#ed7d31",
-                            // lineTension: 1,
-                            //  pointStyle: 'rectRot',
-                            //   pointRadius: 4,
-                            //  pointHitRadius: 10,
                             pointBorderColor: "#ed7d31",
                             pointBackgroundColor: "#ed7d31",
                             pointBorderWidth: 1,
@@ -72,17 +61,11 @@ class SecurityChart extends React.Component {
                         },
                         {
                             label: '# Ask',
-                            // data: this.props.askOrderList,
                             data: askData,
                             borderWidth: 1,
                             fill: false,
                             backgroundColor: "#5b9bd5",
                             borderColor: "#5b9bd5",
-                            borderColor: "#5b9bd5",
-                            // lineTension: 0,
-                            //  pointStyle: 'rectRot',
-                            //  pointRadius: 4,
-                            //  pointHitRadius: 10,
                             pointBorderColor: "#5b9bd5",
                             pointBackgroundColor: "#5b9bd5",
                             pointBorderWidth: 1,
@@ -112,12 +95,6 @@ class SecurityChart extends React.Component {
                             ticks: {
                                 precision: 2
                             },
-                            // ticks: {
-                            //     padding: 5,
-                            //     min: 6,
-                            //     max: 18,
-                            //     stepSize: 1
-                            // },
                             type: 'linear'
                         }],
                         yAxes: [{
@@ -160,7 +137,6 @@ class SecurityChart extends React.Component {
         let prodName;
         if (this.props.stockSymbolData && this.props.stockSymbolData.length) {
             this.props.stockSymbolData.forEach(elem => {
-                // console.log('elem', elem['productId'], this.props.bookOrderFormNewValue['stockSymbol'])
                 if (elem['productId'] === this.props.bookOrderFormNewValue['stockSymbol']) {
 
                     prodName = elem;

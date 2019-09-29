@@ -30,10 +30,8 @@ const initialState = {
 }
 
 const FetchDataReducer = (state = initialState, action) => {
-    //  console.log('ftech reducer state action',state,action)
     switch (action.type) {
         case ActionTypes.Set_User_Details:
-            // const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };
             return {
                 ...state,
                 userDetails: {
@@ -59,35 +57,26 @@ const FetchDataReducer = (state = initialState, action) => {
                 loginFormError: { ...state.loginFormError, ...loginFormValidity }
             }
         case ActionTypes.Fetch_Booked_Orders:
-            // console.log('fetchredbooked', action)
             return {
                 ...state,
                 bookedOrders: action.data[0]['allOrders'],
                 executedOrders: action.data[0]['allTrades']
             }
         case ActionTypes.Fetch_Executed_Orders:
-            // console.log('fetchredexecutd',action)
             return {
                 ...state,
                 executedOrders: action.data
             }
         case ActionTypes.Fetch_News_List:
-            // console.log('fetchredexecutd',action)
             return {
                 ...state,
                 newsFeed: action.data
             }
-        /* case ActionTypes.On_Get_Order_Fetch_Interval:
-             return {
-                 ...state,
-                 orderFetchInterval: action.data
-             }*/
         case ActionTypes.Recieve_Portfolio_List:
             let pLDataList = [...state.portfolio.pLData.pLList];
             const time = new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
             if (action.data['pnlValue']) {
                 pLDataList.push({ plValue: action.data['pnlValue'], time: time });
-              //  console.log('plData', pLDataList, action.data['pnlValue'], time);
             }
 
             const maxValue = _.maxBy(pLDataList, (o) => {

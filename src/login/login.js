@@ -1,6 +1,5 @@
 import React from 'react';
 import './login.scss';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actiontypes from '../common/store/actions/actionIndex';
 import { validateField } from '../common/component/validation/validationComponent';

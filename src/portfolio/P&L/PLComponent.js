@@ -1,7 +1,6 @@
 import React from 'react';
 import Chart from 'chart.js';
 import './PLComponent.scss';
-import { connect } from 'react-redux';
 import { convertTimeToDecimal } from '../../common/utilities/utilities';
 
 class PLChart extends React.Component {
@@ -98,11 +97,4 @@ class PLChart extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        // plList: state.fetchDataReducer['portfolio']['pLData']['pLList'],
-        // minY: state.fetchDataReducer['portfolio']['pLData']['minY'],
-        // maxY: state.fetchDataReducer['portfolio']['pLData']['maxY']
-    }
-}
-export default connect(mapStateToProps, null)(PLChart);
+export default PLChart;

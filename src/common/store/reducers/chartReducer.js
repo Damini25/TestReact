@@ -18,7 +18,6 @@ const ChartReducer = (state = initialState, action) => {
                 const newAskOrder = [...state.totalOrderTillNow['askOrders']]
                 newAskOrder.push(action.element);
                 newOrderToShow2.askOrders = [...newAskOrder];
-               // console.log('OrderListReducer', state.totalOrderTillNow.askOrders === newOrderToShow2.askOrders);
             } else {
                 const newBidOrder = [...state.totalOrderTillNow['bidOrders']]
                 newBidOrder.push(action.element);
@@ -37,7 +36,6 @@ const ChartReducer = (state = initialState, action) => {
 
         case ActionTypes.Add_To_Ask_TOrders: {
             const newOrders = { ...state.totalOrderTillNow }
-            // const newaskOrders = newOrders['askOrders'].concat(action.element);
             newOrders.askOrders = [...newOrders.askOrders, ...action.element];
             return {
                 ...state, totalOrderTillNow: newOrders
@@ -52,7 +50,6 @@ const ChartReducer = (state = initialState, action) => {
             }
         }
         case ActionTypes.Add_MinMax_Ask_TOrders: {
-            //  console.log('cc',action);
             const newOrders = { ...state.totalOrderTillNow }
             newOrders.minMaxAskOrders = [...newOrders.minMaxAskOrders, action.element];
             return {

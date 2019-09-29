@@ -4,8 +4,6 @@ import { login, logout } from '../../../login/loginService';
 import { setLocalStorage } from '../../../common/localStorageService';
 import { push } from 'connected-react-router';
 
-
-
 export function* loginUser(action) {
   yield put({ type: ActionTypes.Request_Posts });
   const { response, error } = yield call(login, action.payload);
@@ -19,6 +17,10 @@ export function* loginUser(action) {
     setLocalStorage({
       name: 'userTypeId',
       value: response.data['data'][0]['userTypeId']
+    });
+    setLocalStorage({
+      name: 'userName',
+      value: response.data['data'][0]['userEmail']
     });
     yield put({ type: ActionTypes.Set_User_Details, element: { 'traderId': response.data['data'][0]['userId'] } });
     yield put({ type: ActionTypes.Show_SnackBar, msg: 'Login successful' });

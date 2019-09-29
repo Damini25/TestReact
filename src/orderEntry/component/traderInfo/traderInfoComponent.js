@@ -67,7 +67,6 @@ const mapdispatchToProps = (dispatch) => {
     }
 }
 const mapStateToProps = (state) => {
-    //console.log('name',state.fetchDataReducer.userDetails)
     return {
         getTraderDetails: state.fetchDataReducer.userDetails,
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,

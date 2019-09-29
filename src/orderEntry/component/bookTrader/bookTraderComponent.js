@@ -1,8 +1,6 @@
 import React from 'react';
 import './bookTraderComponent.scss';
-//import { getInitialOrderList} from '../../services/orderEntry.service';
 import { connect } from 'react-redux';
-// import { UpdateRecentOrders, AddNewOrders, AddTototalOrders, ClearTotalOrders } from '../../../common/store/actions/actionIndex';
 import * as actiontypes from '../../../common/store/actions/actionIndex';
 import AskComponent from './askComponent/askComponent';
 import BidComponent from './bidComponent/bidComponent';
@@ -15,10 +13,10 @@ class BookTrader extends React.Component {
         minMaxAskOrders: [],
         minMaxBidOrders: []
     }
+
     componentDidMount() {
         this.fetchOrderList();
         this.props.onLoadStockSymbols();
-       // this.props.loadNewsList();
     }
 
     /**
@@ -113,7 +111,6 @@ class BookTrader extends React.Component {
         const maxBidPrice = _.maxBy(this.state['minMaxBidOrders'], (o) => {
             return o.order.price;
         });
-        //   console.log('minmax', this.state, minAskPrice, maxBidPrice);
         const time = new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
         if (minAskPrice && maxBidPrice) {
             this.props.onAddMinMaxTotalAskOrders({ minAsk: minAskPrice, time: time });
@@ -161,9 +158,6 @@ class BookTrader extends React.Component {
             }
             this.checkGameStatus();
         }
-        // if (!getLocalStorage('gameSessionId') && !getLocalStorage('gameId') && !this.props['gameSessionId']) {
-        //     this.props.history.push("/mainNav/joinGame");
-        // }
     }
 
     /**
@@ -264,8 +258,6 @@ const mapdispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-    // console.log('statebooktrader', state);
-  //   console.log('statebooktrader', state.fetchDataReducer.stockSymbols['data']);
     return {
         bidOrderList: state.orderListReducer['ordersToShow']['bidOrders'],
         askOrderList: state.orderListReducer['ordersToShow']['askOrders'],
