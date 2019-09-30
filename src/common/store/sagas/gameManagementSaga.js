@@ -3,8 +3,8 @@ import * as ActionTypes from '../actions/actionTypes';
 import {
     createNewGame, getGameList, uploadHistoricalDataFile, callJoinGame, callStartGame, callStopGame,
     callDeleteGame, getGameBasedDateList, uploadNewsDataFile
-} from '../../../manageGame/manageGameService';
-import { setLocalStorage, getLocalStorage } from '../../../common/localStorageService';
+} from '../../../main/admin/manageGame/manageGameService';
+import { setLocalStorage, getLocalStorage } from '../../utilities/localStorageService';
 import { push } from 'react-router-redux';
 
 export function* callCreateGameAPI(action) {

@@ -20,14 +20,19 @@ const OrderListReducer = (state = initialState, action) => {
 
         case ActionTypes.OnRecieve_BidAsk_Data: {
             const newOrderToShow = { ...state.ordersToShow };
-            
             newOrderToShow.askOrders = [...action['data']['allAskOrders']];
             newOrderToShow.bidOrders = [...action['data']['allBidOrders']];
             
+            /**
+             * get news based on current orders
+             */
             if(action['data']['latestNews'].length){
                 newOrderToShow.latestNewsFeed=[...action['data']['latestNews']];
             }
 
+            /**
+             * get highest ask and lowest bid of current time fro security chart
+             */
             const time = new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
             let minAskPrice; let maxBidPrice;
             if (action['data']['allAskOrders'].length) {

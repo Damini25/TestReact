@@ -16,7 +16,6 @@ const initialState = {
         file: ''
     },
     createGameBtnLabel:true,
-  //  fetchOrderInterval: '',
     listGames: [],
     gameBasedDates:[],
     gameStarted: {
@@ -27,6 +26,7 @@ const initialState = {
 
 const GameManagementReducer = (state = initialState, action) => {
     switch (action.type) {
+
         case ActionTypes.Update_CreateGameForm_Values:
             const updateCreateGameFormValue = { ...state.createGameFormValue, ...action.element };
             return {
@@ -34,6 +34,7 @@ const GameManagementReducer = (state = initialState, action) => {
                 createGameFormValue: updateCreateGameFormValue,
                 createGameBtnLabel:false
             }
+
         case ActionTypes.Game_Created_Success: {
             const clearData = { ...state['createGameFormValue'] }
             clearData['gameName'] = '';
@@ -51,11 +52,13 @@ const GameManagementReducer = (state = initialState, action) => {
                 ...state, createGameFormValue: clearData, gameCreatedSucess: true, createGameBtnLabel:true
             }
         }
+
         case ActionTypes.Fetch_All_Games:
             return {
                 ...state,
                 listGames: [...action.data]
             }
+            
         case ActionTypes.Game_Started_ByAdmin:
             return {
                 ...state,

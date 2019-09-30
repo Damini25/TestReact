@@ -1,34 +1,13 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../store/actions/actionIndex';
 import './showSnackBarComponent.scss';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import { red } from '@material-ui/core/colors';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        backgroundColor:'red'
-    },
-    snackbar: {
-      margin: theme.spacing(1),
-    },
-  }));
+
+
 class ShowSnackbar extends React.Component {
-    processQueue = () => {
-        if (this.props.latestNewsList.length > 0) {
-            this.props.showNewsSnackBar({
-                msg: this.props.latestNewsList.shift(), duration: 10000, direction: {
-                    vertical: 'top',
-                    horizontal: 'center',
-                }
-            })
-        }
-    };
 
     closeSnackBar = () => {
         this.props.onCloseSnackBar();
@@ -39,6 +18,20 @@ class ShowSnackbar extends React.Component {
             this.processQueue();
         }
     }
+
+    /**
+     * Process news list queue to show news snackbar
+     */
+    processQueue = () => {
+        if (this.props.latestNewsList.length > 0) {
+            this.props.showNewsSnackBar({
+                msg: this.props.latestNewsList.shift(), duration: 10000, direction: {
+                    vertical: 'top',
+                    horizontal: 'center',
+                }
+            })
+        }
+    };
 
     handleExited = () => {
         this.processQueue();
@@ -61,15 +54,9 @@ class ShowSnackbar extends React.Component {
                         'aria-describedby': 'message-id',
                     }}
                 >
-                    <SnackbarContent 
+                    <SnackbarContent
                         message={<span id="message-id" >{this.props.snackBarInfo['msg']}</span>}
-                        // action={[
-                        //     <IconButton key="close" aria-label="close" color="inherit" onClick={this.closeSnackBar} >
-                        //         <CloseIcon />
-                        //     </IconButton>,
-                        // ]}
-                        >
-                       
+                    >
                     </SnackbarContent>
                 </Snackbar>
             </div>
@@ -80,7 +67,6 @@ class ShowSnackbar extends React.Component {
 const mapStateToProps = (state) => {
     return {
         snackBarInfo: state.requestStatusReducer['snackBarInfo'],
-        newsList: state.fetchDataReducer.newsFeed,
         latestNewsList: state.orderListReducer['ordersToShow']['latestNewsFeed'],
         playbackOrdersFlow: state.orderListReducer['ordersToShow']['playbackOrdersFlow']
     }

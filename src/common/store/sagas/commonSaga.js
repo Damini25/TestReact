@@ -1,7 +1,7 @@
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { getProducts, getNewsList, getPortfolioList } from '../../../orderEntry/services/orderEntry.service';
-import { clearLocalStorageKey } from '../../localStorageService'
+import { getProducts, getNewsList, getPortfolioList } from '../../../main/user/orderEntry.service';
+import { clearLocalStorageKey } from '../../utilities/localStorageService'
 import { push } from 'connected-react-router';
 
 

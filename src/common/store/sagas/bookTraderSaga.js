@@ -1,7 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { clearLocalStorageKey } from '../../localStorageService';
-import { getInitialOrderList, generateOrders, getGamePlayPauseStatus } from '../../../orderEntry/services/orderEntry.service';
+import { clearLocalStorageKey } from '../../utilities/localStorageService';
+import { getInitialOrderList, generateOrders, getGamePlayPauseStatus } from '../../../main/user/orderEntry.service';
 import { push } from 'connected-react-router';
 
 export function* fetchBidAskOrders(action) {

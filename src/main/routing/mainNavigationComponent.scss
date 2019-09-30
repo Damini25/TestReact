@@ -1,0 +1,173 @@
+.outer-container{
+  /* background-color: #b8b7ad; */
+  .show-news-div{
+    float: right;
+  }
+  .game-status-div{
+    width: 20%;
+    color: #216ba5;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    span{
+      margin-left: 13px;
+    }
+    .status-active{
+      color: #4dd04d;
+      margin-left: 4px;
+
+    }
+    .status-end{
+      color:#e04d15;
+      margin-left: 4px;
+
+    }
+  }
+}
+.outer-container .header-div{
+ // background-color: #373a47;
+ border-bottom: 2px solid beige;
+  height: 45px;
+  width: 100%;
+  display: flex;
+  /* margin-bottom: 3%; */
+  .main-title{
+    height: 100%;
+    width: 60%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #b8b7ad;
+    font-size: 22px;
+    margin-left: 19%
+  }
+  .username-div{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin-left: 6%;
+    /* font-size: 15px; */
+    color: #888677;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+}
+#page-wrap {
+    text-align: center;
+  /* background-color: #b8b7ad; */
+    /* Prevent sidebar from showing a scrollbar on page */
+    overflow: auto;
+  }
+/* Individual item */
+.bm-item {
+    display: inline-block;
+  
+    /* Our sidebar item styling */
+    text-decoration: none;
+    margin-bottom: 10px;
+    color: #d1d1d1;
+    transition: color 0.2s;
+    border:none;
+  }
+  
+  /* Change color on hover */
+  .bm-item:hover {
+    color: white;
+  }
+  
+  /* The rest copied directly from react-burger-menu docs */
+  
+  /* Position and sizing of burger button */
+  .bm-burger-button {
+   position: fixed;
+    width: 36px;
+    height: 30px;
+    left: 24px;
+    top: 7px;
+  }
+  
+  /* Color/shape of burger icon bars */
+  .bm-burger-bars {
+    background:#216ba5;
+  }
+  
+  /* Position and sizing of clickable cross button */
+  .bm-cross-button {
+    height: 24px;
+    width: 24px;
+  }
+  
+  /* Color/shape of close button cross */
+  .bm-cross {
+    /* background: #bdc3c7; */
+    font-size: 25px;
+    color: white;
+  }
+  
+  /* General sidebar styles */
+  .bm-menu {
+    background: #373a47;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+  }
+  
+  /* Morph shape necessary with bubble or elastic */
+  .bm-morph-shape {
+    fill: #373a47;
+  }
+  
+  /* Wrapper for item list */
+  .bm-item-list {
+    color: #b8b7ad;
+  }
+  
+  /* Styling of overlay */
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  .font-i-btn{
+    font-size:31px;
+    color: #216ba5;
+  }
+  .user-img{
+    width: 80px;
+    height: 80px;
+    border-radius:40px;
+  }
+  .menu-userimg-div{
+    display: flex !important;
+    align-items: center;
+    padding-bottom: 4%;
+    border-bottom: 1px solid white;
+    margin-bottom: 12%;
+    justify-content: center;
+  }
+  nav *:focus{
+    outline: none;
+  }
+  .is-active{
+    color: #5ac8fa;
+    font-weight: 600;
+  }
+
+  .bm-cross-button :focus{
+    outline: none;
+  }
+  .nested-menu-item-div{
+  display: flex;
+  flex-direction: column;
+  }   
+  .font-i-nestedbtn{
+    margin-left:3%
+  }
+
+  @keyframes showNav {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  .nested-menu-item-div a {
+    display: block;
+    animation: showNav 0.6s ease-in-out both;
+  }

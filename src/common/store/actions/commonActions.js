@@ -42,11 +42,6 @@ export const CallLoginApi = (payload) => {
     }
 }
 
-/*export const GetOrderFetchInterval=()=>{
-    return {
-        type:Actiontypes.Get_Order_Fetch_Interval,
-    }
-}*/
 
 export const LoadPortfolioList = (payload) => {
     return {
@@ -56,7 +51,6 @@ export const LoadPortfolioList = (payload) => {
 }
 
 export const ShowSnackbar = (data) => {
-    // console.log('show',data)
     return {
         type: Actiontypes.Show_SnackBar,
         msg: data['msg'],

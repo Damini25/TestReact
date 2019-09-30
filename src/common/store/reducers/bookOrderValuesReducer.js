@@ -17,6 +17,7 @@ const initialState = {
 const BookNewOrderReducer = (state = initialState, action) => {
 
     switch (action.type) {
+        
         case ActionTypes.Update_BookOrderForm_Values:
             const updatedOrderFormValue = { ...state.bookOrderFormValue, ...action.element };
             return {
@@ -32,6 +33,7 @@ const BookNewOrderReducer = (state = initialState, action) => {
             return {
                 ...state, bookOrderFormValue: clearData
             }
+
         case ActionTypes.Set_BookOrder_ValidityState:
             const bookOrderFormValidity = { ...state.bookOrderFormError }
             if (action.fieldName === 'price') {

@@ -1,6 +1,7 @@
 import React from 'react';
 import './loaderComponent.scss';
- const ShowLoader = () => {
+
+const ShowLoader = () => {
     return (
         <div className="loader-div">
             <img src={process.env.PUBLIC_URL +'/assets/images/ajax-loader.gif'} alt="loading..." />
@@ -8,4 +9,4 @@ import './loaderComponent.scss';
     );
 }
 
-export default ShowLoader
+export default ShowLoader;

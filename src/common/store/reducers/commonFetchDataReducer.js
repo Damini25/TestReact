@@ -45,6 +45,7 @@ const FetchDataReducer = (state = initialState, action) => {
                 ...state,
                 stockSymbols: action.data
             }
+
         case ActionTypes.Set_LoginForm_ValidityState:
             const loginFormValidity = { ...state.loginFormError }
             if (action.fieldName === 'email') {
@@ -56,29 +57,36 @@ const FetchDataReducer = (state = initialState, action) => {
                 ...state,
                 loginFormError: { ...state.loginFormError, ...loginFormValidity }
             }
+
         case ActionTypes.Fetch_Booked_Orders:
             return {
                 ...state,
                 bookedOrders: action.data[0]['allOrders'],
                 executedOrders: action.data[0]['allTrades']
             }
+
         case ActionTypes.Fetch_Executed_Orders:
             return {
                 ...state,
                 executedOrders: action.data
             }
+
         case ActionTypes.Fetch_News_List:
             return {
                 ...state,
                 newsFeed: action.data
             }
+
         case ActionTypes.Recieve_Portfolio_List:
             let pLDataList = [...state.portfolio.pLData.pLList];
+
+             /**
+             * For P&L chart keep storing last P&L values
+             */
             const time = new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds();
             if (action.data['pnlValue']) {
                 pLDataList.push({ plValue: action.data['pnlValue'], time: time });
             }
-
             const maxValue = _.maxBy(pLDataList, (o) => {
                 return o.plValue;
             });
@@ -102,6 +110,7 @@ const FetchDataReducer = (state = initialState, action) => {
                     }
                 }
             }
+
         default:
             return state;
     }

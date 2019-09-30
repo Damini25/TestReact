@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch} from 'react-router-dom';
-import Login from './login/login';
+import Login from './main/login/login';
 import Notfound from './common/component/notFound/notFoundComponent';
-import MainNavigation from './mainNavigation/mainNavigationcomponent';
+import MainNavigation from './main/routing/mainNavigationComponent';
 import PrivateRoute from './common/component/privateRouteComponent';
 
 const appRoutes = <Switch>

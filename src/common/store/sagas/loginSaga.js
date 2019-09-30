@@ -1,7 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as ActionTypes from '../actions/actionTypes';
-import { login, logout } from '../../../login/loginService';
-import { setLocalStorage } from '../../../common/localStorageService';
+import { login, logout } from '../../../main/login/loginService';
+import { setLocalStorage } from '../../utilities/localStorageService';
 import { push } from 'connected-react-router';
 
 export function* loginUser(action) {

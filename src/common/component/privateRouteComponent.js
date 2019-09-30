@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { getLocalStorage } from '../localStorageService';
+import { getLocalStorage } from '../utilities/localStorageService';
 
 const PrivateRouteComponent = ({ component: Component, ...rest }) => {
     return <Route {...rest} exact strict render={
