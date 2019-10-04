@@ -13,9 +13,9 @@ export const ResetOrderFormValues = () => {
     }
 }
 
-export const LoadStockSymbol=()=>{
+export const LoadStockSymbol = () => {
     return {
-        type:Actiontypes.Load_Stock_Symbols
+        type: Actiontypes.Load_Stock_Symbols
     }
 }
 
@@ -24,5 +24,12 @@ export const SetBookOrderFormValidity = (data) => {
         type: Actiontypes.Set_BookOrder_ValidityState,
         fieldName: data['fieldName'],
         value: data['formError']
+    }
+}
+
+export const PostBookNewOrderForm = (data) => {
+    return {
+        type: Actiontypes.Post_BookOrder_FormValues,
+        payload: data
     }
 }

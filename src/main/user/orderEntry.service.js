@@ -7,7 +7,8 @@ export const getInitialOrderList = (payload) => {
 }
 
 export const bookNewOrder = (payload) => {
-  return axios.post(`${env.apiUrl}` + '/trading/ordermgmt-service/ordermgmt/neworder', payload, null);
+  return axios.post(`${env.apiUrl}` + '/trading/ordermgmt-service/ordermgmt/neworder', payload, null).then(response => ({ response }))
+  .catch(error => ({ error }));;
 }
 
 export const getProducts = () => { 

@@ -57,18 +57,18 @@ class BookNewOrder extends React.Component {
             "orderTime": Date.now(),
             "orderStatusId": null
         }
-        bookNewOrder(payload).then((res) => {
-            // if (res.data.success) {
-            this.setState({
-                showSuccessMessage: true
-            })
-            setTimeout(() => {
-                this.setState({
-                    showSuccessMessage: false
-                })
-            }, 2000);
-            this.props.onResetOrderFormValues();
-        })
+        // bookNewOrder(payload).then((res) => {
+        //     this.setState({
+        //         showSuccessMessage: true
+        //     })
+        //     setTimeout(() => {
+        //         this.setState({
+        //             showSuccessMessage: false
+        //         })
+        //     }, 2000);
+        //     this.props.onResetOrderFormValues();
+        // })
+        this.props.onBookNewOrder(payload);
     }
 
     render() {
@@ -169,7 +169,7 @@ class BookNewOrder extends React.Component {
                         </div>
                     </div>
                 </div>
-                {this.state.showSuccessMessage ? <div className="success-msg-div">Order is booked successfully</div> : null}
+                {this.props.bookNewOrderSuccess ? <div className="success-msg-div">Order is booked successfully</div> : null}
             </form>
 
         return div2;
@@ -184,7 +184,8 @@ const mapStateToProps = (state) => {
         bookOrderFormNewValue: state.orderBookReducer.bookOrderFormValue,
         traderId: state.fetchDataReducer['userDetails']['traderId'],
         playbackOrdersFlow: state.orderListReducer['playbackOrdersFlow'],
-        bookOrderFormError: state.orderBookReducer.bookOrderFormError
+        bookOrderFormError: state.orderBookReducer.bookOrderFormError,
+        bookNewOrderSuccess:state.orderBookReducer.bookNewOrderSuccess
     }
 }
 
@@ -202,6 +203,9 @@ const mapDispatchToProps = (dispatch) => {
         onValidatingFormValues: (data) => {
             dispatch(actiontypes.SetBookOrderFormValidity(data))
         },
+        onBookNewOrder: (data) => {
+            dispatch(actiontypes.PostBookNewOrderForm(data))
+        }
     }
 }
 

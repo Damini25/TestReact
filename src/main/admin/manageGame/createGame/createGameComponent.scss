@@ -72,7 +72,10 @@
     margin-bottom: 1%;
     width: 22%;
 }
-
+.create-game-btn:disabled  {
+    background-color: #f0f0f0;
+    pointer-events: none;
+}
 .refresh-interval-div{
     text-align: right;
     margin-bottom: 0;

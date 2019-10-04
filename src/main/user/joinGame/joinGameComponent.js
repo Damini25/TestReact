@@ -2,7 +2,7 @@ import React from 'react';
 import './joinGameComponent.scss';
 import { connect } from 'react-redux';
 import * as actiontypes from '../../../common/store/actions/actionIndex';
-import { getLocalStorage,clearLocalStorageKey } from '../../../common/utilities/localStorageService';
+import { getLocalStorage, clearLocalStorageKey } from '../../../common/utilities/localStorageService';
 
 class ListTraderGames extends React.Component {
 
@@ -22,7 +22,7 @@ class ListTraderGames extends React.Component {
     componentDidUpdate(prevProps) {
         if (getLocalStorage('gameSessionId') && this.props.gameSessionId !== prevProps.gameSessionId) {
             this.props.history.push("/mainNav/orderEntry");
-        }else if(!getLocalStorage('gameSessionId')&& this.props.gameSessionId !== prevProps.gameSessionId){
+        } else if (!getLocalStorage('gameSessionId') && this.props.gameSessionId !== prevProps.gameSessionId) {
             this.props.history.push("/mainNav/joinGame");
         }
     }
@@ -41,22 +41,29 @@ class ListTraderGames extends React.Component {
 
     render() {
         let row = [];
+        let noActiveGames = false;
         if (this.props.gameList && this.props.gameList.length) {
             row = this.props.gameList.map((elem, i) => {
                 return (
                     <tr key={i} >
-                        <td>{elem['gameCode']}</td>
-                        <td>{elem['gameMode']}</td>
-                        <td>{elem['startingBalance']}</td>
-                        <td>{elem['startingVolume'] ? elem['startingVolume'] : '-'}</td>
-                        <td>{elem['bidAsk'] ? elem['bidAsk'] : '-'}</td>
-                        <td>{elem['gameInterval']}</td>
+                        <td>{elem['gameDetails']['gameCode']}</td>
+                        <td>{elem['gameDetails']['gameMode']}</td>
+                        <td>{elem['gameDetails']['startingBalance']}</td>
+                        <td>{elem['gameDetails']['startingVolume'] ? elem['gameDetails']['startingVolume'] : '-'}</td>
+                        <td>{elem['gameDetails']['bidAsk'] ? elem['gameDetails']['bidAsk'] : '-'}</td>
+                        <td>{elem['gameDetails']['gameInterval']}</td>
                         <td>
-                            <button className="join-game-btn primary-color button" onClick={() => this.joinGame(elem)}>Join</button>
+                            {elem['hasUserJoined'] ?
+                                <button className="join-game-btn primary-color button"
+                                    onClick={() => this.joinGame(elem['gameDetails'])}>Enter</button> :
+                                <button className="join-game-btn primary-color button"
+                                    onClick={() => this.joinGame(elem['gameDetails'])}>Join</button>}
                         </td>
                     </tr>
                 );
             })
+        } else {
+            noActiveGames = true;
         }
 
         return (
@@ -77,6 +84,7 @@ class ListTraderGames extends React.Component {
                         </thead>
                         <tbody>
                             {row}
+                            {noActiveGames ? <tr className="no-game-active"><td>Sorry, No game is active !</td></tr> : <tr><td></td></tr>}
                         </tbody>
                     </table>
                 </div>

@@ -15,3 +15,10 @@ axios.interceptors.request.use((req) => {
     }
     return req;
 });
+
+// axios.interceptors.response.use((res) => {
+//     if (res.status === 500) {
+//       //  return Promise.reject(error);
+//     }
+//     return res;
+// });

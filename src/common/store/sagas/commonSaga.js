@@ -15,7 +15,7 @@ export function* loadStockSymbol() {
 
 export function* fetchNewsList() {
   const { response } = yield call(getNewsList);
-  if (response.data['success']) {
+  if (response && response.data['success']) {
     yield put({ type: ActionTypes.Fetch_News_List, data: response.data['data'] });
   }
 }
@@ -24,17 +24,17 @@ export function* loadNewsList() {
 }
 
 export function* fetchPortfolioList(action) {
-  // const { payload } = action;
-  const { response } = yield call(getPortfolioList);
+  const { response,error } = yield call(getPortfolioList);
   if (response && response.data['success']) {
     yield put({ type: ActionTypes.Recieve_Portfolio_List, data: response.data['data'] });
-  } else if (response.data['error']['key'] === 'gameSessionEnded') {
+  } else if (response && response.data['error']['key'] === 'gameSessionEnded') {
     clearLocalStorageKey('gameSessionId');
     clearLocalStorageKey('gameId');
    // clearLocalStorageKey('orderFetchInterval');
     yield put(push('/mainNav/joinGame'));
   } else {
-    yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' })
+    yield put({ type: ActionTypes.Show_SnackBar, msg: 'Some Error Occurred. Please try again' });
+    console.log(error);
   }
 }
 

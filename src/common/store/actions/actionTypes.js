@@ -54,4 +54,6 @@ export const OnFetch_GameBased_Dates = "OnFetch_GameBased_Dates";
 export const Upload_Game_data = "Upload_Game_data";
 export const Set_BookOrder_ValidityState = "Set_BookOrder_ValidityState";
 export const Call_Logout = "Call_Logout";
-export const On_Logout="On_Logout";
+export const On_Logout = "On_Logout";
+export const Post_BookOrder_FormValues = "Post_BookOrder_FormValues";
+export const Book_Order_Success = "Book_Order_Success";

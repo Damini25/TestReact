@@ -17,17 +17,20 @@ class ListGames extends React.Component {
      * On editing a game 
      */
     editGame(elem) {
-        this.props.onUpdateCreateGameFormValue({
-            gameId: elem['gameId'],
-            gameName: elem['gameCode'],
-            gameMode: elem['gameMode'],
-            startingCash: elem['startingBalance'],
-            volume: elem['startingVolume'],
-            transaction: elem['bidAsk'],
-            playbackFrequency: elem['playbackFrequency'],
-            playbackStartTime: new Date(elem['playbackStartTime']),
-            playbackEndTime: new Date(elem['playbackEndTime'])
-        })
+        if (!elem['isGameActive']) {
+            this.props.onUpdateCreateGameFormValue({
+                gameId: elem['gameId'],
+                gameName: elem['gameCode'],
+                gameMode: elem['gameMode'],
+                startingCash: elem['startingBalance'],
+                volume: elem['startingVolume'],
+                transaction: elem['bidAsk'],
+                playbackFrequency: elem['playbackFrequency'],
+                playbackStartTime: new Date(elem['playbackStartTime']),
+                playbackEndTime: new Date(elem['playbackEndTime']),
+              //  playbackDate: new Date(elem['playbackStartTime']).getFullYear() + "-" + new Date(elem['playbackStartTime']).getMonth()+ "-" + new Date(elem['playbackStartTime']).getDate()
+            })
+        }
     }
 
     /**
@@ -88,7 +91,7 @@ class ListGames extends React.Component {
                         <td>{elem['bidAsk'] ? elem['bidAsk'] : '-'}</td>
                         <td>{elem['isGameActive'] ? 'Active' : 'Inactive'}</td>
                         <td>
-                            <label >
+                            <label disabled={elem['isGameActive']}>
                                 <i className="fa fa-edit" onClick={() => this.editGame(elem)}></i></label>
                             <label onClick={() => this.deleteGame(elem)} title="Delete Game"><i className="fa fa-trash" ></i></label>
                             {

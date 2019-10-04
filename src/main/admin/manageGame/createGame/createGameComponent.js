@@ -108,15 +108,16 @@ class CreateGame extends React.Component {
                                         </div>
                                     </div>
                                 </div> :
-                                <div className="label-input-div">
-                                    <label>Starting Cash</label>
-                                    <input name="startingCash"
-                                        autoComplete="off"
-                                        value={this.props.formValues['startingCash']}
-                                        placeholder="Enter starting cash" type="number"
-                                        onChange={(e) => { this.handleChange(e) }} />
-                                </div>
+                                ""
                         }
+                        <div className="label-input-div">
+                            <label>Starting Cash</label>
+                            <input name="startingCash"
+                                autoComplete="off"
+                                value={this.props.formValues['startingCash']}
+                                placeholder="Enter starting cash" type="number"
+                                onChange={(e) => { this.handleChange(e) }} />
+                        </div>
                     </div>
                 </div>
                 <div className="sub-div">
@@ -183,6 +184,15 @@ class CreateGame extends React.Component {
                             </select>
                         </div>
                         <button className="create-game-btn  primary-color button"
+                            disabled={
+                                !this.props.formValues['playbackDate'] ||
+                                !this.props.formValues['gameInterval'] ||
+                                !this.props.formValues['playbackStartTime'] ||
+                                !this.props.formValues['playbackEndTime'] ||
+                                !this.props.formValues['startingCash'] ||
+                                !this.props.formValues['gameMode'] ||
+                                !this.props.formValues['gameName'] 
+                            }
                             type="submit" >{this.props.gameActionBtnLabelc ? 'Create' : 'Create/Update'}</button>
                     </div>
                 </div>
